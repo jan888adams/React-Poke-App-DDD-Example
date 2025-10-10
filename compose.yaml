@@ -4,12 +4,9 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-      - node_modules:/app/node_modules
     ports:
       - "80:5173" 
+    user: '${UID:-0}:${GID:-0}'
     command: sh -c "yarn install --check-files && yarn dev --host"
     environment:
       - NODE_ENV=development
-
-volumes:
-  node_modules:
