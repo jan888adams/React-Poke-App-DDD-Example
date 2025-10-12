@@ -41,9 +41,6 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'off',
       'import/no-extraneous-dependencies': ['error', {
         devDependencies: [
-          '**/*.test.ts',
-          '**/*.test.tsx',
-          '**/*.test.tsx',
           '**/tests/**/*',
           'vite.config.ts',
         ],
