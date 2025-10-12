@@ -1,3 +1,4 @@
+import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -24,6 +25,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       react,
+      import: importPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -34,6 +36,18 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'import/prefer-default-export': 'off',
+      'react/require-default-props': 'off', 
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'import/no-extraneous-dependencies': ['error', {
+        devDependencies: [
+          '**/*.test.ts',
+          '**/*.test.tsx',
+          '**/*.test.tsx',
+          '**/tests/**/*',
+          'vite.config.ts',
+        ],
+      }],
     },
   },
 );
