@@ -1,5 +1,6 @@
 stages:
   - build
+  - lint
 
 yarn-install:
   stage: build
@@ -10,3 +11,27 @@ yarn-install:
     paths:
       - node_modules/
     expire_in: 1 hour
+
+prettier-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn format:check
+
+eslint-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn lint
+
+type-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn type-check
