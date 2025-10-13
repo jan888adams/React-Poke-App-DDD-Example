@@ -1,17 +1,18 @@
 export default {
-  preset: 'ts-jest',
+  preset: "ts-jest",
   testEnvironment: "jsdom",
   transform: {
-    "^.+\\.tsx?$": ["ts-jest", {
-      tsconfig: {
-        jsx: "react-jsx"
-      }
-    }],
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          jsx: "react-jsx",
+        },
+      },
+    ],
   },
-  
-  testMatch: [
-    "<rootDir>/tests/**/*.{test,spec}.{js,jsx,ts,tsx}"
-  ],
+
+  testMatch: ["<rootDir>/tests/**/*.{test,spec}.{js,jsx,ts,tsx}"],
 
   moduleNameMapper: {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
