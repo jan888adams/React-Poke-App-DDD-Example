@@ -1,3 +1,4 @@
+import { defineConfig } from 'eslint';
 import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
 import globals from 'globals';
@@ -6,7 +7,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 
-export default tseslint.config(
+export default defineConfig([
   { ignores: ['dist', 'node_modules', 'coverage', '*.config.js'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -47,4 +48,4 @@ export default tseslint.config(
       }],
     },
   },
-);
+]);
