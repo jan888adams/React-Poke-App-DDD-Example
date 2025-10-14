@@ -1,4 +1,3 @@
-// tests/pokemon/infrastructure/repositories/PokemonApiRepository.test.ts
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
 import { PokemonApiRepository } from "../../../../src/pokemon/infrastructure/repositories/PokemonApiRepository";
 import { ApiResponse } from "../../../../src/shared/infrastructure/http/ApiResponse";
@@ -11,7 +10,9 @@ describe("PokemonApiRepository", () => {
   let mockHttpClient: jest.Mocked<HttpClient>;
 
   beforeEach(() => {
-    mockHttpClient = new HttpClient("https://test.com") as jest.Mocked<HttpClient>;
+    mockHttpClient = new HttpClient(
+      "https://test.com",
+    ) as jest.Mocked<HttpClient>;
     mockHttpClient.get = jest.fn();
 
     repository = new PokemonApiRepository(mockHttpClient);
@@ -23,19 +24,19 @@ describe("PokemonApiRepository", () => {
         id: 25,
         name: "pikachu",
         sprites: {
-          front_default: "https://example.com/pikachu.png"
+          front_default: "https://example.com/pikachu.png",
         },
-        types: [
-          { type: { name: "electric" } }
-        ],
+        types: [{ type: { name: "electric" } }],
         height: 4,
-        weight: 60
+        weight: 60,
       };
 
       const mockApiResponse = new ApiResponse(mockApiData, 200);
       mockHttpClient.get.mockResolvedValue(mockApiResponse);
 
-      const result = await repository.findByName(PokemonName.fromString("Pikachu"));
+      const result = await repository.findByName(
+        PokemonName.fromString("Pikachu"),
+      );
 
       expect(mockHttpClient.get).toHaveBeenCalledWith("pokemon/pikachu");
       expect(result?.getName()).toBe("pikachu");
@@ -49,7 +50,9 @@ describe("PokemonApiRepository", () => {
       const mockApiResponse = new ApiResponse({ message: "Not found" }, 404);
       mockHttpClient.get.mockResolvedValue(mockApiResponse);
 
-      const result = await repository.findByName(PokemonName.fromString("nonexistent"));
+      const result = await repository.findByName(
+        PokemonName.fromString("nonexistent"),
+      );
 
       expect(mockHttpClient.get).toHaveBeenCalledWith("pokemon/nonexistent");
       expect(result).toBeNull();

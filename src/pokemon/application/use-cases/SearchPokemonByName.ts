@@ -10,7 +10,7 @@ export class SearchPokemonByName {
       throw new Error("Pokemon name cannot be empty");
     }
 
-    const pokemonName = new PokemonName(name.trim());
+    const pokemonName = PokemonName.fromString(name);
     return await this.pokemonRepository.findByName(pokemonName);
   }
 }

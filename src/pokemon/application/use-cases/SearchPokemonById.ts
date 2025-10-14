@@ -10,7 +10,7 @@ export class SearchPokemonById {
       throw new Error("Pokemon ID must be greater than 0");
     }
 
-    const pokemonId = new PokemonId(id);
+    const pokemonId = PokemonId.fromNumber(id);
     return await this.pokemonRepository.findById(pokemonId);
   }
 }

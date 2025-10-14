@@ -21,7 +21,7 @@ describe("SearchPokemonByName", () => {
       PokemonId.fromNumber(25),
       PokemonName.fromString("pikachu"),
       { front_default: "https://example.com/pikachu.png" },
-      [PokemonType.fromString("electric")]
+      [PokemonType.fromString("electric")],
     );
   });
 
@@ -30,7 +30,9 @@ describe("SearchPokemonByName", () => {
 
     const result = await useCase.execute("pikachu");
 
-    expect(mockRepository.findByName).toHaveBeenCalledWith(PokemonName.fromString("pikachu"));
+    expect(mockRepository.findByName).toHaveBeenCalledWith(
+      PokemonName.fromString("pikachu"),
+    );
     expect(result).toBe(mockPokemon);
   });
 
@@ -39,7 +41,9 @@ describe("SearchPokemonByName", () => {
 
     const result = await useCase.execute("unknown");
 
-    expect(mockRepository.findByName).toHaveBeenCalledWith(PokemonName.fromString("unknown"));
+    expect(mockRepository.findByName).toHaveBeenCalledWith(
+      PokemonName.fromString("unknown"),
+    );
     expect(result).toBeNull();
   });
 
@@ -48,11 +52,17 @@ describe("SearchPokemonByName", () => {
 
     await useCase.execute("  pikachu  ");
 
-    expect(mockRepository.findByName).toHaveBeenCalledWith(PokemonName.fromString("pikachu"));
+    expect(mockRepository.findByName).toHaveBeenCalledWith(
+      PokemonName.fromString("pikachu"),
+    );
   });
 
   it("should throw error for empty name", async () => {
-    await expect(useCase.execute("")).rejects.toThrow("Pokemon name cannot be empty");
-    await expect(useCase.execute("   ")).rejects.toThrow("Pokemon name cannot be empty");
+    await expect(useCase.execute("")).rejects.toThrow(
+      "Pokemon name cannot be empty",
+    );
+    await expect(useCase.execute("   ")).rejects.toThrow(
+      "Pokemon name cannot be empty",
+    );
   });
 });

@@ -28,7 +28,7 @@ describe("PokemonFinder", () => {
       PokemonId.fromNumber(25),
       PokemonName.fromString("pikachu"),
       { front_default: "https://example.com/pikachu.png" },
-      [PokemonType.fromString("electric")]
+      [PokemonType.fromString("electric")],
     );
 
     pokemonFinder = new PokemonFinder(searchByName, searchById);
@@ -39,7 +39,9 @@ describe("PokemonFinder", () => {
 
     const result = await pokemonFinder.findByIdOrName("25");
 
-    expect(mockRepository.findById).toHaveBeenCalledWith(PokemonId.fromNumber(25));
+    expect(mockRepository.findById).toHaveBeenCalledWith(
+      PokemonId.fromNumber(25),
+    );
     expect(mockRepository.findByName).not.toHaveBeenCalled();
     expect(result).toBe(mockPokemon);
   });
@@ -49,7 +51,9 @@ describe("PokemonFinder", () => {
 
     const result = await pokemonFinder.findByIdOrName("pikachu");
 
-    expect(mockRepository.findByName).toHaveBeenCalledWith(PokemonName.fromString("pikachu"));
+    expect(mockRepository.findByName).toHaveBeenCalledWith(
+      PokemonName.fromString("pikachu"),
+    );
     expect(mockRepository.findById).not.toHaveBeenCalled();
     expect(result).toBe(mockPokemon);
   });

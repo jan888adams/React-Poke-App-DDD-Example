@@ -15,7 +15,7 @@ describe("HttpClient", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockedAxios.create.mockReturnValue(mockAxiosInstance);
-    
+
     httpClient = new HttpClient(baseUrl);
   });
 
@@ -23,19 +23,18 @@ describe("HttpClient", () => {
     const endpoint = "/test-endpoint";
 
     it("should return expected response on successful request", async () => {
-        const mockData = {id: 42,data: 'some data'}
-        const mockResponse = {data: mockData, status: 200}
+      const mockData = { id: 42, data: "some data" };
+      const mockResponse = { data: mockData, status: 200 };
 
-        mockAxiosInstance.get.mockResolvedValue(mockResponse)
+      mockAxiosInstance.get.mockResolvedValue(mockResponse);
 
-    
-        const result = await httpClient.get<typeof mockData>(endpoint);
+      const result = await httpClient.get<typeof mockData>(endpoint);
 
-        expect(result.getData()).toEqual(mockData)
-        expect(result.isSuccess()).toBe(true)
-        expect(result.getStatus()).toBe(200)
-        expect(result.isNotFound()).toBe(false)
-    })
+      expect(result.getData()).toEqual(mockData);
+      expect(result.isSuccess()).toBe(true);
+      expect(result.getStatus()).toBe(200);
+      expect(result.isNotFound()).toBe(false);
+    });
 
     it("should return response with error status on HTTP error", async () => {
       const mockErrorData = { message: "Not Found" };
@@ -47,18 +46,18 @@ describe("HttpClient", () => {
         isAxiosError: true,
       };
 
-        mockedAxios.isAxiosError.mockReturnValue(true);
-        mockAxiosInstance.get.mockRejectedValue(mockError);
+      mockedAxios.isAxiosError.mockReturnValue(true);
+      mockAxiosInstance.get.mockRejectedValue(mockError);
 
-        const result = await httpClient.get<typeof mockErrorData>(endpoint);
+      const result = await httpClient.get<typeof mockErrorData>(endpoint);
 
-        expect(result.isSuccess()).toBe(false)
-        expect(result.isNotFound()).toBe(true)
-        expect(result.getData()).toEqual(mockErrorData)
-        expect(result.getStatus()).toBe(404)
-    })
+      expect(result.isSuccess()).toBe(false);
+      expect(result.isNotFound()).toBe(true);
+      expect(result.getData()).toEqual(mockErrorData);
+      expect(result.getStatus()).toBe(404);
+    });
 
-     it("should throw network error when no response received", async () => {
+    it("should throw network error when no response received", async () => {
       const mockError = {
         request: {},
         message: "Network Error",
@@ -68,19 +67,18 @@ describe("HttpClient", () => {
       mockedAxios.isAxiosError.mockReturnValue(true);
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
-      await expect(httpClient.get(endpoint))
-        .rejects
-        .toThrow(`Network error: ${mockError.message}`);
+      await expect(httpClient.get(endpoint)).rejects.toThrow(
+        `Network error: ${mockError.message}`,
+      );
     });
 
-     it("should throw generic error for non-axios errors", async () => {
+    it("should throw generic error for non-axios errors", async () => {
       const mockError = new Error("Some random error");
       mockAxiosInstance.get.mockRejectedValue(mockError);
 
-      await expect(httpClient.get(endpoint))
-        .rejects
-        .toThrow(`Failed to fetch ${endpoint}: Error: Some random error`);
+      await expect(httpClient.get(endpoint)).rejects.toThrow(
+        `Failed to fetch ${endpoint}: Error: Some random error`,
+      );
     });
   });
 });
-

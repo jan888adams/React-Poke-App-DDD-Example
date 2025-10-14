@@ -21,7 +21,7 @@ describe("SearchPokemonById", () => {
       PokemonId.fromNumber(25),
       PokemonName.fromString("pikachu"),
       { front_default: "https://example.com/pikachu.png" },
-      [PokemonType.fromString("electric")]
+      [PokemonType.fromString("electric")],
     );
   });
 
@@ -30,7 +30,9 @@ describe("SearchPokemonById", () => {
 
     const result = await useCase.execute(25);
 
-    expect(mockRepository.findById).toHaveBeenCalledWith(PokemonId.fromNumber(25));
+    expect(mockRepository.findById).toHaveBeenCalledWith(
+      PokemonId.fromNumber(25),
+    );
     expect(result).toBe(mockPokemon);
   });
 
@@ -39,12 +41,18 @@ describe("SearchPokemonById", () => {
 
     const result = await useCase.execute(999);
 
-    expect(mockRepository.findById).toHaveBeenCalledWith(PokemonId.fromNumber(999));
+    expect(mockRepository.findById).toHaveBeenCalledWith(
+      PokemonId.fromNumber(999),
+    );
     expect(result).toBeNull();
   });
 
   it("should throw error for invalid ID", async () => {
-    await expect(useCase.execute(0)).rejects.toThrow("Pokemon ID must be greater than 0");
-    await expect(useCase.execute(-5)).rejects.toThrow("Pokemon ID must be greater than 0");
+    await expect(useCase.execute(0)).rejects.toThrow(
+      "Pokemon ID must be greater than 0",
+    );
+    await expect(useCase.execute(-5)).rejects.toThrow(
+      "Pokemon ID must be greater than 0",
+    );
   });
 });

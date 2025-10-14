@@ -1,7 +1,7 @@
 import { ValueObject } from "../../../shared/domain/value-objects/ValueObject";
 
 export class PokemonType extends ValueObject<string> {
- private constructor(value: string) {
+  private constructor(value: string) {
     const normalizedValue = value.toLowerCase().trim();
     super(normalizedValue);
   }

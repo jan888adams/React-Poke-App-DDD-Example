@@ -45,8 +45,9 @@ export class PokemonApiRepository implements PokemonRepository {
     const id = PokemonId.fromNumber(dto.id);
     const name = PokemonName.fromString(dto.name);
 
-    const types = dto.types
-      .map((typeData) => PokemonType.fromString(typeData.type.name));
+    const types = dto.types.map((typeData) =>
+      PokemonType.fromString(typeData.type.name),
+    );
 
     const sprites = {
       front_default: dto.sprites.front_default,

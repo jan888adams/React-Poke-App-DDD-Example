@@ -1,7 +1,7 @@
 import { ValueObject } from "../../../shared/domain/value-objects/ValueObject";
 
 export class PokemonId extends ValueObject<number> {
-  private constructor(value: number) { // ← private
+  private constructor(value: number) {
     super(value);
     this.isValid(value);
   }
