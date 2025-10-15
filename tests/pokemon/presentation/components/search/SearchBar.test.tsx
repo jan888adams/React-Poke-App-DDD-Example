@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import SearchBar from "../../../../../src/pokemon/presentation/components/search/SearchBar";
+import { SearchBar } from "../../../../../src/pokemon/presentation/components/search/SearchBar";
 import { Pokemon } from "../../../../../src/pokemon/domain/entities/Pokemon";
 import { usePokemonSearch } from "../../../../../src/pokemon/presentation/hooks/usePokemonSearch";
 
@@ -7,7 +7,7 @@ jest.mock(
   "../../../../../src/pokemon/presentation/components/search/Form",
   () => ({
     __esModule: true,
-    default: ({ onSubmit }: { onSubmit: (value: string) => void }) => (
+    Form: ({ onSubmit }: { onSubmit: (value: string) => void }) => (
       <button onClick={() => onSubmit("pikachu")}>Search</button>
     ),
   }),
@@ -16,7 +16,7 @@ jest.mock(
   "../../../../../src/pokemon/presentation/components/search/Card",
   () => ({
     __esModule: true,
-    default: ({ pokemon }: { pokemon: Pokemon }) => (
+    Card: ({ pokemon }: { pokemon: Pokemon }) => (
       <div>Card: {pokemon.getName()}</div>
     ),
   }),

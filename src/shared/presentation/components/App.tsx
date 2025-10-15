@@ -1,7 +1,7 @@
-import SearchBar from "../../../pokemon/presentation/components/search/SearchBar";
-import "../styles/app.sass";
+import {SearchBar} from "./pokemon/presentation/components/search/SearchBar";
+import "./app.sass";
 
-function App() {
+export function App() {
   return (
     <div className="app__container">
       <img src="/logo.svg" alt="Pokemon Logo" className="app__logo" />
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+
