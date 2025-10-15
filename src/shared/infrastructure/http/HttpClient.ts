@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 export class HttpClient {
   private readonly axiosInstance: AxiosInstance;
 
-  constructor(baseUrl: string) {
+  constructor(readonly baseUrl: string) {
     this.axiosInstance = axios.create({
       baseURL: baseUrl,
       timeout: 10000,
@@ -14,7 +14,7 @@ export class HttpClient {
     });
   }
 
-  async get<T>(endpoint: string): Promise<ApiResponse<T>> {
+  public async get<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
       const response: AxiosResponse<T> = await this.axiosInstance.get(endpoint);
 

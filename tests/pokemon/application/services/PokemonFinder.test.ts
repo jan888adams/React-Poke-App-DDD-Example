@@ -4,7 +4,6 @@ import { SearchPokemonById } from "../../../../src/pokemon/application/use-cases
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
-import { PokemonType } from "../../../../src/pokemon/domain/value-objects/PokemonType";
 
 const mockRepository = {
   findById: jest.fn(),
@@ -24,11 +23,11 @@ describe("PokemonFinder", () => {
     searchByName = new SearchPokemonByName(mockRepository);
     searchById = new SearchPokemonById(mockRepository);
 
-    mockPokemon = new Pokemon(
-      PokemonId.fromNumber(25),
-      PokemonName.fromString("pikachu"),
-      { front_default: "https://example.com/pikachu.png" },
-      [PokemonType.fromString("electric")],
+    mockPokemon = Pokemon.fromValues(
+      25,
+      "pikachu",
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      ["electric"],
     );
 
     pokemonFinder = new PokemonFinder(searchByName, searchById);

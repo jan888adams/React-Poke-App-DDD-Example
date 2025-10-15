@@ -1,4 +1,4 @@
-export interface PokemonApiDto {
+export interface PokemonApiResponse {
   id: number;
   name: string;
   sprites: {

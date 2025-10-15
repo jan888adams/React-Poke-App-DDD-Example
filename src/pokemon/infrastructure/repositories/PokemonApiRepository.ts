@@ -3,14 +3,13 @@ import { Pokemon } from "../../domain/entities/Pokemon";
 import { PokemonRepository } from "../../domain/repositories/PokemonRepository";
 import { PokemonId } from "../../domain/value-objects/PokemonId";
 import { PokemonName } from "../../domain/value-objects/PokemonName";
-import { PokemonType } from "../../domain/value-objects/PokemonType";
-import { PokemonApiDto } from "../dtos/PokemonApiDto";
+import { PokemonApiResponse } from "../dtos/PokemonApiResponse";
 
 export class PokemonApiRepository implements PokemonRepository {
   constructor(private readonly httpClient: HttpClient) {}
 
   async findById(id: PokemonId): Promise<Pokemon | null> {
-    const response = await this.httpClient.get<PokemonApiDto>(
+    const response = await this.httpClient.get<PokemonApiResponse>(
       `pokemon/${id.getValue()}`,
     );
 
@@ -26,7 +25,7 @@ export class PokemonApiRepository implements PokemonRepository {
   }
 
   async findByName(name: PokemonName): Promise<Pokemon | null> {
-    const response = await this.httpClient.get<PokemonApiDto>(
+    const response = await this.httpClient.get<PokemonApiResponse>(
       `pokemon/${name.getValue().toLowerCase()}`,
     );
 
@@ -41,18 +40,14 @@ export class PokemonApiRepository implements PokemonRepository {
     return this.map(response.getData());
   }
 
-  private map(dto: PokemonApiDto): Pokemon {
-    const id = PokemonId.fromNumber(dto.id);
-    const name = PokemonName.fromString(dto.name);
-
-    const types = dto.types.map((typeData) =>
-      PokemonType.fromString(typeData.type.name),
+  private map(response: PokemonApiResponse): Pokemon {
+    return Pokemon.fromValues(
+      response.id,
+      response.name,
+      response.sprites.front_default,
+      response.types.map(
+        (typeInfo: { type: { name: string } }) => typeInfo.type.name,
+      ),
     );
-
-    const sprites = {
-      front_default: dto.sprites.front_default,
-    };
-
-    return new Pokemon(id, name, sprites, types);
   }
 }

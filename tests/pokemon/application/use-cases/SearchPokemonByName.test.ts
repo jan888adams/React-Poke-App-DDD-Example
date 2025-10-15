@@ -2,8 +2,6 @@ import { SearchPokemonByName } from "../../../../src/pokemon/application/use-cas
 import { PokemonRepository } from "../../../../src/pokemon/domain/repositories/PokemonRepository";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
-import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
-import { PokemonType } from "../../../../src/pokemon/domain/value-objects/PokemonType";
 
 describe("SearchPokemonByName", () => {
   let mockRepository: jest.Mocked<PokemonRepository>;
@@ -17,11 +15,11 @@ describe("SearchPokemonByName", () => {
     };
     useCase = new SearchPokemonByName(mockRepository);
 
-    mockPokemon = new Pokemon(
-      PokemonId.fromNumber(25),
-      PokemonName.fromString("pikachu"),
-      { front_default: "https://example.com/pikachu.png" },
-      [PokemonType.fromString("electric")],
+    mockPokemon = Pokemon.fromValues(
+      25,
+      "pikachu",
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      ["electric"],
     );
   });
 

@@ -1,12 +1,12 @@
 import { ValueObject } from "../../../shared/domain/value-objects/ValueObject";
 
 export class PokemonName extends ValueObject<string> {
-  private constructor(value: string) {
+  private constructor(readonly value: string) {
     super(value);
     this.validate();
   }
 
-  getCapitalized(): string {
+  public getCapitalized(): string {
     return (
       this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase()
     );

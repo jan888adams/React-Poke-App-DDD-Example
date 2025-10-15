@@ -11,8 +11,8 @@ export class PokemonId extends ValueObject<number> {
   }
 
   private isValid(value: number): void {
-    if (!Number.isInteger(value)) {
-      throw new Error("Pokemon ID must be an integer");
+    if (value <= 0) {
+      throw new Error("Pokemon ID must be greater than 0");
     }
   }
 }

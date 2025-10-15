@@ -4,19 +4,19 @@ export class ApiResponse<T> {
     private readonly status: number,
   ) {}
 
-  getData(): T {
+  public getData(): T {
     return this.data;
   }
 
-  getStatus(): number {
+  public getStatus(): number {
     return this.status;
   }
 
-  isSuccess(): boolean {
+  public isSuccess(): boolean {
     return this.status >= 200 && this.status < 300;
   }
 
-  isNotFound(): boolean {
+  public isNotFound(): boolean {
     return this.status === 404;
   }
 }
