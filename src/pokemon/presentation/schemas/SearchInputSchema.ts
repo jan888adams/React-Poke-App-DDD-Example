@@ -5,7 +5,8 @@ export const SearchInputSchema = z.object({
     .string()
     .min(1, "Please enter a Pokemon name or ID")
     .max(50, "Search term too long")
-    .trim(),
+    .trim()
+    .regex(/^[a-zA-Z0-9 ]+$/, "No special characters allowed"),
 });
 
 export type PokemonSearchForm = z.infer<typeof SearchInputSchema>;
