@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./Form";
 import { usePokemonSearch } from "../../hooks/usePokemonSearch";
 import Card from "./Card";
+import "../../styles/search/search-bar.sass";
 
 const SearchBar: React.FC = () => {
   const { pokemon, searchPokemon, error, loading } = usePokemonSearch();
@@ -11,7 +12,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="search-bar">
       <Form onSubmit={handleSubmit} />
       {pokemon && <Card pokemon={pokemon} />}
       {error && <p>{error}</p>}

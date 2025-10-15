@@ -4,6 +4,7 @@ import {
   SearchInputSchema,
   type PokemonSearchForm,
 } from "../../schemas/SearchInputSchema";
+import "../../styles/search/form.sass";
 
 interface Props {
   onSubmit: (value: string) => void;
@@ -28,14 +29,19 @@ const Form = function Form({ onSubmit }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)}>
+    <form className="search-form" onSubmit={handleSubmit(onFormSubmit)}>
       <input
+        className="search-form__input"
         {...register("searchTerm")}
         type="text"
         placeholder="Search for Pokemon"
       />
-      <button type="submit">Search</button>
-      {errors.searchTerm && <span>{errors.searchTerm.message}</span>}
+      <button className="search-form__button" type="submit">
+        Search
+      </button>
+      {errors.searchTerm && (
+        <span className="search-form__error">{errors.searchTerm.message}</span>
+      )}
     </form>
   );
 };

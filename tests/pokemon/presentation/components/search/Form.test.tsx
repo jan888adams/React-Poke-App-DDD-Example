@@ -12,7 +12,6 @@ describe("Form", () => {
     fireEvent.change(input, { target: { value: "  pikachu  " } });
     fireEvent.click(button);
 
-    // Wait for react-hook-form to process
     await screen.findByPlaceholderText("Search for Pokemon");
 
     expect(handleSubmit).toHaveBeenCalledWith("pikachu");
