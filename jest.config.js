@@ -16,6 +16,10 @@ export default {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
   ],
+  coveragePathIgnorePatterns: [
+    "/src/App.tsx",
+    "/src/main.tsx",
+  ],
   coverageDirectory: 'coverage',
   coverageReporters: [
     'text',
