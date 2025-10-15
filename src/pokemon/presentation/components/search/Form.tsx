@@ -10,7 +10,7 @@ interface Props {
   onSubmit: (value: string) => void;
 }
 
-const Form = function Form({ onSubmit }: Props) {
+export const Form = function Form({ onSubmit }: Props) {
   const {
     register,
     handleSubmit,
@@ -45,5 +45,3 @@ const Form = function Form({ onSubmit }: Props) {
     </form>
   );
 };
-
-export default Form;

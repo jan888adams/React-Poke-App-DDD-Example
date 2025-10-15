@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Form from "../../../../../src/pokemon/presentation/components/search/Form";
+import { Form } from "../../../../../src/pokemon/presentation/components/search/Form";
 
 describe("Form", () => {
   it("calls onSubmit with trimmed value when submitted", async () => {

@@ -1,10 +1,10 @@
 import React from "react";
-import Form from "./Form";
+import { Form } from "./Form";
 import { usePokemonSearch } from "../../hooks/usePokemonSearch";
-import Card from "./Card";
+import { Card } from "./Card";
 import "../../styles/search/search-bar.sass";
 
-const SearchBar: React.FC = () => {
+export const SearchBar: React.FC = () => {
   const { pokemon, searchPokemon, error, loading } = usePokemonSearch();
 
   const handleSubmit = (value: string) => {
@@ -20,5 +20,3 @@ const SearchBar: React.FC = () => {
     </div>
   );
 };
-
-export default SearchBar;
