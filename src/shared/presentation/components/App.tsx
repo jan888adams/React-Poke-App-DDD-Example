@@ -1,5 +1,5 @@
-import SearchBar from "./pokemon/presentation/components/search/SearchBar";
-import "./app.sass";
+import SearchBar from "../../../pokemon/presentation/components/search/SearchBar";
+import "../styles/app.sass";
 
 function App() {
   return (
