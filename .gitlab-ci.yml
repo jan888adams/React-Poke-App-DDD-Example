@@ -4,7 +4,9 @@ stages:
   - test
 
 cache:
-  key: ${CI_COMMIT_REF_SLUG}
+  key:
+    files:
+      - yarn.lock
   paths:
     - node_modules/
 
