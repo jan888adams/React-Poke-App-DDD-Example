@@ -8,6 +8,9 @@ export class Pokemon {
     private readonly name: PokemonName,
     private readonly sprites: { front_default: string | null },
     private readonly types: PokemonType[],
+    private readonly baseExperience: number,
+    private readonly height: number,
+    private readonly weight: number,
   ) {}
 
   public getId(): number {
@@ -30,11 +33,26 @@ export class Pokemon {
     return this.types.map((type) => type.getName());
   }
 
+  public getBaseExperience(): number {
+    return this.baseExperience;
+  }
+
+  public getHeight(): number {
+    return this.height;
+  }
+
+  public getWeight(): number {
+    return this.weight;
+  }
+
   public static fromValues(
     id: number,
     name: string,
     imageUrl: string | null,
     types: string[],
+    baseExperience: number,
+    height: number,
+    weight: number,
   ): Pokemon {
     const pokemonId = PokemonId.fromNumber(id);
     const pokemonName = PokemonName.fromString(name);
@@ -45,6 +63,9 @@ export class Pokemon {
       pokemonName,
       { front_default: imageUrl },
       pokemonTypes,
+      baseExperience,
+      height,
+      weight,
     );
   }
 }

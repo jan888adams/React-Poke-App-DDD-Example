@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Pokemon } from "../../../domain/entities/Pokemon";
 import "../../styles/search/card.sass";
 
@@ -17,6 +18,13 @@ export const Card: React.FC<Props> = ({ pokemon }) => {
       <h2 className="card__title">{pokemon.getCapitalizedName()}</h2>
       <p className="card__id">ID: #{pokemon.getId()}</p>
       <p className="card__types">Types: {pokemon.getTypes().join(", ")}</p>
+      <Link
+        to={`/pokemon/${pokemon.getId()}`}
+        state={{ pokemon }}
+        className="card__details-link"
+      >
+        View Details
+      </Link>
     </div>
   );
 };
