@@ -3,15 +3,16 @@ stages:
   - lint
   - test
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
 yarn-install:
   stage: build
   image: node:18-alpine
   script:
     - yarn install
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 hour
 
 prettier-check:
   stage: lint
