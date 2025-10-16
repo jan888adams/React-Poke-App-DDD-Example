@@ -1,10 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { Pokemon } from "../../../domain/entities/Pokemon";
 import { SerializedPokemon } from "../../../infrastructure/dtos/SerializedPokemon";
+import { useCart } from "../../../presentation/hooks/useCart";
 import "../../styles/details/page.sass";
 
 export function Page() {
   const location = useLocation();
+  const cart = useCart();
   const serializedPokemon = (location.state as { pokemon?: SerializedPokemon })
     ?.pokemon;
 
@@ -30,6 +32,12 @@ export function Page() {
       <p>Height: {pokemon.getHeight()}</p>
       <p>Weight: {pokemon.getWeight()}</p>
       <p>Types: {pokemon.getTypes().join(", ")}</p>
+      <button
+        className="detail-page__add-to-cart"
+        onClick={() => cart?.addToCart(pokemon)}
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
