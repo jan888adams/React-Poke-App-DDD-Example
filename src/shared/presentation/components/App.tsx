@@ -1,5 +1,5 @@
-import {SearchBar} from "./pokemon/presentation/components/search/SearchBar";
-import "./app.sass";
+import { SearchBar } from "../../../pokemon/presentation/components/search/SearchBar";
+import "../styles/app.sass";
 
 export function App() {
   return (
@@ -9,5 +9,3 @@ export function App() {
     </div>
   );
 }
-
-
