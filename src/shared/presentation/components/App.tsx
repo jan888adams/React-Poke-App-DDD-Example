@@ -2,13 +2,13 @@ import { Routes, Route } from "react-router-dom";
 import { SearchBar } from "../../../pokemon/presentation/components/search/SearchBar";
 import { Page as PokemonDetailPage } from "../../../pokemon/presentation/components/details/Page";
 import { NotFoundPage } from "./error/NotFoundPage";
-import { CartProvider } from "../../../pokemon/presentation/provider/CartProvider";
+import { CartContextProvider } from "../../../pokemon/presentation/context/CartContextProvider";
 import { Counter } from "../../../pokemon/presentation/components/cart/Counter";
 import "../styles/app.sass";
 
 export function App() {
   return (
-    <CartProvider>
+    <CartContextProvider>
       <Counter />
       <Routes>
         <Route
@@ -23,6 +23,6 @@ export function App() {
         <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </CartProvider>
+    </CartContextProvider>
   );
 }
