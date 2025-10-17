@@ -1,0 +1,12 @@
+services:
+  app:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "80:5173" 
+    user: '${UID:-0}:${GID:-0}'
+    command: sh -c "yarn install --check-files && yarn dev --host"
+    environment:
+      - NODE_ENV=development
