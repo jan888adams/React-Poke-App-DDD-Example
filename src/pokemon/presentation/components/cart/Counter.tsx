@@ -1,7 +1,7 @@
-import { useCart } from "../../hooks/useCart";
+import { usePokemonCart } from "../../hooks/usePokemonCart";
 
 export function Counter() {
-  const cart = useCart();
+  const cart = usePokemonCart();
 
   const count = cart ? cart.cartItems.length : 0;
 

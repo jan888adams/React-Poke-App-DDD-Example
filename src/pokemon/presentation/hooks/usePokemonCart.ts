@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { Pokemon } from "../../domain/entities/Pokemon";
-import { addToCart as addToCartUseCase } from "../../../shared/infrastructure/DependencyContainer";
+import { addPokemonToCart } from "../../../shared/infrastructure/DependencyContainer";
 
-export const useCart = () => {
+export const usePokemonCart = () => {
   const cartService = useContext(CartContext);
   const [cartItems, setCartItems] = useState<Pokemon[]>(
     cartService?.getCartItems() ?? [],
@@ -24,7 +24,7 @@ export const useCart = () => {
   }, [cartService]);
 
   const addToCart = (pokemon: Pokemon) => {
-    addToCartUseCase.execute(pokemon);
+    addPokemonToCart.execute(pokemon);
   };
 
   return {

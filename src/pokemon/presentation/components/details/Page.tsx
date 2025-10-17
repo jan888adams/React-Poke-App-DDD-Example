@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { Pokemon } from "../../../domain/entities/Pokemon";
 import { SerializedPokemon } from "../../../infrastructure/dtos/SerializedPokemon";
-import { useCart } from "../../../presentation/hooks/useCart";
+import { usePokemonCart } from "../../hooks/usePokemonCart";
 import "../../styles/details/page.sass";
 
 export function Page() {
   const location = useLocation();
-  const cart = useCart();
+  const cart = usePokemonCart();
   const serializedPokemon = (location.state as { pokemon?: SerializedPokemon })
     ?.pokemon;
 

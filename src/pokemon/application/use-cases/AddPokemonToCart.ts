@@ -1,7 +1,7 @@
 import { CartService } from "../services/CartService";
 import { Pokemon } from "../../domain/entities/Pokemon";
 
-export class AddToCart {
+export class AddPokemonToCart {
   constructor(private readonly cartService: CartService) {}
 
   execute(pokemon: Pokemon): void {
