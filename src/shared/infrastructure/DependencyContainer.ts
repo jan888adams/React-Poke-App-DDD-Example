@@ -6,6 +6,7 @@ import { PokemonFinder } from "../../pokemon/application/services/PokemonFinder"
 import { CartService } from "../../pokemon/application/services/CartService";
 import { Cart } from "../../pokemon/domain/entities/Cart";
 import { AddPokemonToCart } from "../../pokemon/application/use-cases/AddPokemonToCart";
+import { GetPokemonsFromCart } from "../../pokemon/application/use-cases/GetPokemonsFromCart";
 import { MittEventAdapter } from "./adapters/mitt/MittEventAdapter";
 import { CartEvent } from "../../pokemon/application/events/CartEvent";
 
@@ -26,3 +27,4 @@ const cartEmitter = new MittEventAdapter<CartEvent>();
 export const cartService = new CartService(cart, cartEmitter);
 
 export const addPokemonToCart = new AddPokemonToCart(cartService);
+export const getPokemonsFromCart = new GetPokemonsFromCart(cartService);
