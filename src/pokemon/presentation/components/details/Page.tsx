@@ -24,7 +24,7 @@ export function Page() {
 
   return (
     <div className="detail-page">
-      <h1>{pokemon.getName()}</h1>
+      <h1>{pokemon.getCapitalizedName()}</h1>
       <img src={pokemon.getImageUrl() ?? ""} alt={pokemon.getName()} />
       <p>Base Experience: {pokemon.getBaseExperience()}</p>
       <p>Height: {pokemon.getHeight()}</p>

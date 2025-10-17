@@ -40,7 +40,7 @@ describe("Page (Pokemon Detail)", () => {
   it("renders pokemon details from location state", () => {
     useLocation.mockImplementation(() => mockPokemonLocation);
     render(<Page />);
-    expect(screen.getByText("pikachu")).toBeInTheDocument();
+    expect(screen.getByText("Pikachu")).toBeInTheDocument();
     expect(screen.getByText("Base Experience: 112")).toBeInTheDocument();
     expect(screen.getByText("Height: 4")).toBeInTheDocument();
     expect(screen.getByText("Weight: 60")).toBeInTheDocument();
