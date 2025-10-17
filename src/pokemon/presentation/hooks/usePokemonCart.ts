@@ -1,27 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { CartContext } from "../context/CartContext";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import {
   addPokemonToCart,
   getPokemonsFromCart,
 } from "../../../shared/infrastructure/DependencyContainer";
+import { CartEvent } from "../../application/events/CartEvent";
 
 export const usePokemonCart = () => {
-  const cartService = useContext(CartContext);
+  const emitter = useContext(CartContext);
   const [cartItems, setCartItems] = useState<Pokemon[]>(() =>
     getPokemonsFromCart.execute(),
   );
 
+  const handleChange = useCallback((items: CartEvent["change"]) => {
+    setCartItems(items);
+  }, []);
+
   useEffect(() => {
-    if (!cartService) return;
+    if (!emitter) {
+      return;
+    }
 
-    const handler = (items: Pokemon[]) => setCartItems(items);
-
-    cartService.onChange(handler);
+    emitter.on("change", handleChange);
     return () => {
-      cartService.offChange(handler);
+      emitter.off("change", handleChange);
     };
-  }, [cartService]);
+  }, [emitter, handleChange]);
 
   const addToCart = (pokemon: Pokemon) => {
     addPokemonToCart.execute(pokemon);

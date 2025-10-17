@@ -1,7 +1,7 @@
 import mitt, { Emitter, Handler } from "mitt";
 import { EventEmitter } from "../../../application/events/EventEmitter";
 
-export class MittEventAdapter<TEvents extends Record<string, unknown>>
+export class MittEventEmitterAdapter<TEvents extends Record<string, unknown>>
   implements EventEmitter<TEvents>
 {
   // use a record-of-unknown to satisfy mitt's generic constraint (no `any`)

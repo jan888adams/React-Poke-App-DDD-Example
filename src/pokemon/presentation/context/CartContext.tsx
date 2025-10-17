@@ -1,4 +1,5 @@
 import { createContext } from "react";
-import { CartService } from "../../../pokemon/application/services/CartService";
+import { EventEmitter } from "../../../shared/application/events/EventEmitter";
+import { CartEvent } from "../../application/events/CartEvent";
 
-export const CartContext = createContext<CartService | null>(null);
+export const CartContext = createContext<EventEmitter<CartEvent> | null>(null);
