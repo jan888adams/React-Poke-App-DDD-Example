@@ -5,7 +5,7 @@ export interface SerializedPokemon {
     front_default: string | null;
   };
   types: Array<{ value: string }>;
-  baseExperience: number;
-  height: number;
-  weight: number;
+  baseExperience: { value: number };
+  height: { value: number };
+  weight: { value: number };
 }

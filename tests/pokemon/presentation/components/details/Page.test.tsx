@@ -19,9 +19,9 @@ const mockPokemonLocation = {
       name: { value: "pikachu" },
       sprites: { front_default: "https://img.com/pikachu.png" },
       types: [{ value: "electric" }],
-      baseExperience: 112,
-      height: 4,
-      weight: 60,
+      baseExperience: { value: 112 },
+      height: { value: 4 },
+      weight: { value: 60 },
     } as SerializedPokemon,
   },
 };

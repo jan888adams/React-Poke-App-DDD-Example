@@ -17,9 +17,9 @@ export function Page() {
     serializedPokemon.name.value,
     serializedPokemon.sprites?.front_default ?? null,
     serializedPokemon.types?.map((t) => t.value) ?? [],
-    serializedPokemon.baseExperience,
-    serializedPokemon.height,
-    serializedPokemon.weight,
+    serializedPokemon.baseExperience.value,
+    serializedPokemon.height.value,
+    serializedPokemon.weight.value,
   );
 
   return (
