@@ -36,7 +36,7 @@ export function Page() {
         className="detail-page__add-to-cart"
         onClick={() => cart?.addToCart(pokemon)}
       >
-        Add to Cart
+        Catch Pokemon
       </button>
     </div>
   );
