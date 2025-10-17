@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { Pokemon } from "../../domain/entities/Pokemon";
+import { addToCart as addToCartUseCase } from "../../../shared/infrastructure/DependencyContainer";
 
 export const useCart = () => {
   const cartService = useContext(CartContext);
@@ -9,18 +10,25 @@ export const useCart = () => {
   );
 
   useEffect(() => {
-    if (!cartService) return;
+    if (!cartService) {
+      return;
+    }
+
     const handler = (items: Pokemon[]) => setCartItems(items);
+
     cartService.onChange(handler);
+
     return () => {
       cartService.offChange(handler);
     };
   }, [cartService]);
 
+  const addToCart = (pokemon: Pokemon) => {
+    addToCartUseCase.execute(pokemon);
+  };
+
   return {
     cartItems,
-    addToCart: (pokemon: Pokemon) => cartService?.addToCart(pokemon),
-    removeFromCart: (id: number) => cartService?.removeFromCart(id),
-    clearCart: () => cartService?.clearCart(),
+    addToCart,
   };
 };

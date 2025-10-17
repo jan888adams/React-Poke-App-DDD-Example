@@ -5,6 +5,9 @@ import { SearchPokemonById } from "../../pokemon/application/use-cases/SearchPok
 import { PokemonFinder } from "../../pokemon/application/services/PokemonFinder";
 import { CartService } from "../../pokemon/application/services/CartService";
 import { Cart } from "../../pokemon/domain/entities/Cart";
+import { AddToCart } from "../../pokemon/application/use-cases/AddToCart";
+import { MittEventAdapter } from "./adapters/mitt/MittEventAdapter";
+import { CartEvent } from "../../pokemon/application/events/CartEvent";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -17,4 +20,9 @@ export const pokemonFinder = new PokemonFinder(
   searchPokemonById,
 );
 
-export const cartService = new CartService(new Cart());
+const cart = new Cart();
+const cartEmitter = new MittEventAdapter<CartEvent>();
+
+export const cartService = new CartService(cart, cartEmitter);
+
+export const addToCart = new AddToCart(cartService);

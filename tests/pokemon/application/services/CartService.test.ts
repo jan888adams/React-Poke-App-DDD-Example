@@ -1,6 +1,8 @@
 import { CartService } from "../../../../src/pokemon/application/services/CartService";
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
+import { EventEmitter } from "../../../../src/shared/application/events/EventEmitter";
+import { CartEvent } from "../../../../src/pokemon/application/events/CartEvent";
 
 describe("CartService", () => {
   let cart: Cart;
@@ -10,7 +12,28 @@ describe("CartService", () => {
 
   beforeEach(() => {
     cart = new Cart();
-    service = new CartService(cart);
+
+    const handlers: {
+      [K in keyof CartEvent]?: Array<(payload: CartEvent[K]) => void>;
+    } = {};
+
+    const mockEmitter: EventEmitter<CartEvent> = {
+      on: (event, handler) => {
+        handlers[event] = handlers[event] ?? [];
+        handlers[event]!.push(
+          handler as unknown as (payload: CartEvent[typeof event]) => void,
+        );
+      },
+      off: (event, handler) => {
+        handlers[event] = (handlers[event] ?? []).filter((h) => h !== handler);
+      },
+      emit: (event, payload) => {
+        (handlers[event] ?? []).forEach((h) => h(payload));
+      },
+    };
+
+    service = new CartService(cart, mockEmitter);
+
     pikachu = Pokemon.fromValues(
       25,
       "pikachu",
@@ -28,19 +51,6 @@ describe("CartService", () => {
     expect(service.getCartItems()).toContain(pikachu);
   });
 
-  it("removes a pokemon from the cart", () => {
-    service.addToCart(pikachu);
-    service.removeFromCart(pikachu.getId());
-    expect(service.getCartItems()).not.toContain(pikachu);
-  });
-
-  it("clears the cart", () => {
-    service.addToCart(pikachu);
-    service.addToCart(bulbasaur);
-    service.clearCart();
-    expect(service.getCartItems()).toHaveLength(0);
-  });
-
   it("emits change event when cart is updated", () => {
     const handler = jest.fn();
     service.onChange(handler);
@@ -50,12 +60,6 @@ describe("CartService", () => {
 
     service.addToCart(bulbasaur);
     expect(handler).toHaveBeenCalledWith([pikachu, bulbasaur]);
-
-    service.removeFromCart(pikachu.getId());
-    expect(handler).toHaveBeenCalledWith([bulbasaur]);
-
-    service.clearCart();
-    expect(handler).toHaveBeenCalledWith([]);
 
     service.offChange(handler);
   });

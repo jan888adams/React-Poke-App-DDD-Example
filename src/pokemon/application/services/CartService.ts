@@ -1,30 +1,21 @@
-import mitt from "mitt";
 import { Cart } from "../../domain/entities/Cart";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import { CartEvent } from "../events/CartEvent";
+import { EventEmitter } from "../../../shared/application/events/EventEmitter";
 
 export class CartService {
-  private emitter = mitt<CartEvent>();
-
-  constructor(private cart: Cart) {}
+  constructor(
+    private readonly cart: Cart,
+    private readonly emitter: EventEmitter<CartEvent>,
+  ) {}
 
   public addToCart(pokemon: Pokemon) {
     this.cart.add(pokemon);
     this.emitter.emit("change", this.cart.getItems());
   }
 
-  public removeFromCart(id: number) {
-    this.cart.remove(id);
-    this.emitter.emit("change", this.cart.getItems());
-  }
-
   public getCartItems(): Pokemon[] {
     return this.cart.getItems();
-  }
-
-  public clearCart() {
-    this.cart.clear();
-    this.emitter.emit("change", this.cart.getItems());
   }
 
   public onChange(handler: (items: Pokemon[]) => void) {
