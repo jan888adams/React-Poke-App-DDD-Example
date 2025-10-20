@@ -6,7 +6,7 @@ import "../../styles/details/page.sass";
 
 export function Page() {
   const location = useLocation();
-  const cart = usePokemonCart();
+  const { cart, addToCart } = usePokemonCart();
   const pokemon = (location.state as { pokemon?: PokemonView })?.pokemon;
 
   if (!pokemon) {
@@ -23,7 +23,8 @@ export function Page() {
       <p>Types: {pokemon.types.join(", ")}</p>
       <button
         className="detail-page__add-to-cart"
-        onClick={() => cart?.addToCart(PokemonDto.fromPokemonView(pokemon))}
+        onClick={() => addToCart(PokemonDto.fromPokemonView(pokemon))}
+        disabled={cart?.has(pokemon.id)}
       >
         Catch Pokemon
       </button>

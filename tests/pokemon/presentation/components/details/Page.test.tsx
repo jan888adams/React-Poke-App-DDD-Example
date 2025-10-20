@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Page } from "../../../../../src/pokemon/presentation/components/details/Page";
 import * as ReactRouterDom from "react-router-dom";
+import * as useCartModule from "../../../../../src/pokemon/presentation/hooks/usePokemonCart";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -48,6 +49,26 @@ describe("Page (Pokemon Detail)", () => {
       "src",
       "https://img.com/pikachu.png",
     );
+  });
+
+  it("disables 'Catch Pokemon' button if pokemon is already in cart", () => {
+    useLocation.mockImplementation(() => mockPokemonLocation);
+    const mockCart = {
+      has: jest.fn().mockReturnValue(true),
+    };
+
+    const mockUsePokemonCart = jest
+      .spyOn(useCartModule, "usePokemonCart")
+      .mockReturnValue({
+        cart: mockCart,
+        addToCart: jest.fn(),
+      } as unknown as ReturnType<typeof useCartModule.usePokemonCart>);
+
+    render(<Page />);
+    const button = screen.getByRole("button", { name: /Catch Pokemon/i });
+    expect(button).toBeDisabled();
+
+    mockUsePokemonCart.mockRestore();
   });
 
   it("renders fallback if no pokemon is provided", () => {

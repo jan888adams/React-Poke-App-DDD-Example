@@ -70,7 +70,6 @@ describe("AddPokemonToCart use case", () => {
 
     const items = cart.getItems();
     expect(items).toHaveLength(1);
-    // compare by deep equality (or compare primitive id values)
     expect(items[0].id).toEqual(pikachu.id);
     expect(mockEmitter.emit).not.toHaveBeenCalled();
   });
