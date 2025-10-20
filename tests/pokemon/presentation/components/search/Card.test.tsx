@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { Card } from "../../../../../src/pokemon/presentation/components/search/Card";
 import { Pokemon } from "../../../../../src/pokemon/domain/entities/Pokemon";
+import { PokemonView } from "../../../../../src/pokemon/application/views/PokemonView";
 
 const mockPokemon = Pokemon.fromValues(
   25,
@@ -13,11 +14,13 @@ const mockPokemon = Pokemon.fromValues(
   60,
 );
 
+const pokemonView = PokemonView.fromPokemon(mockPokemon);
+
 describe("Card", () => {
   it("renders Pokemon data", () => {
     render(
       <BrowserRouter>
-        <Card pokemon={mockPokemon} />
+        <Card pokemon={pokemonView} />
       </BrowserRouter>,
     );
 

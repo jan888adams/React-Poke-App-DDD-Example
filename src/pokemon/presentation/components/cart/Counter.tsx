@@ -2,8 +2,8 @@ import { usePokemonCart } from "../../hooks/usePokemonCart";
 import "../../styles/cart/counter.sass";
 
 export function Counter() {
-  const cart = usePokemonCart();
-  const count = cart ? cart.cartItems.length : 0;
+  const { cart } = usePokemonCart();
+  const count = cart ? cart.count() : 0;
 
   return (
     <div className="cart-counter" aria-label="Cart items">

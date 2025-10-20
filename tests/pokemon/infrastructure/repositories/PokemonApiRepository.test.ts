@@ -1,5 +1,6 @@
 import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
+import { PokemonType } from "../../../../src/pokemon/domain/value-objects/PokemonType";
 import { PokemonApiRepository } from "../../../../src/pokemon/infrastructure/repositories/PokemonApiRepository";
 import { ApiResponse } from "../../../../src/shared/infrastructure/http/ApiResponse";
 import { HttpClient } from "../../../../src/shared/infrastructure/http/HttpClient";
@@ -40,11 +41,16 @@ describe("PokemonApiRepository", () => {
       );
 
       expect(mockHttpClient.get).toHaveBeenCalledWith("pokemon/pikachu");
-      expect(result?.getName()).toBe("pikachu");
-      expect(result?.getCapitalizedName()).toBe("Pikachu");
-      expect(result?.getId()).toBe(25);
-      expect(result?.getImageUrl()).toBe("https://example.com/pikachu.png");
-      expect(result?.getTypes()).toEqual(["electric"]);
+      expect(result?.name.getValue()).toBe(
+        PokemonName.fromString("pikachu").getValue(),
+      );
+      expect(result?.id.getValue()).toBe(PokemonId.fromNumber(25).getValue());
+      expect(result?.sprites.front_default).toBe(
+        "https://example.com/pikachu.png",
+      );
+      expect(result?.types[0].getValue()).toEqual(
+        PokemonType.fromString("electric").getValue(),
+      );
     });
 
     it("should return null when Pokemon not found", async () => {
@@ -79,11 +85,16 @@ describe("PokemonApiRepository", () => {
       const result = await repository.findById(PokemonId.fromNumber(25));
 
       expect(mockHttpClient.get).toHaveBeenCalledWith("pokemon/25");
-      expect(result?.getName()).toBe("pikachu");
-      expect(result?.getCapitalizedName()).toBe("Pikachu");
-      expect(result?.getId()).toBe(25);
-      expect(result?.getImageUrl()).toBe("https://example.com/pikachu.png");
-      expect(result?.getTypes()).toEqual(["electric"]);
+      expect(result?.name.getValue()).toBe(
+        PokemonName.fromString("pikachu").getValue(),
+      );
+      expect(result?.id.getValue()).toBe(PokemonId.fromNumber(25).getValue());
+      expect(result?.sprites.front_default).toBe(
+        "https://example.com/pikachu.png",
+      );
+      expect(result?.types[0].getValue()).toEqual(
+        PokemonType.fromString("electric").getValue(),
+      );
     });
 
     it("should return null when Pokemon not found", async () => {

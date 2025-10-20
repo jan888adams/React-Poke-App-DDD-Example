@@ -13,6 +13,6 @@ export class Cart {
   }
 
   public has(pokemonId: PokemonId): boolean {
-    return this.items.some((p) => p.getId() === pokemonId.getValue());
+    return this.items.some((p) => p.id.getValue() === pokemonId.getValue());
   }
 }

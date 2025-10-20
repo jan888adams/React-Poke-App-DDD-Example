@@ -1,5 +1,5 @@
-import { Pokemon } from "../../domain/entities/Pokemon";
+import { CartView } from "../views/CartView";
 
 export type CartEvent = {
-  change: Pokemon[];
+  change: CartView;
 };

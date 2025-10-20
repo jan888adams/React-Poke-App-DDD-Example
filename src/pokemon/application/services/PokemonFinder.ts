@@ -1,6 +1,6 @@
-import { Pokemon } from "../../domain/entities/Pokemon";
 import { SearchPokemonByName } from "../use-cases/SearchPokemonByName";
 import { SearchPokemonById } from "../use-cases/SearchPokemonById";
+import { PokemonView } from "../views/PokemonView";
 
 export class PokemonFinder {
   constructor(
@@ -8,7 +8,7 @@ export class PokemonFinder {
     private readonly searchPokemonById: SearchPokemonById,
   ) {}
 
-  async findByIdOrName(query: string): Promise<Pokemon | null> {
+  async findByIdOrName(query: string): Promise<PokemonView | null> {
     const numericId = parseInt(query);
 
     if (!isNaN(numericId) && numericId > 0) {

@@ -4,6 +4,7 @@ import { SearchPokemonById } from "../../../../src/pokemon/application/use-cases
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
+import { PokemonView } from "../../../../src/pokemon/application/views/PokemonView";
 
 const mockRepository = {
   findById: jest.fn(),
@@ -15,6 +16,7 @@ describe("PokemonFinder", () => {
   let searchByName: SearchPokemonByName;
   let searchById: SearchPokemonById;
   let mockPokemon: Pokemon;
+  let mockPokemonView: PokemonView;
 
   beforeEach(() => {
     mockRepository.findById.mockReset();
@@ -33,6 +35,8 @@ describe("PokemonFinder", () => {
       60,
     );
 
+    mockPokemonView = PokemonView.fromPokemon(mockPokemon);
+
     pokemonFinder = new PokemonFinder(searchByName, searchById);
   });
 
@@ -45,7 +49,7 @@ describe("PokemonFinder", () => {
       PokemonId.fromNumber(25),
     );
     expect(mockRepository.findByName).not.toHaveBeenCalled();
-    expect(result).toBe(mockPokemon);
+    expect(result).toStrictEqual(mockPokemonView);
   });
 
   it("should call repository.findByName for string query", async () => {
@@ -57,7 +61,7 @@ describe("PokemonFinder", () => {
       PokemonName.fromString("pikachu"),
     );
     expect(mockRepository.findById).not.toHaveBeenCalled();
-    expect(result).toBe(mockPokemon);
+    expect(result).toStrictEqual(mockPokemonView);
   });
 
   it("should return null if repository.findById returns null", async () => {

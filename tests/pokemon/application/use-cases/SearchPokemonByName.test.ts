@@ -2,6 +2,7 @@ import { SearchPokemonByName } from "../../../../src/pokemon/application/use-cas
 import { PokemonRepository } from "../../../../src/pokemon/domain/repositories/PokemonRepository";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
+import { PokemonView } from "../../../../src/pokemon/application/views/PokemonView";
 
 describe("SearchPokemonByName", () => {
   let mockRepository: jest.Mocked<PokemonRepository>;
@@ -26,7 +27,7 @@ describe("SearchPokemonByName", () => {
     );
   });
 
-  it("should return Pokemon when repository finds it", async () => {
+  it("should return PokemonView when repository finds it", async () => {
     mockRepository.findByName.mockResolvedValue(mockPokemon);
 
     const result = await useCase.execute("pikachu");
@@ -34,7 +35,7 @@ describe("SearchPokemonByName", () => {
     expect(mockRepository.findByName).toHaveBeenCalledWith(
       PokemonName.fromString("pikachu"),
     );
-    expect(result).toBe(mockPokemon);
+    expect(result).toStrictEqual(PokemonView.fromPokemon(mockPokemon));
   });
 
   it("should return null when repository does not find Pokemon", async () => {

@@ -1,10 +1,10 @@
 import { Cart } from "../../domain/entities/Cart";
-import { Pokemon } from "../../domain/entities/Pokemon";
+import { CartView } from "../views/CartView";
 
 export class GetPokemonsFromCart {
   constructor(private readonly cart: Cart) {}
 
-  execute(): Pokemon[] {
-    return this.cart.getItems();
+  execute(): CartView {
+    return CartView.fromCart(this.cart);
   }
 }

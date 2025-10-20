@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import { CartContext } from "../context/CartContext";
-import { Pokemon } from "../../domain/entities/Pokemon";
 import {
   addPokemonToCart,
-  getPokemonsFromCart,
+  getPokemonCart,
 } from "../../../shared/infrastructure/DependencyContainer";
 import { CartEvent } from "../../application/events/CartEvent";
+import { CartView } from "../../application/views/CartView";
+import { PokemonDto } from "../../application/dtos/PokemonDto";
 
 export const usePokemonCart = () => {
   const emitter = useContext(CartContext);
-  const [cartItems, setCartItems] = useState<Pokemon[]>(() =>
-    getPokemonsFromCart.execute(),
-  );
+  const [cart, setCart] = useState<CartView>(() => getPokemonCart.execute());
 
-  const handleChange = useCallback((items: CartEvent["change"]) => {
-    setCartItems(items);
+  const handleChange = useCallback((cart: CartEvent["change"]) => {
+    setCart(cart);
   }, []);
 
   useEffect(() => {
@@ -28,12 +27,12 @@ export const usePokemonCart = () => {
     };
   }, [emitter, handleChange]);
 
-  const addToCart = (pokemon: Pokemon) => {
+  const addToCart = (pokemon: PokemonDto) => {
     addPokemonToCart.execute(pokemon);
   };
 
   return {
-    cartItems,
+    cart,
     addToCart,
   };
 };

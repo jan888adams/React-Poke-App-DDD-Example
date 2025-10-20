@@ -12,20 +12,28 @@ jest.mock(
 const usePokemonCart = useCartModule.usePokemonCart as jest.Mock;
 
 describe("Counter", () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it("should show the correct number of items in the cart", () => {
-    usePokemonCart.mockReturnValue({ cartItems: [{}, {}, {}] });
+    usePokemonCart.mockReturnValue({
+      cart: {
+        items: [{}, {}, {}],
+        count: () => 3,
+      },
+    });
     render(<Counter />);
     expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("should show 0 when cart is empty", () => {
-    usePokemonCart.mockReturnValue({ cartItems: [] });
-    render(<Counter />);
-    expect(screen.getByText("0")).toBeInTheDocument();
-  });
-
-  it("should show 0 when cart is undefined", () => {
-    usePokemonCart.mockReturnValue(undefined);
+    usePokemonCart.mockReturnValue({
+      cart: {
+        items: [],
+        count: () => 0,
+      },
+    });
     render(<Counter />);
     expect(screen.getByText("0")).toBeInTheDocument();
   });

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Pokemon } from "../../../domain/entities/Pokemon";
+import { PokemonView } from "../../../application/views/PokemonView";
 import "../../styles/search/card.sass";
 
 interface Props {
-  pokemon: Pokemon;
+  pokemon: PokemonView;
 }
 
 export const Card: React.FC<Props> = ({ pokemon }) => {
@@ -12,14 +12,14 @@ export const Card: React.FC<Props> = ({ pokemon }) => {
     <div className="card">
       <img
         className="card__image"
-        src={pokemon.getImageUrl() || ""}
-        alt={pokemon.getName()}
+        src={pokemon.imageUrl || ""}
+        alt={pokemon.altText}
       />
-      <h2 className="card__title">{pokemon.getCapitalizedName()}</h2>
-      <p className="card__id">ID: #{pokemon.getId()}</p>
-      <p className="card__types">Types: {pokemon.getTypes().join(", ")}</p>
+      <h2 className="card__title">{pokemon.name}</h2>
+      <p className="card__id">ID: #{pokemon.id}</p>
+      <p className="card__types">Types: {pokemon.types.join(", ")}</p>
       <Link
-        to={`/pokemon/${pokemon.getId()}`}
+        to={`/pokemon/${pokemon.id}`}
         state={{ pokemon }}
         className="card__details-link"
       >

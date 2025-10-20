@@ -3,6 +3,9 @@ import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { EventEmitter } from "../../../../src/shared/application/events/EventEmitter";
 import { CartEvent } from "../../../../src/pokemon/application/events/CartEvent";
+import { PokemonDto } from "../../../../src/pokemon/application/dtos/PokemonDto";
+import { PokemonView } from "../../../../src/pokemon/application/views/PokemonView";
+import { CartView } from "../../../../src/pokemon/application/views/CartView";
 
 describe("AddPokemonToCart use case", () => {
   let cart: Cart;
@@ -43,25 +46,32 @@ describe("AddPokemonToCart use case", () => {
   });
 
   it("adds pokemon to cart and emits change", () => {
-    useCase.execute(pikachu);
-
+    useCase.execute(
+      PokemonDto.fromPokemonView(PokemonView.fromPokemon(pikachu)),
+    );
     const items = cart.getItems();
-    expect(items).toContain(pikachu);
+    expect(items).toContainEqual(pikachu);
     expect((mockEmitter.emit as jest.Mock).mock.calls.length).toBeGreaterThan(
       0,
     );
-    expect(mockEmitter.emit).toHaveBeenCalledWith("change", items);
+    expect(mockEmitter.emit).toHaveBeenCalledWith(
+      "change",
+      CartView.fromCart(cart),
+    );
   });
 
   it("does not add pokemon if same id already exists", () => {
     cart.add(pikachu);
     (mockEmitter.emit as jest.Mock).mockClear();
 
-    useCase.execute(pikachuVariant);
+    useCase.execute(
+      PokemonDto.fromPokemonView(PokemonView.fromPokemon(pikachuVariant)),
+    );
 
     const items = cart.getItems();
     expect(items).toHaveLength(1);
-    expect(items[0].getId()).toBe(pikachu.getId());
+    // compare by deep equality (or compare primitive id values)
+    expect(items[0].id).toEqual(pikachu.id);
     expect(mockEmitter.emit).not.toHaveBeenCalled();
   });
 });

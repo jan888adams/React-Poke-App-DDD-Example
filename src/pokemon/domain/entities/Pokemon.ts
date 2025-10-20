@@ -7,46 +7,14 @@ import { PokemonWeight } from "../value-objects/PokemonWeight";
 
 export class Pokemon {
   private constructor(
-    private readonly id: PokemonId,
-    private readonly name: PokemonName,
-    private readonly sprites: { front_default: string | null },
-    private readonly types: PokemonType[],
-    private readonly baseExperience: PokemonExperience,
-    private readonly height: PokemonHeight,
-    private readonly weight: PokemonWeight,
+    public readonly id: PokemonId,
+    public readonly name: PokemonName,
+    public readonly sprites: { front_default: string | null },
+    public readonly types: PokemonType[],
+    public readonly baseExperience: PokemonExperience,
+    public readonly height: PokemonHeight,
+    public readonly weight: PokemonWeight,
   ) {}
-
-  public getId(): number {
-    return this.id.getValue();
-  }
-
-  public getName(): string {
-    return this.name.getValue();
-  }
-
-  public getCapitalizedName(): string {
-    return this.name.getCapitalized();
-  }
-
-  public getImageUrl(): string | null {
-    return this.sprites.front_default;
-  }
-
-  public getTypes(): string[] {
-    return this.types.map((type) => type.getName());
-  }
-
-  public getBaseExperience(): number {
-    return this.baseExperience.getValue();
-  }
-
-  public getHeight(): number {
-    return this.height.getValue();
-  }
-
-  public getWeight(): number {
-    return this.weight.getValue();
-  }
 
   public static fromValues(
     id: number,

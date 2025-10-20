@@ -1,4 +1,5 @@
-import { GetPokemonsFromCart } from "../../../../src/pokemon/application/use-cases/GetPokemonsFromCart";
+import { GetPokemonsFromCart } from "../../../../src/pokemon/application/use-cases/GetPokemonCart";
+import { CartView } from "../../../../src/pokemon/application/views/CartView";
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 
@@ -28,13 +29,13 @@ describe("GetPokemonsFromCart use case", () => {
     cart.add(pikachu);
     cart.add(bulbasaur);
 
-    const items = useCase.execute();
+    const cartView = useCase.execute();
 
-    expect(items).toEqual([pikachu, bulbasaur]);
+    expect(cartView).toEqual(CartView.fromCart(cart));
   });
 
   it("returns an empty array when the cart has no pokemons", () => {
-    const items = useCase.execute();
-    expect(items).toEqual([]);
+    const cartView = useCase.execute();
+    expect(cartView).toEqual(new CartView([]));
   });
 });
