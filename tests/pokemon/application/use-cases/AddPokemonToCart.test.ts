@@ -1,23 +1,26 @@
 import { AddPokemonToCart } from "../../../../src/pokemon/application/use-cases/AddPokemonToCart";
+import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
-import { CartService } from "../../../../src/pokemon/application/services/CartService";
+import { EventEmitter } from "../../../../src/shared/application/events/EventEmitter";
+import { CartEvent } from "../../../../src/pokemon/application/events/CartEvent";
 
 describe("AddPokemonToCart use case", () => {
-  let mockCartService: {
-    getCartItems: jest.Mock;
-    addToCart: jest.Mock;
-  };
+  let cart: Cart;
+  let mockEmitter: EventEmitter<CartEvent>;
   let useCase: AddPokemonToCart;
   let pikachu: Pokemon;
   let pikachuVariant: Pokemon;
 
   beforeEach(() => {
-    mockCartService = {
-      getCartItems: jest.fn(),
-      addToCart: jest.fn(),
+    cart = new Cart();
+
+    mockEmitter = {
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
     };
 
-    useCase = new AddPokemonToCart(mockCartService as unknown as CartService);
+    useCase = new AddPokemonToCart(cart, mockEmitter);
 
     pikachu = Pokemon.fromValues(
       25,
@@ -39,16 +42,26 @@ describe("AddPokemonToCart use case", () => {
     );
   });
 
-  it("should add pokemon to cart when not already present", () => {
-    mockCartService.getCartItems.mockReturnValue([]);
+  it("adds pokemon to cart and emits change", () => {
     useCase.execute(pikachu);
-    expect(mockCartService.addToCart).toHaveBeenCalledTimes(1);
-    expect(mockCartService.addToCart).toHaveBeenCalledWith(pikachu);
+
+    const items = cart.getItems();
+    expect(items).toContain(pikachu);
+    expect((mockEmitter.emit as jest.Mock).mock.calls.length).toBeGreaterThan(
+      0,
+    );
+    expect(mockEmitter.emit).toHaveBeenCalledWith("change", items);
   });
 
-  it("should not add pokemon if same id already exists in cart", () => {
-    mockCartService.getCartItems.mockReturnValue([pikachu]);
+  it("does not add pokemon if same id already exists", () => {
+    cart.add(pikachu);
+    (mockEmitter.emit as jest.Mock).mockClear();
+
     useCase.execute(pikachuVariant);
-    expect(mockCartService.addToCart).not.toHaveBeenCalled();
+
+    const items = cart.getItems();
+    expect(items).toHaveLength(1);
+    expect(items[0].getId()).toBe(pikachu.getId());
+    expect(mockEmitter.emit).not.toHaveBeenCalled();
   });
 });
