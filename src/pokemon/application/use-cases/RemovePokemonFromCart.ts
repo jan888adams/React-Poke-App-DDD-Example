@@ -1,40 +1,26 @@
-import { Cart } from "../../domain/entities/Cart";
-import { Pokemon } from "../../domain/entities/Pokemon";
 import { CartEvent } from "../events/CartEvent";
 import { EventEmitter } from "../../../shared/application/events/EventEmitter";
 import { CartView } from "../views/CartView";
 import { PokemonDto } from "../dtos/PokemonDto";
 import { CartRepository } from "../../domain/repositories/CartRepository";
+import { PokemonId } from "../../domain/value-objects/PokemonId";
 
-export class AddPokemonToCart {
+export class RemovePokemonFromCart {
   constructor(
     private readonly cartRepository: CartRepository,
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
   execute(pokemonDto: PokemonDto): void {
-    const pokemon = Pokemon.fromValues(
-      pokemonDto.id,
-      pokemonDto.name,
-      pokemonDto.imageUrl,
-      pokemonDto.types ?? [],
-      pokemonDto.baseExperience,
-      pokemonDto.height,
-      pokemonDto.weight,
-    );
+    const pokemonId = PokemonId.fromNumber(pokemonDto.id);
 
-    let cart = this.cartRepository.findLast();
+    const cart = this.cartRepository.findLast();
 
-    if (!cart) {
-      cart = Cart.empty();
-      this.cartRepository.save(cart);
-    }
-
-    if (cart.has(pokemon.id)) {
+    if (!cart || !cart.has(pokemonId)) {
       return;
     }
 
-    cart.add(pokemon);
+    cart.remove(pokemonId);
     this.cartRepository.save(cart);
 
     this.emitter.emit("change", CartView.fromCart(cart));

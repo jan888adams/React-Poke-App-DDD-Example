@@ -3,11 +3,12 @@ import { PokemonApiRepository } from "../../pokemon/infrastructure/repositories/
 import { SearchPokemonByName } from "../../pokemon/application/use-cases/SearchPokemonByName";
 import { SearchPokemonById } from "../../pokemon/application/use-cases/SearchPokemonById";
 import { PokemonFinder } from "../../pokemon/application/services/PokemonFinder";
-import { Cart } from "../../pokemon/domain/entities/Cart";
 import { AddPokemonToCart } from "../../pokemon/application/use-cases/AddPokemonToCart";
 import { GetPokemonsFromCart } from "../../pokemon/application/use-cases/GetPokemonCart";
 import { MittEventEmitterAdapter } from "./adapters/mitt/MittEventEmmiterAdapter";
 import { CartEvent } from "../../pokemon/application/events/CartEvent";
+import { CartLocalStorageRepository } from "../../pokemon/infrastructure/repositories/CartLocalStorageRepository";
+import { RemovePokemonFromCart } from "../../pokemon/application/use-cases/RemovePokemonFromCart";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -20,9 +21,17 @@ export const pokemonFinder = new PokemonFinder(
   searchPokemonById,
 );
 
-const cart = new Cart();
+const cartRepository = new CartLocalStorageRepository();
 
 export const cartEventEmitter = new MittEventEmitterAdapter<CartEvent>();
 
-export const addPokemonToCart = new AddPokemonToCart(cart, cartEventEmitter);
-export const getPokemonCart = new GetPokemonsFromCart(cart);
+export const addPokemonToCart = new AddPokemonToCart(
+  cartRepository,
+  cartEventEmitter,
+);
+export const getPokemonCart = new GetPokemonsFromCart(cartRepository);
+
+export const removePokemonFromCart = new RemovePokemonFromCart(
+  cartRepository,
+  cartEventEmitter,
+);

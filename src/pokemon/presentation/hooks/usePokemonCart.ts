@@ -3,6 +3,7 @@ import { CartContext } from "../context/CartContext";
 import {
   addPokemonToCart,
   getPokemonCart,
+  removePokemonFromCart,
 } from "../../../shared/infrastructure/DependencyContainer";
 import { CartEvent } from "../../application/events/CartEvent";
 import { CartView } from "../../application/views/CartView";
@@ -31,8 +32,13 @@ export const usePokemonCart = () => {
     addPokemonToCart.execute(pokemon);
   };
 
+  const removeFromCart = (pokemon: PokemonDto) => {
+    removePokemonFromCart.execute(pokemon);
+  };
+
   return {
     cart,
     addToCart,
+    removeFromCart,
   };
 };

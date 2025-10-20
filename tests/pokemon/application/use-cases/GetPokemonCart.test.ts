@@ -1,41 +1,39 @@
 import { GetPokemonsFromCart } from "../../../../src/pokemon/application/use-cases/GetPokemonCart";
-import { CartView } from "../../../../src/pokemon/application/views/CartView";
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
-import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
+import { CartRepository } from "../../../../src/pokemon/domain/repositories/CartRepository";
+import { CartView } from "../../../../src/pokemon/application/views/CartView";
 
-describe("GetPokemonsFromCart use case", () => {
-  let cart: Cart;
+describe("GetPokemonsFromCart", () => {
+  let mockCartRepository: jest.Mocked<CartRepository>;
   let useCase: GetPokemonsFromCart;
-  let pikachu: Pokemon;
-  let bulbasaur: Pokemon;
 
   beforeEach(() => {
-    cart = new Cart();
-    useCase = new GetPokemonsFromCart(cart);
+    mockCartRepository = {
+      findLast: jest.fn(),
+      save: jest.fn(),
+    };
 
-    pikachu = Pokemon.fromValues(
-      25,
-      "pikachu",
-      "img",
-      ["electric"],
-      112,
-      4,
-      60,
-    );
-    bulbasaur = Pokemon.fromValues(1, "bulbasaur", "img", ["grass"], 64, 7, 69);
+    useCase = new GetPokemonsFromCart(mockCartRepository);
   });
 
-  it("returns the list of pokemons currently in the cart", () => {
-    cart.add(pikachu);
-    cart.add(bulbasaur);
+  it("returns the existing cart as a CartView", () => {
+    const cart = Cart.empty();
+    mockCartRepository.findLast.mockReturnValue(cart);
 
-    const cartView = useCase.execute();
+    const result = useCase.execute();
 
-    expect(cartView).toEqual(CartView.fromCart(cart));
+    expect(mockCartRepository.findLast).toHaveBeenCalled();
+    expect(mockCartRepository.save).not.toHaveBeenCalled();
+    expect(result).toStrictEqual(CartView.fromCart(cart));
   });
 
-  it("returns an empty array when the cart has no pokemons", () => {
-    const cartView = useCase.execute();
-    expect(cartView).toEqual(new CartView([]));
+  it("creates and saves a new cart if no cart exists", () => {
+    mockCartRepository.findLast.mockReturnValue(null);
+
+    const result = useCase.execute();
+
+    expect(mockCartRepository.findLast).toHaveBeenCalled();
+    expect(mockCartRepository.save).toHaveBeenCalledWith(expect.any(Cart));
+    expect(result).toStrictEqual(CartView.fromCart(Cart.empty()));
   });
 });

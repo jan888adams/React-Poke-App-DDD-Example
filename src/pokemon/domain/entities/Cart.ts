@@ -2,10 +2,19 @@ import { PokemonId } from "../value-objects/PokemonId";
 import { Pokemon } from "./Pokemon";
 
 export class Cart {
-  private items: Pokemon[] = [];
+  private constructor(
+    public readonly id: string,
+    private items: Pokemon[] = [],
+  ) {}
 
   public add(pokemon: Pokemon) {
     this.items.push(pokemon);
+  }
+
+  public remove(pokemonId: PokemonId) {
+    this.items = this.items.filter(
+      (p) => p.id.getValue() !== pokemonId.getValue(),
+    );
   }
 
   public getItems(): Pokemon[] {
@@ -14,5 +23,13 @@ export class Cart {
 
   public has(pokemonId: PokemonId): boolean {
     return this.items.some((p) => p.id.getValue() === pokemonId.getValue());
+  }
+
+  public static fromValues(id: string, items: Pokemon[]): Cart {
+    return new Cart(id, items);
+  }
+
+  public static empty(): Cart {
+    return new Cart(crypto.randomUUID(), []);
   }
 }
