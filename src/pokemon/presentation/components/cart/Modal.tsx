@@ -36,7 +36,7 @@ export function CartModal({ isOpen, onRequestClose, cart }: Props) {
           <Card
             key={pokemon.id}
             pokemon={pokemon}
-            onLastItemRemoved={onRequestClose}
+            closeModal={onRequestClose}
           />
         ))}
       </div>

@@ -1,25 +1,32 @@
 import { PokemonView } from "../../../application/views/PokemonView";
 import { usePokemonCart } from "../../hooks/usePokemonCart";
+import { useNavigate } from "react-router-dom";
 import "../../styles/cart/card.sass";
 
 type Props = {
   pokemon: PokemonView;
-  onLastItemRemoved: () => void;
+  closeModal: () => void;
 };
 
-export function Card({ pokemon, onLastItemRemoved }: Props) {
+export function Card({ pokemon, closeModal }: Props) {
   const { cart, removeFromCart } = usePokemonCart();
+  const navigate = useNavigate();
 
   const handleRemove = () => {
     removeFromCart(pokemon);
 
     if (cart?.items.length === 1) {
-      onLastItemRemoved();
+      closeModal();
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/pokemon/${pokemon.id}`, { state: { pokemon } });
+    closeModal();
+  };
+
   return (
-    <div className="pokemon-card">
+    <div className="pokemon-card" onClick={handleCardClick}>
       <div className="pokemon-card__content">
         <img
           className="pokemon-card__image"
@@ -30,7 +37,10 @@ export function Card({ pokemon, onLastItemRemoved }: Props) {
       </div>
       <button
         className="pokemon-card__remove"
-        onClick={handleRemove}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleRemove();
+        }}
         aria-label="Remove from Cart"
       >
         <img
