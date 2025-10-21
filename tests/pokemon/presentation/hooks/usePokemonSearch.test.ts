@@ -1,13 +1,16 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { usePokemonSearch } from "../../../../src/pokemon/presentation/hooks/usePokemonSearch";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
-import { pokemonFinder } from "../../../../src/shared/infrastructure/DependencyContainer";
+import { pokemonFinder } from "../../../../src/shared/infrastructure/di/DependencyContainer";
 
-jest.mock("../../../../src/shared/infrastructure/DependencyContainer", () => ({
-  pokemonFinder: {
-    findByIdOrName: jest.fn(),
-  },
-}));
+jest.mock(
+  "../../../../src/shared/infrastructure/di/DependencyContainer",
+  () => ({
+    pokemonFinder: {
+      findByIdOrName: jest.fn(),
+    },
+  }),
+);
 
 const mockPokemon = Pokemon.fromValues(
   25,

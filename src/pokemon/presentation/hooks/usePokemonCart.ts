@@ -4,7 +4,7 @@ import {
   addPokemonToCart,
   getPokemonCart,
   removePokemonFromCart,
-} from "../../../shared/infrastructure/DependencyContainer";
+} from "../../../shared/infrastructure/di/DependencyContainer";
 import { CartEvent } from "../../application/events/CartEvent";
 import { CartView } from "../../application/views/CartView";
 import { PokemonDto } from "../../application/dtos/PokemonDto";

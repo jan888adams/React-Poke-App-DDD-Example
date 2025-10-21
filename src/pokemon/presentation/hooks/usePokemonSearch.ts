@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { pokemonFinder } from "../../../shared/infrastructure/DependencyContainer";
+import { pokemonFinder } from "../../../shared/infrastructure/di/DependencyContainer";
 import { PokemonView } from "../../application/views/PokemonView";
 
 interface SearchResult {
