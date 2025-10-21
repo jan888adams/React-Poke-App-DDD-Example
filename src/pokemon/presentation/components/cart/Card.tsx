@@ -13,7 +13,7 @@ export function Card({ pokemon, onLastItemRemoved }: Props) {
   const handleRemove = () => {
     removeFromCart(pokemon);
 
-    if (cart.items.length === 1) {
+    if (cart?.items.length === 1) {
       onLastItemRemoved();
     }
   };

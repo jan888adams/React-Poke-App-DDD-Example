@@ -1,9 +1,10 @@
-import { PokemonId } from "../value-objects/PokemonId";
+import { CardId } from "../value-objects/cart/CartId";
+import { PokemonId } from "../value-objects/pokemon/PokemonId";
 import { Pokemon } from "./Pokemon";
 
 export class Cart {
   private constructor(
-    public readonly id: string,
+    public readonly id: CardId,
     private items: Pokemon[] = [],
   ) {}
 
@@ -25,11 +26,11 @@ export class Cart {
     return this.items.some((p) => p.id.getValue() === pokemonId.getValue());
   }
 
-  public static fromValues(id: string, items: Pokemon[]): Cart {
+  public static fromValues(id: CardId, items: Pokemon[]): Cart {
     return new Cart(id, items);
   }
 
   public static empty(): Cart {
-    return new Cart(crypto.randomUUID(), []);
+    return new Cart(CardId.new(), []);
   }
 }

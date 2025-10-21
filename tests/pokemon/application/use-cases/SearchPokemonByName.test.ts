@@ -1,7 +1,7 @@
 import { SearchPokemonByName } from "../../../../src/pokemon/application/use-cases/SearchPokemonByName";
 import { PokemonRepository } from "../../../../src/pokemon/domain/repositories/PokemonRepository";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
-import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
+import { PokemonName } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonName";
 import { PokemonView } from "../../../../src/pokemon/application/views/PokemonView";
 
 describe("SearchPokemonByName", () => {

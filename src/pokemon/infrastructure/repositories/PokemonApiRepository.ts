@@ -1,8 +1,8 @@
 import { HttpClient } from "../../../shared/infrastructure/http/HttpClient";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import { PokemonRepository } from "../../domain/repositories/PokemonRepository";
-import { PokemonId } from "../../domain/value-objects/PokemonId";
-import { PokemonName } from "../../domain/value-objects/PokemonName";
+import { PokemonId } from "../../domain/value-objects/pokemon/PokemonId";
+import { PokemonName } from "../../domain/value-objects/pokemon/PokemonName";
 import { PokemonApiResponse } from "../dtos/PokemonApiResponse";
 
 export class PokemonApiRepository implements PokemonRepository {

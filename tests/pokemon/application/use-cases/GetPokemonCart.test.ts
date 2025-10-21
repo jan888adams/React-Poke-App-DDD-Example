@@ -1,19 +1,20 @@
-import { GetPokemonsFromCart } from "../../../../src/pokemon/application/use-cases/GetPokemonCart";
+import { GetPokemonCart } from "../../../../src/pokemon/application/use-cases/GetPokemonCart";
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { CartRepository } from "../../../../src/pokemon/domain/repositories/CartRepository";
 import { CartView } from "../../../../src/pokemon/application/views/CartView";
 
-describe("GetPokemonsFromCart", () => {
+describe("GetPokemonCart", () => {
   let mockCartRepository: jest.Mocked<CartRepository>;
-  let useCase: GetPokemonsFromCart;
+  let useCase: GetPokemonCart;
 
   beforeEach(() => {
     mockCartRepository = {
       findLast: jest.fn(),
+      findById: jest.fn(),
       save: jest.fn(),
     };
 
-    useCase = new GetPokemonsFromCart(mockCartRepository);
+    useCase = new GetPokemonCart(mockCartRepository);
   });
 
   it("returns the existing cart as a CartView", () => {
@@ -27,13 +28,13 @@ describe("GetPokemonsFromCart", () => {
     expect(result).toStrictEqual(CartView.fromCart(cart));
   });
 
-  it("creates and saves a new cart if no cart exists", () => {
+  it("returns null if no cart exists", () => {
     mockCartRepository.findLast.mockReturnValue(null);
 
     const result = useCase.execute();
 
     expect(mockCartRepository.findLast).toHaveBeenCalled();
-    expect(mockCartRepository.save).toHaveBeenCalledWith(expect.any(Cart));
-    expect(result).toStrictEqual(CartView.fromCart(Cart.empty()));
+    expect(mockCartRepository.save).not.toHaveBeenCalled();
+    expect(result).toBeNull();
   });
 });

@@ -4,7 +4,7 @@ import { SearchPokemonByName } from "../../pokemon/application/use-cases/SearchP
 import { SearchPokemonById } from "../../pokemon/application/use-cases/SearchPokemonById";
 import { PokemonFinder } from "../../pokemon/application/services/PokemonFinder";
 import { AddPokemonToCart } from "../../pokemon/application/use-cases/AddPokemonToCart";
-import { GetPokemonsFromCart } from "../../pokemon/application/use-cases/GetPokemonCart";
+import { GetPokemonCart } from "../../pokemon/application/use-cases/GetPokemonCart";
 import { MittEventEmitterAdapter } from "./adapters/mitt/MittEventEmmiterAdapter";
 import { CartEvent } from "../../pokemon/application/events/CartEvent";
 import { CartLocalStorageRepository } from "../../pokemon/infrastructure/repositories/CartLocalStorageRepository";
@@ -29,7 +29,7 @@ export const addPokemonToCart = new AddPokemonToCart(
   cartRepository,
   cartEventEmitter,
 );
-export const getPokemonCart = new GetPokemonsFromCart(cartRepository);
+export const getPokemonCart = new GetPokemonCart(cartRepository);
 
 export const removePokemonFromCart = new RemovePokemonFromCart(
   cartRepository,

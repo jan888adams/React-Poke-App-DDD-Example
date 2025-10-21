@@ -17,6 +17,7 @@ describe("AddPokemonToCart", () => {
   beforeEach(() => {
     mockCartRepository = {
       findLast: jest.fn(),
+      findById: jest.fn(),
       save: jest.fn(),
     };
 
@@ -39,9 +40,9 @@ describe("AddPokemonToCart", () => {
   });
 
   it("adds a Pokemon to the cart and emits a change event", () => {
-    mockCartRepository.findLast.mockReturnValue(cart);
+    mockCartRepository.findById.mockReturnValue(cart);
 
-    useCase.execute(pikachu);
+    useCase.execute(pikachu, "" + cart.id.getValue());
 
     expect(
       cart.has(
@@ -64,12 +65,9 @@ describe("AddPokemonToCart", () => {
   });
 
   it("creates and saves a new cart if no cart exists", () => {
-    mockCartRepository.findLast.mockReturnValue(null);
+    useCase.execute(pikachu, null);
 
-    useCase.execute(pikachu);
-
-    expect(mockCartRepository.findLast).toHaveBeenCalled();
-    expect(mockCartRepository.save).toHaveBeenCalledTimes(2); // Once for creating the cart, once for saving after adding
+    expect(mockCartRepository.save).toHaveBeenCalledTimes(2);
     expect(mockEmitter.emit).toHaveBeenCalledWith(
       "change",
       expect.any(CartView),
@@ -88,12 +86,12 @@ describe("AddPokemonToCart", () => {
         60,
       ),
     );
-    mockCartRepository.findLast.mockReturnValue(cart);
+    mockCartRepository.findById.mockReturnValue(cart);
 
-    useCase.execute(pikachu);
+    useCase.execute(pikachu, "" + cart.id.getValue());
 
-    expect(cart.getItems().length).toBe(1); // Ensure no duplicate is added
-    expect(mockCartRepository.save).not.toHaveBeenCalledTimes(2); // Save should not be called again
+    expect(cart.getItems().length).toBe(1);
+    expect(mockCartRepository.save).not.toHaveBeenCalledTimes(2);
     expect(mockEmitter.emit).not.toHaveBeenCalled();
   });
 });

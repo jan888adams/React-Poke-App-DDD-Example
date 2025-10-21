@@ -1,6 +1,6 @@
 import { Pokemon } from "../entities/Pokemon";
-import { PokemonId } from "../value-objects/PokemonId";
-import { PokemonName } from "../value-objects/PokemonName";
+import { PokemonId } from "../value-objects/pokemon/PokemonId";
+import { PokemonName } from "../value-objects/pokemon/PokemonName";
 
 export interface PokemonRepository {
   findByName(name: PokemonName): Promise<Pokemon | null>;

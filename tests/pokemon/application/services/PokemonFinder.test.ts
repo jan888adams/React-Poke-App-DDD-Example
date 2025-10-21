@@ -2,8 +2,8 @@ import { PokemonFinder } from "../../../../src/pokemon/application/services/Poke
 import { SearchPokemonByName } from "../../../../src/pokemon/application/use-cases/SearchPokemonByName";
 import { SearchPokemonById } from "../../../../src/pokemon/application/use-cases/SearchPokemonById";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
-import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
-import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
+import { PokemonId } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonId";
+import { PokemonName } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonName";
 import { PokemonView } from "../../../../src/pokemon/application/views/PokemonView";
 
 const mockRepository = {

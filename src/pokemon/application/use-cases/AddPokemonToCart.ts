@@ -5,6 +5,7 @@ import { EventEmitter } from "../../../shared/application/events/EventEmitter";
 import { CartView } from "../views/CartView";
 import { PokemonDto } from "../dtos/PokemonDto";
 import { CartRepository } from "../../domain/repositories/CartRepository";
+import { CardId } from "../../domain/value-objects/cart/CartId";
 
 export class AddPokemonToCart {
   constructor(
@@ -12,7 +13,7 @@ export class AddPokemonToCart {
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  execute(pokemonDto: PokemonDto): void {
+  execute(pokemonDto: PokemonDto, cartId: string | null): void {
     const pokemon = Pokemon.fromValues(
       pokemonDto.id,
       pokemonDto.name,
@@ -23,14 +24,16 @@ export class AddPokemonToCart {
       pokemonDto.weight,
     );
 
-    let cart = this.cartRepository.findLast();
+    let cart: Cart | null;
 
-    if (!cart) {
+    if (!cartId) {
       cart = Cart.empty();
       this.cartRepository.save(cart);
+    } else {
+      cart = this.cartRepository.findById(CardId.fromString(cartId));
     }
 
-    if (cart.has(pokemon.id)) {
+    if (!cart || cart.has(pokemon.id)) {
       return;
     }
 

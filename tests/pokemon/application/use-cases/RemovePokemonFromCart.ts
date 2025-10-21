@@ -16,6 +16,7 @@ describe("RemovePokemonFromCart", () => {
   beforeEach(() => {
     mockCartRepository = {
       findLast: jest.fn(),
+      findById: jest.fn(),
       save: jest.fn(),
     };
 
@@ -51,7 +52,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 60,
     };
 
-    useCase.execute(pokemonDto);
+    useCase.execute(pokemonDto, "" + cart.id.getValue());
 
     expect(cart.has(pikachu.id)).toBe(false);
     expect(mockCartRepository.save).toHaveBeenCalledWith(cart);
@@ -71,7 +72,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 0,
     };
 
-    useCase.execute(pokemonDto);
+    useCase.execute(pokemonDto, "" + cart.id.getValue());
 
     expect(mockCartRepository.save).not.toHaveBeenCalled();
     expect(mockEmitter.emit).not.toHaveBeenCalled();
@@ -90,7 +91,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 0,
     };
 
-    useCase.execute(pokemonDto);
+    useCase.execute(pokemonDto, "" + cart.id.getValue());
 
     const unknownPokemon = Pokemon.fromValues(999, "unknown", "", [], 0, 0, 0);
 

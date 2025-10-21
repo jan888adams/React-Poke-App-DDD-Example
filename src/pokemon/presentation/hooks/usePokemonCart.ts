@@ -11,7 +11,9 @@ import { PokemonDto } from "../../application/dtos/PokemonDto";
 
 export const usePokemonCart = () => {
   const emitter = useContext(CartContext);
-  const [cart, setCart] = useState<CartView>(() => getPokemonCart.execute());
+  const [cart, setCart] = useState<CartView | null>(() =>
+    getPokemonCart.execute(),
+  );
 
   const handleChange = useCallback((cart: CartEvent["change"]) => {
     setCart(cart);
@@ -29,11 +31,14 @@ export const usePokemonCart = () => {
   }, [emitter, handleChange]);
 
   const addToCart = (pokemon: PokemonDto) => {
-    addPokemonToCart.execute(pokemon);
+    addPokemonToCart.execute(pokemon, cart?.id ?? null);
   };
 
   const removeFromCart = (pokemon: PokemonDto) => {
-    removePokemonFromCart.execute(pokemon);
+    if (!cart) {
+      return;
+    }
+    removePokemonFromCart.execute(pokemon, cart.id);
   };
 
   return {

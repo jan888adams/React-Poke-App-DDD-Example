@@ -3,7 +3,8 @@ import { EventEmitter } from "../../../shared/application/events/EventEmitter";
 import { CartView } from "../views/CartView";
 import { PokemonDto } from "../dtos/PokemonDto";
 import { CartRepository } from "../../domain/repositories/CartRepository";
-import { PokemonId } from "../../domain/value-objects/PokemonId";
+import { PokemonId } from "../../domain/value-objects/pokemon/PokemonId";
+import { CardId } from "../../domain/value-objects/cart/CartId";
 
 export class RemovePokemonFromCart {
   constructor(
@@ -11,10 +12,10 @@ export class RemovePokemonFromCart {
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  execute(pokemonDto: PokemonDto): void {
+  execute(pokemonDto: PokemonDto, cartId: string): void {
     const pokemonId = PokemonId.fromNumber(pokemonDto.id);
 
-    const cart = this.cartRepository.findLast();
+    const cart = this.cartRepository.findById(CardId.fromString(cartId));
 
     if (!cart || !cart.has(pokemonId)) {
       return;
