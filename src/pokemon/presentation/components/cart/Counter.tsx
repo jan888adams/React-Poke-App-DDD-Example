@@ -28,7 +28,7 @@ export function Counter() {
         <span className="cart-counter__count">{count}</span>
       </button>
 
-      {cart && isModalOpen && (
+      {cart && !cart.isEmpty() && isModalOpen && (
         <CartModal
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}

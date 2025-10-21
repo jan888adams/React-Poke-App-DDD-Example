@@ -21,6 +21,7 @@ describe("Counter", () => {
       cart: {
         items: [{}, {}, {}],
         count: () => 3,
+        isEmpty: () => false,
       },
     });
     render(<Counter />);
@@ -32,6 +33,7 @@ describe("Counter", () => {
       cart: {
         items: [],
         count: () => 0,
+        isEmpty: () => true,
       },
     });
     render(<Counter />);
