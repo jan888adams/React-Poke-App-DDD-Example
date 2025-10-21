@@ -48,7 +48,7 @@ describe("CartLocalStorageRepository", () => {
             id: 25,
             name: "Pikachu",
             imageUrl: "https://example.com/pikachu.png",
-            altText: "pikachu", // Include the altText property
+            altText: "pikachu",
             types: ["electric"],
             baseExperience: 112,
             height: 4,
