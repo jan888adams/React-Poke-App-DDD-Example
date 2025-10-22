@@ -9,6 +9,7 @@ import { CartEvent } from "../../../pokemon/application/events/CartEvent";
 import { CartLocalStorageRepository } from "../../../pokemon/infrastructure/repositories/CartLocalStorageRepository";
 import { RemovePokemonFromCart } from "../../../pokemon/application/use-cases/RemovePokemonFromCart";
 import { GetPokemons } from "../../../pokemon/application/use-cases/GetPokemons";
+import { GetPokemonNames } from "../../../pokemon/application/use-cases/GetPokemonNames";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -32,3 +33,5 @@ export const removePokemonFromCart = new RemovePokemonFromCart(
 );
 
 export const getPokemons = new GetPokemons(pokemonRepository);
+
+export const getPokemonNames = new GetPokemonNames(pokemonRepository);

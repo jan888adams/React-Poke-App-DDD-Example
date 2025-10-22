@@ -70,6 +70,20 @@ export class PokemonApiRepository implements PokemonRepository {
     return pokemons;
   }
 
+  async getNames(): Promise<PokemonName[]> {
+    const response = await this.httpClient.get<PokemonApiListResponse>(
+      `pokemon?offset=0&limit=10000`,
+    );
+
+    if (!response.isSuccess()) {
+      throw new Error(`Failed to fetch Pokemon names`);
+    }
+
+    return response
+      .getData()
+      .results.map((pokemon) => PokemonName.fromString(pokemon.name));
+  }
+
   private map(response: PokemonApiResponse): Pokemon {
     return Pokemon.fromValues(
       response.id,

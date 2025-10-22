@@ -12,6 +12,7 @@ describe("GetPokemons", () => {
       findByName: jest.fn(),
       findById: jest.fn(),
       getAll: jest.fn(),
+      getNames: jest.fn(),
     };
 
     getPokemons = new GetPokemons(mockPokemonRepository);
