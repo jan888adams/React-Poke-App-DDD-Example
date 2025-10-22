@@ -1,10 +1,11 @@
 import React from "react";
 import { useGetPokemons } from "../../hooks/useGetPokemons";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import "../../styles/pokedex/grid.sass";
 
 export const Grid: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const limit = 30;
 
@@ -18,6 +19,10 @@ export const Grid: React.FC = () => {
     if (page > 1) {
       setSearchParams({ page: (page - 1).toString() });
     }
+  };
+
+  const handleBackToSearch = () => {
+    navigate("/");
   };
 
   if (loading) {
@@ -52,6 +57,11 @@ export const Grid: React.FC = () => {
         </button>
         <button className="grid__button" onClick={handleNextPage}>
           Next
+        </button>
+      </div>
+      <div className="grid__back">
+        <button className="grid__button" onClick={handleBackToSearch}>
+          Back to Search
         </button>
       </div>
     </div>
