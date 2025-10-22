@@ -8,6 +8,7 @@ import { MittEventEmitterAdapter } from "../adapters/mitt/MittEventEmmiterAdapte
 import { CartEvent } from "../../../pokemon/application/events/CartEvent";
 import { CartLocalStorageRepository } from "../../../pokemon/infrastructure/repositories/CartLocalStorageRepository";
 import { RemovePokemonFromCart } from "../../../pokemon/application/use-cases/RemovePokemonFromCart";
+import { GetPokemons } from "../../../pokemon/application/use-cases/GetPokemons";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -29,3 +30,5 @@ export const removePokemonFromCart = new RemovePokemonFromCart(
   cartRepository,
   cartEventEmitter,
 );
+
+export const getPokemons = new GetPokemons(pokemonRepository);

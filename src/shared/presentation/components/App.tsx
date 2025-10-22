@@ -3,13 +3,14 @@ import { SearchBar } from "../../../pokemon/presentation/components/search/Searc
 import { Page as PokemonDetailPage } from "../../../pokemon/presentation/components/details/Page";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { CartContextProvider } from "../../../pokemon/presentation/context/CartContextProvider";
-import { Counter } from "../../../pokemon/presentation/components/cart/Counter";
+import { Counter as CartCounter } from "../../../pokemon/presentation/components/cart/Counter";
+import { Grid as PokedexGrid } from "../../../pokemon/presentation/components/pokedex/Grid";
 import "../styles/app.sass";
 
 export function App() {
   return (
     <CartContextProvider>
-      <Counter />
+      <CartCounter />
       <Routes>
         <Route
           path="/"
@@ -21,6 +22,7 @@ export function App() {
           }
         />
         <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+        <Route path="/pokedex" element={<PokedexGrid />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </CartContextProvider>
