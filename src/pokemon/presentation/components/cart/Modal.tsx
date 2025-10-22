@@ -1,4 +1,4 @@
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 import { ComponentType } from "react";
 import { CartView } from "../../../application/views/CartView";
 import { Card } from "./Card";
@@ -11,12 +11,10 @@ type Props = {
 };
 
 export function CartModal({ isOpen, onRequestClose, cart }: Props) {
-  const ModalSafeForReact18 = Modal as unknown as ComponentType<
-    ReactModal["props"]
-  >;
+  const Modal = ReactModal as unknown as ComponentType<ReactModal["props"]>;
 
   return (
-    <ModalSafeForReact18
+    <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Cart"
@@ -40,6 +38,6 @@ export function CartModal({ isOpen, onRequestClose, cart }: Props) {
           />
         ))}
       </div>
-    </ModalSafeForReact18>
+    </Modal>
   );
 }
