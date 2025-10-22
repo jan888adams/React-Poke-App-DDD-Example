@@ -14,6 +14,7 @@ describe("SearchPokemonByName", () => {
       findById: jest.fn(),
       findByName: jest.fn(),
       getAll: jest.fn(),
+      getNames: jest.fn(),
     };
     useCase = new SearchPokemonByName(mockRepository);
 

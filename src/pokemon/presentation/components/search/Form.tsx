@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Suggestions } from "./Suggestions";
 import {
   SearchInputSchema,
   type PokemonSearchForm,
@@ -15,6 +16,7 @@ export const Form = function Form({ onSubmit }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
     reset,
   } = useForm<PokemonSearchForm>({
     resolver: zodResolver(SearchInputSchema),
@@ -22,6 +24,8 @@ export const Form = function Form({ onSubmit }: Props) {
       searchTerm: "",
     },
   });
+
+  const searchTerm = watch("searchTerm");
 
   const onFormSubmit = (data: PokemonSearchForm) => {
     onSubmit(data.searchTerm.trim());
@@ -36,6 +40,8 @@ export const Form = function Form({ onSubmit }: Props) {
         type="text"
         placeholder="Search for Pokemon"
       />
+
+      <Suggestions inputValue={searchTerm} />
       <button className="search-form__button" type="submit">
         Search
       </button>

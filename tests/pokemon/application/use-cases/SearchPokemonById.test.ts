@@ -9,6 +9,7 @@ describe("SearchPokemonById use case", () => {
     findById: jest.fn(),
     findByName: jest.fn(),
     getAll: jest.fn(),
+    getNames: jest.fn(),
   };
 
   let useCase: SearchPokemonById;
