@@ -5,9 +5,23 @@ import { NotFoundPage } from "./error/NotFoundPage";
 import { CartContextProvider } from "../../../pokemon/presentation/context/CartContextProvider";
 import { Counter as CartCounter } from "../../../pokemon/presentation/components/cart/Counter";
 import { Grid as PokedexGrid } from "../../../pokemon/presentation/components/pokedex/Grid";
+import { useEffect } from "react";
+import { createSuggestions } from "../../infrastructure/di/DependencyContainer";
 import "../styles/app.sass";
 
 export function App() {
+  useEffect(() => {
+    const initializeSuggestions = async () => {
+      try {
+        await createSuggestions.execute();
+      } catch (error) {
+        console.error("Failed to initialize suggestions:", error);
+      }
+    };
+
+    initializeSuggestions();
+  }, []);
+
   return (
     <CartContextProvider>
       <CartCounter />
