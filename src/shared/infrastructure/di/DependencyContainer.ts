@@ -10,6 +10,9 @@ import { CartLocalStorageRepository } from "../../../pokemon/infrastructure/repo
 import { RemovePokemonFromCart } from "../../../pokemon/application/use-cases/RemovePokemonFromCart";
 import { GetPokemons } from "../../../pokemon/application/use-cases/GetPokemons";
 import { GetPokemonNames } from "../../../pokemon/application/use-cases/GetPokemonNames";
+import { CreateSuggestions } from "../../../pokemon/application/use-cases/CreateSuggestions";
+import { SuggestionLocalStorageRepository } from "../../../pokemon/infrastructure/repositories/SuggestionLocalStorageRepository";
+import { FindSuggestions } from "../../../pokemon/application/use-cases/FindSuggestions";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -35,3 +38,12 @@ export const removePokemonFromCart = new RemovePokemonFromCart(
 export const getPokemons = new GetPokemons(pokemonRepository);
 
 export const getPokemonNames = new GetPokemonNames(pokemonRepository);
+
+export const suggestionRepository = new SuggestionLocalStorageRepository();
+
+export const createSuggestions = new CreateSuggestions(
+  pokemonRepository,
+  suggestionRepository,
+);
+
+export const findSuggestions = new FindSuggestions(suggestionRepository);

@@ -8,4 +8,8 @@ export abstract class ValueObject<T> {
   public getValue(): T {
     return this.value;
   }
+
+  public isStringValue(): boolean {
+    return typeof this.value === "string";
+  }
 }

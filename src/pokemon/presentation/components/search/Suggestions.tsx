@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useGetPokemonNames } from "../../hooks/useGetPokemonNames";
+import React from "react";
+import { useFindSuggestions } from "../../hooks/useFindSuggestions";
 
 interface SuggestionsProps {
   inputValue: string;
 }
 
 export const Suggestions: React.FC<SuggestionsProps> = ({ inputValue }) => {
-  const { allPokemonNames, loading, error } = useGetPokemonNames();
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (inputValue.trim() === "") {
-      setSuggestions([]);
-    } else {
-      const filteredSuggestions = allPokemonNames
-        .filter((name) =>
-          name.toLowerCase().startsWith(inputValue.toLowerCase()),
-        )
-        .slice(0, 5);
-      setSuggestions(filteredSuggestions);
-    }
-  }, [inputValue, allPokemonNames]);
+  const { suggestions, loading, error } = useFindSuggestions(inputValue);
 
   if (loading) {
     return <div className="suggestions-loading">Loading...</div>;
