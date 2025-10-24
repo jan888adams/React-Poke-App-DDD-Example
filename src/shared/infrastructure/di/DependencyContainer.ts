@@ -13,6 +13,7 @@ import { GetPokemonNames } from "../../../pokemon/application/use-cases/GetPokem
 import { CreateSuggestions } from "../../../pokemon/application/use-cases/CreateSuggestions";
 import { SuggestionLocalStorageRepository } from "../../../pokemon/infrastructure/repositories/SuggestionLocalStorageRepository";
 import { FindSuggestions } from "../../../pokemon/application/use-cases/FindSuggestions";
+import { SuggestionSearchAdapter } from "../../../pokemon/infrastructure/adapters/SuggestionSearchAdapter";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -39,7 +40,10 @@ export const getPokemons = new GetPokemons(pokemonRepository);
 
 export const getPokemonNames = new GetPokemonNames(pokemonRepository);
 
-export const suggestionRepository = new SuggestionLocalStorageRepository();
+export const searchAdapter = new SuggestionSearchAdapter();
+export const suggestionRepository = new SuggestionLocalStorageRepository(
+  searchAdapter,
+);
 
 export const createSuggestions = new CreateSuggestions(
   pokemonRepository,
