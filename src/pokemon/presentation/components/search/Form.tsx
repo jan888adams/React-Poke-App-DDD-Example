@@ -6,6 +6,7 @@ import {
   type PokemonSearchForm,
 } from "../../schemas/SearchInputSchema";
 import "../../styles/search/form.sass";
+import { useState } from "react";
 
 interface Props {
   onSubmit: (value: string) => void;
@@ -17,6 +18,7 @@ export const Form = function Form({ onSubmit }: Props) {
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
     reset,
   } = useForm<PokemonSearchForm>({
     resolver: zodResolver(SearchInputSchema),
@@ -25,11 +27,23 @@ export const Form = function Form({ onSubmit }: Props) {
     },
   });
 
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const searchTerm = watch("searchTerm");
 
   const onFormSubmit = (data: PokemonSearchForm) => {
     onSubmit(data.searchTerm.trim());
     reset();
+    setShowSuggestions(false);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue("searchTerm", event.target.value);
+    setShowSuggestions(true);
+  };
+
+  const handleSuggestionSelect = (value: string) => {
+    setValue("searchTerm", value);
+    setShowSuggestions(false);
   };
 
   return (
@@ -39,9 +53,16 @@ export const Form = function Form({ onSubmit }: Props) {
         {...register("searchTerm")}
         type="text"
         placeholder="Search for Pokemon"
+        onChange={handleInputChange}
       />
 
-      <Suggestions inputValue={searchTerm} />
+      {showSuggestions && (
+        <Suggestions
+          inputValue={searchTerm}
+          onSuggestionSelect={handleSuggestionSelect}
+        />
+      )}
+
       <button className="search-form__button" type="submit">
         Search
       </button>
