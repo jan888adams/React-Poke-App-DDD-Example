@@ -8,7 +8,8 @@ export const useFindSuggestions = (prefix: string) => {
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (prefix.trim() === "") {
+      const normalizedPrefix = prefix.trim().toLowerCase();
+      if (normalizedPrefix === "") {
         setSuggestions([]);
         setLoading(false);
         setError(null);
@@ -17,7 +18,8 @@ export const useFindSuggestions = (prefix: string) => {
 
       try {
         setLoading(true);
-        const fetchedSuggestions = await findSuggestions.execute(prefix);
+        const fetchedSuggestions =
+          await findSuggestions.execute(normalizedPrefix);
         setSuggestions(fetchedSuggestions.slice(0, 5));
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
