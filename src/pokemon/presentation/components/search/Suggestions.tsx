@@ -1,11 +1,15 @@
 import React from "react";
 import { useFindSuggestions } from "../../hooks/useFindSuggestions";
 
-interface SuggestionsProps {
+interface Props {
   inputValue: string;
+  onSuggestionSelect: (value: string) => void;
 }
 
-export const Suggestions: React.FC<SuggestionsProps> = ({ inputValue }) => {
+export const Suggestions: React.FC<Props> = ({
+  inputValue,
+  onSuggestionSelect,
+}) => {
   const { suggestions, loading, error } = useFindSuggestions(inputValue);
 
   if (loading) {
@@ -19,7 +23,11 @@ export const Suggestions: React.FC<SuggestionsProps> = ({ inputValue }) => {
   return (
     <ul className="suggestions-list">
       {suggestions.map((name) => (
-        <li key={name} className="suggestions-item">
+        <li
+          key={name}
+          className="suggestions-item"
+          onClick={() => onSuggestionSelect(name)}
+        >
           {name}
         </li>
       ))}
