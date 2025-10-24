@@ -3,10 +3,12 @@ import { SuggestionRepository } from "../../domain/repositories/SuggestionReposi
 import { SuggestionSearchAdapter } from "../adapters/SuggestionSearchAdapter";
 
 export class SuggestionLocalStorageRepository implements SuggestionRepository {
-  private searchAdapter: SuggestionSearchAdapter;
+  private readonly storageKey = "pokemon_suggestions";
 
-  constructor() {
-    this.searchAdapter = new SuggestionSearchAdapter();
+  constructor(
+    private readonly searchAdapter: SuggestionSearchAdapter,
+    private readonly storage: Storage = window.localStorage,
+  ) {
     this.loadFromStorage();
   }
 
@@ -20,7 +22,7 @@ export class SuggestionLocalStorageRepository implements SuggestionRepository {
   }
 
   public async hasSuggestions(): Promise<boolean> {
-    const storedData = localStorage.getItem("pokemon_suggestions");
+    const storedData = this.storage.getItem(this.storageKey);
     return storedData !== null;
   }
 
@@ -31,11 +33,11 @@ export class SuggestionLocalStorageRepository implements SuggestionRepository {
       name: suggestion.name.getValue(),
     }));
 
-    localStorage.setItem("pokemon_suggestions", JSON.stringify(dataToStore));
+    this.storage.setItem(this.storageKey, JSON.stringify(dataToStore));
   }
 
   private loadFromStorage(): void {
-    const storedData = localStorage.getItem("pokemon_suggestions");
+    const storedData = this.storage.getItem(this.storageKey);
     if (storedData) {
       const suggestions: { id: string; name: string }[] =
         JSON.parse(storedData);
