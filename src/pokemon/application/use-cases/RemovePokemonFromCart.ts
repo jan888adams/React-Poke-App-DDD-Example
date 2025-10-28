@@ -12,10 +12,10 @@ export class RemovePokemonFromCart {
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  execute(pokemonDto: PokemonDto, cartId: string): void {
+  async execute(pokemonDto: PokemonDto, cartId: string): Promise<void> {
     const pokemonId = PokemonId.fromNumber(pokemonDto.id);
 
-    const cart = this.cartRepository.findById(CardId.fromString(cartId));
+    const cart = await this.cartRepository.findById(CardId.fromString(cartId));
 
     if (!cart || !cart.has(pokemonId)) {
       return;

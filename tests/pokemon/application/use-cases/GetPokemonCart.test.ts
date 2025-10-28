@@ -17,21 +17,21 @@ describe("GetPokemonCart", () => {
     useCase = new GetPokemonCart(mockCartRepository);
   });
 
-  it("returns the existing cart as a CartView", () => {
+  it("returns the existing cart as a CartView", async () => {
     const cart = Cart.empty();
-    mockCartRepository.findLast.mockReturnValue(cart);
+    mockCartRepository.findLast.mockResolvedValue(cart);
 
-    const result = useCase.execute();
+    const result = await useCase.execute();
 
     expect(mockCartRepository.findLast).toHaveBeenCalled();
     expect(mockCartRepository.save).not.toHaveBeenCalled();
     expect(result).toStrictEqual(CartView.fromCart(cart));
   });
 
-  it("returns null if no cart exists", () => {
-    mockCartRepository.findLast.mockReturnValue(null);
+  it("returns null if no cart exists", async () => {
+    mockCartRepository.findLast.mockResolvedValue(null);
 
-    const result = useCase.execute();
+    const result = await useCase.execute();
 
     expect(mockCartRepository.findLast).toHaveBeenCalled();
     expect(mockCartRepository.save).not.toHaveBeenCalled();

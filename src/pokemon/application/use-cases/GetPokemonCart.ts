@@ -4,8 +4,8 @@ import { CartView } from "../views/CartView";
 export class GetPokemonCart {
   constructor(private readonly cartRepository: CartRepository) {}
 
-  execute(): CartView | null {
-    const cart = this.cartRepository.findLast();
+  async execute(): Promise<CartView | null> {
+    const cart = await this.cartRepository.findLast();
 
     if (!cart) {
       return null;

@@ -41,9 +41,9 @@ describe("RemovePokemonFromCart", () => {
     );
   });
 
-  it("removes a Pokemon from the cart and emits a change event", () => {
+  it("removes a Pokemon from the cart and emits a change event", async () => {
     const cartId = cart.id.getValue();
-    mockCartRepository.findById.mockReturnValue(cart);
+    mockCartRepository.findById.mockResolvedValue(cart);
 
     const pokemonDto: PokemonDto = {
       id: 25,
@@ -55,7 +55,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 60,
     };
 
-    useCase.execute(pokemonDto, cartId);
+    await useCase.execute(pokemonDto, cartId);
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
       CardId.fromString(cartId),
@@ -68,8 +68,8 @@ describe("RemovePokemonFromCart", () => {
     expect(cart.getItems()).toHaveLength(0);
   });
 
-  it("does nothing if the cart does not exist", () => {
-    mockCartRepository.findById.mockReturnValue(null);
+  it("does nothing if the cart does not exist", async () => {
+    mockCartRepository.findById.mockResolvedValue(null);
 
     const pokemonDto: PokemonDto = {
       id: 25,
@@ -81,7 +81,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 60,
     };
 
-    useCase.execute(pokemonDto, "non-existent-cart-id");
+    await useCase.execute(pokemonDto, "non-existent-cart-id");
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
       CardId.fromString("non-existent-cart-id"),
@@ -90,9 +90,9 @@ describe("RemovePokemonFromCart", () => {
     expect(mockEmitter.emit).not.toHaveBeenCalled();
   });
 
-  it("does nothing if the Pokémon is not in the cart", () => {
+  it("does nothing if the Pokémon is not in the cart", async () => {
     const cartId = cart.id.getValue();
-    mockCartRepository.findById.mockReturnValue(cart);
+    mockCartRepository.findById.mockResolvedValue(cart);
 
     const pokemonDto: PokemonDto = {
       id: 1,
@@ -104,7 +104,7 @@ describe("RemovePokemonFromCart", () => {
       weight: 69,
     };
 
-    useCase.execute(pokemonDto, cartId);
+    await useCase.execute(pokemonDto, cartId);
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
       CardId.fromString(cartId),

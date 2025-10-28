@@ -39,10 +39,10 @@ describe("AddPokemonToCart", () => {
     };
   });
 
-  it("adds a Pokemon to the cart and emits a change event", () => {
-    mockCartRepository.findById.mockReturnValue(cart);
+  it("adds a Pokemon to the cart and emits a change event", async () => {
+    mockCartRepository.findById.mockResolvedValue(cart);
 
-    useCase.execute(pikachu, "" + cart.id.getValue());
+    await useCase.execute(pikachu, cart.id.getValue());
 
     expect(
       cart.has(
@@ -64,8 +64,10 @@ describe("AddPokemonToCart", () => {
     );
   });
 
-  it("creates and saves a new cart if no cart exists", () => {
-    useCase.execute(pikachu, null);
+  it("creates and saves a new cart if no cart exists", async () => {
+    mockCartRepository.findLast.mockResolvedValue(null);
+
+    await useCase.execute(pikachu, null);
 
     expect(mockCartRepository.save).toHaveBeenCalledTimes(2);
     expect(mockEmitter.emit).toHaveBeenCalledWith(
@@ -74,7 +76,7 @@ describe("AddPokemonToCart", () => {
     );
   });
 
-  it("does not add a Pokemon if it is already in the cart", () => {
+  it("does not add a Pokemon if it is already in the cart", async () => {
     cart.add(
       Pokemon.fromValues(
         25,
@@ -86,9 +88,9 @@ describe("AddPokemonToCart", () => {
         60,
       ),
     );
-    mockCartRepository.findById.mockReturnValue(cart);
+    mockCartRepository.findById.mockResolvedValue(cart);
 
-    useCase.execute(pikachu, "" + cart.id.getValue());
+    await useCase.execute(pikachu, cart.id.getValue());
 
     expect(cart.getItems().length).toBe(1);
     expect(mockCartRepository.save).not.toHaveBeenCalledTimes(2);

@@ -20,7 +20,7 @@ describe("CartLocalStorageRepository", () => {
     repository = new CartLocalStorageRepository(mockStorage);
   });
 
-  it("saves a cart to localStorage", () => {
+  it("saves a cart to localStorage", async () => {
     const cart = Cart.empty();
     const pokemon = Pokemon.fromValues(
       25,
@@ -33,7 +33,7 @@ describe("CartLocalStorageRepository", () => {
     );
     cart.add(pokemon);
 
-    repository.save(cart);
+    await repository.save(cart);
 
     expect(mockStorage.setItem).toHaveBeenCalledWith(
       "pokemon_cart_last",
@@ -59,7 +59,7 @@ describe("CartLocalStorageRepository", () => {
     );
   });
 
-  it("retrieves the last saved cart from localStorage", () => {
+  it("retrieves the last saved cart from localStorage", async () => {
     const cartId = "cart-1";
     const cartData = JSON.stringify({
       id: cartId,
@@ -86,7 +86,7 @@ describe("CartLocalStorageRepository", () => {
       return null;
     });
 
-    const cart = repository.findLast();
+    const cart = await repository.findLast();
 
     expect(cart).not.toBeNull();
     expect(cart?.id.getValue()).toBe(cartId);
@@ -94,22 +94,22 @@ describe("CartLocalStorageRepository", () => {
     expect(cart?.getItems()[0].name.value).toBe("pikachu");
   });
 
-  it("returns null if no last cart is found", () => {
+  it("returns null if no last cart is found", async () => {
     (mockStorage.getItem as jest.Mock).mockReturnValue(null);
 
-    const cart = repository.findLast();
+    const cart = await repository.findLast();
 
     expect(cart).toBeNull();
   });
 
-  it("retrieves a cart by ID from localStorage", () => {
+  it("retrieves a cart by ID from localStorage", async () => {
     const cartId = "cart-1";
     const cartData = JSON.stringify({
       id: cartId,
       items: [
         {
           id: 25,
-          name: "pikachu",
+          name: "Pikachu",
           imageUrl: "https://example.com/pikachu.png",
           types: ["electric"],
           baseExperience: 112,
@@ -126,7 +126,7 @@ describe("CartLocalStorageRepository", () => {
       return null;
     });
 
-    const cart = repository.findById(CardId.fromString(cartId));
+    const cart = await repository.findById(CardId.fromString(cartId));
 
     expect(cart).not.toBeNull();
     expect(cart?.id.getValue()).toBe(cartId);
@@ -134,10 +134,12 @@ describe("CartLocalStorageRepository", () => {
     expect(cart?.getItems()[0].name.value).toBe("pikachu");
   });
 
-  it("returns null if the cart ID is not found", () => {
+  it("returns null if the cart ID is not found", async () => {
     (mockStorage.getItem as jest.Mock).mockReturnValue(null);
 
-    const cart = repository.findById(CardId.fromString("non-existent-id"));
+    const cart = await repository.findById(
+      CardId.fromString("non-existent-id"),
+    );
 
     expect(cart).toBeNull();
   });
