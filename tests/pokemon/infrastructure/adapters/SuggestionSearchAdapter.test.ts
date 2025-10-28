@@ -14,10 +14,15 @@ describe("SuggestionSearchAdapter", () => {
       Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
     ];
 
-    adapter.saveSuggestions(suggestions);
+    adapter.load(suggestions);
 
-    const results = adapter.findSuggestions("");
-    expect(results).toEqual(suggestions);
+    const expectedOrder = [
+      Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
+      Suggestion.fromObject({ id: "1", name: "charmander" }),
+    ];
+
+    const results = adapter.find("");
+    expect(results).toEqual(expectedOrder);
   });
 
   it("should find suggestions by prefix", () => {
@@ -27,9 +32,9 @@ describe("SuggestionSearchAdapter", () => {
       Suggestion.fromObject({ id: "3", name: "butterfree" }),
     ];
 
-    adapter.saveSuggestions(suggestions);
+    adapter.load(suggestions);
 
-    const results = adapter.findSuggestions("bu");
+    const results = adapter.find("bu");
     expect(results).toEqual([
       Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
       Suggestion.fromObject({ id: "3", name: "butterfree" }),
@@ -42,14 +47,14 @@ describe("SuggestionSearchAdapter", () => {
       Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
     ];
 
-    adapter.saveSuggestions(suggestions);
+    adapter.load(suggestions);
 
-    const results = adapter.findSuggestions("xyz");
+    const results = adapter.find("xyz");
     expect(results).toEqual([]);
   });
 
   it("should handle an empty tree gracefully", () => {
-    const results = adapter.findSuggestions("a");
+    const results = adapter.find("a");
     expect(results).toEqual([]);
   });
 
@@ -60,9 +65,15 @@ describe("SuggestionSearchAdapter", () => {
       Suggestion.fromObject({ id: "3", name: "squirtle" }),
     ];
 
-    adapter.saveSuggestions(suggestions);
+    adapter.load(suggestions);
 
-    const results = adapter.findSuggestions("");
-    expect(results).toEqual(suggestions);
+    const expectedOrder = [
+      Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
+      Suggestion.fromObject({ id: "1", name: "charmander" }),
+      Suggestion.fromObject({ id: "3", name: "squirtle" }),
+    ];
+
+    const results = adapter.find("");
+    expect(results).toEqual(expectedOrder);
   });
 });

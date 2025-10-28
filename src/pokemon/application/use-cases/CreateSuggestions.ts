@@ -3,7 +3,7 @@ import { Suggestion } from "../../domain/entities/Suggestion";
 import { SuggestionRepository } from "../../domain/repositories/SuggestionRepository";
 
 export class CreateSuggestions {
-  constructor(
+  public constructor(
     private readonly pokemonRepository: PokemonRepository,
     private readonly suggestionRepository: SuggestionRepository,
   ) {}
@@ -15,7 +15,7 @@ export class CreateSuggestions {
 
     const names = await this.pokemonRepository.getNames();
 
-    await this.suggestionRepository.saveSuggestions(
+    await this.suggestionRepository.save(
       names.map((name) => Suggestion.fromString(name.getValue())),
     );
   }

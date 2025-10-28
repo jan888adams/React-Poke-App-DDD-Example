@@ -2,7 +2,7 @@ import { SearchRepository } from "../../../shared/domain/repository/SearchReposi
 import { Suggestion } from "../entities/Suggestion";
 
 export interface SuggestionRepository extends SearchRepository<Suggestion> {
-  saveSuggestions(suggestions: Suggestion[]): Promise<void>;
+  save(suggestions: Suggestion[]): Promise<void>;
 
   hasSuggestions(): Promise<boolean>;
 }

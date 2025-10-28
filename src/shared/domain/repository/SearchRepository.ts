@@ -1,3 +1,3 @@
 export interface SearchRepository<T> {
-  search(value: string): Promise<T[]>;
+  search(term: string): Promise<T[]>;
 }

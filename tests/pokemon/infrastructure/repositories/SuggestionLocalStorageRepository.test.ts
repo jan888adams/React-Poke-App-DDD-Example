@@ -9,8 +9,8 @@ describe("SuggestionLocalStorageRepository", () => {
 
   beforeEach(() => {
     mockSearchAdapter = {
-      saveSuggestions: jest.fn(),
-      findSuggestions: jest.fn().mockReturnValue([]),
+      load: jest.fn(),
+      find: jest.fn().mockReturnValue([]),
     } as Partial<SuggestionSearchAdapter> as jest.Mocked<SuggestionSearchAdapter>;
 
     mockStorage = {
@@ -24,6 +24,7 @@ describe("SuggestionLocalStorageRepository", () => {
 
     repository = new SuggestionLocalStorageRepository(
       mockSearchAdapter,
+      "pokemon_suggestions",
       mockStorage,
     );
   });
@@ -34,13 +35,11 @@ describe("SuggestionLocalStorageRepository", () => {
       Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
     ];
 
-    (mockSearchAdapter.findSuggestions as jest.Mock).mockReturnValue(
-      suggestions,
-    );
+    (mockSearchAdapter.find as jest.Mock).mockReturnValue(suggestions);
 
-    await repository.saveSuggestions(suggestions);
+    await repository.save(suggestions);
 
-    expect(mockSearchAdapter.saveSuggestions).toHaveBeenCalledWith(suggestions);
+    expect(mockSearchAdapter.load).toHaveBeenCalledWith(suggestions);
     expect(mockStorage.setItem).toHaveBeenCalledWith(
       "pokemon_suggestions",
       JSON.stringify([
@@ -60,11 +59,12 @@ describe("SuggestionLocalStorageRepository", () => {
 
     repository = new SuggestionLocalStorageRepository(
       mockSearchAdapter,
+      "pokemon_suggestions",
       mockStorage,
     );
 
     expect(mockStorage.getItem).toHaveBeenCalledWith("pokemon_suggestions");
-    expect(mockSearchAdapter.saveSuggestions).toHaveBeenCalledWith([
+    expect(mockSearchAdapter.load).toHaveBeenCalledWith([
       Suggestion.fromObject({ id: "1", name: "charmander" }),
       Suggestion.fromObject({ id: "2", name: "bulbasaur" }),
     ]);
@@ -77,12 +77,10 @@ describe("SuggestionLocalStorageRepository", () => {
       Suggestion.fromObject({ id: "3", name: "butterfree" }),
     ];
 
-    (mockSearchAdapter.findSuggestions as jest.Mock).mockReturnValue(
-      suggestions,
-    );
+    (mockSearchAdapter.find as jest.Mock).mockReturnValue(suggestions);
 
     const results = await repository.search("bu");
-    expect(mockSearchAdapter.findSuggestions).toHaveBeenCalledWith("bu");
+    expect(mockSearchAdapter.find).toHaveBeenCalledWith("bu");
     expect(results).toEqual(suggestions);
   });
 
