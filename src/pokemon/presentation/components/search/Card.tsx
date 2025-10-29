@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PokemonView } from "../../../application/views/PokemonView";
+import { CardProps } from "../../types/components/search/CardProps";
 import "../../styles/search/card.sass";
 
-interface Props {
-  pokemon: PokemonView;
-}
-
-export const Card: React.FC<Props> = ({ pokemon }) => {
+export const Card: React.FC<CardProps> = ({ pokemon }) => {
   return (
     <div className="card">
       <img

@@ -1,14 +1,10 @@
-import { PokemonView } from "../../../application/views/PokemonView";
 import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { useNavigate } from "react-router-dom";
+import { CardProps } from "../../types/components/cart/CardProps";
 import "../../styles/cart/card.sass";
+import React from "react";
 
-type Props = {
-  pokemon: PokemonView;
-  closeModal: () => void;
-};
-
-export function Card({ pokemon, closeModal }: Props) {
+export const Card: React.FC<CardProps> = ({ pokemon, closeModal }) => {
   const { cart, removeFromCart } = usePokemonCart();
   const navigate = useNavigate();
 
@@ -51,4 +47,4 @@ export function Card({ pokemon, closeModal }: Props) {
       </button>
     </div>
   );
-}
+};
