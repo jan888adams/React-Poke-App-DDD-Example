@@ -16,8 +16,8 @@ describe("FindSuggestions", () => {
     findSuggestions = new FindSuggestions(mockSuggestionRepository);
   });
 
-  it("should return suggestions matching the prefix", async () => {
-    const prefix = "bu";
+  it("should return suggestions matching the term", async () => {
+    const term = "bu";
     const suggestions = [
       Suggestion.fromObject({ id: "1", name: "bulbasaur" }),
       Suggestion.fromObject({ id: "2", name: "butterfree" }),
@@ -27,26 +27,26 @@ describe("FindSuggestions", () => {
       suggestions,
     );
 
-    const result = await findSuggestions.execute(prefix);
+    const result = await findSuggestions.execute(term);
 
-    expect(mockSuggestionRepository.search).toHaveBeenCalledWith(prefix);
+    expect(mockSuggestionRepository.search).toHaveBeenCalledWith(term);
     expect(result).toEqual(["bulbasaur", "butterfree"]);
   });
 
-  it("should throw an error if the prefix is empty", async () => {
+  it("should throw an error if the term is empty", async () => {
     await expect(findSuggestions.execute("")).rejects.toThrow(
-      "Prefix must be a non-empty string",
+      "Term must be a non-empty string",
     );
   });
 
-  it("should return an empty array if no suggestions match the prefix", async () => {
-    const prefix = "xyz";
+  it("should return an empty array if no suggestions match the term", async () => {
+    const term = "xyz";
 
     (mockSuggestionRepository.search as jest.Mock).mockResolvedValue([]);
 
-    const result = await findSuggestions.execute(prefix);
+    const result = await findSuggestions.execute(term);
 
-    expect(mockSuggestionRepository.search).toHaveBeenCalledWith(prefix);
+    expect(mockSuggestionRepository.search).toHaveBeenCalledWith(term);
     expect(result).toEqual([]);
   });
 });

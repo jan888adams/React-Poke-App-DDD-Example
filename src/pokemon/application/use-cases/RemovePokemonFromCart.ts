@@ -7,12 +7,12 @@ import { PokemonId } from "../../domain/value-objects/pokemon/PokemonId";
 import { CardId } from "../../domain/value-objects/cart/CartId";
 
 export class RemovePokemonFromCart {
-  constructor(
+  public constructor(
     private readonly cartRepository: CartRepository,
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  async execute(pokemonDto: PokemonDto, cartId: string): Promise<void> {
+  public async execute(pokemonDto: PokemonDto, cartId: string): Promise<void> {
     const pokemonId = PokemonId.fromNumber(pokemonDto.id);
 
     const cart = await this.cartRepository.findById(CardId.fromString(cartId));
@@ -22,6 +22,7 @@ export class RemovePokemonFromCart {
     }
 
     cart.remove(pokemonId);
+
     this.cartRepository.save(cart);
 
     this.emitter.emit("change", CartView.fromCart(cart));

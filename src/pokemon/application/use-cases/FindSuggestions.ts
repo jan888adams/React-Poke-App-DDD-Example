@@ -1,14 +1,14 @@
 import { SuggestionRepository } from "../../domain/repositories/SuggestionRepository";
 
 export class FindSuggestions {
-  constructor(private readonly suggestionRepository: SuggestionRepository) {}
+ public constructor(private readonly suggestionRepository: SuggestionRepository) {}
 
-  async execute(prefix: string): Promise<string[]> {
-    if (!prefix) {
-      throw new Error("Prefix must be a non-empty string");
+  public async execute(term: string): Promise<string[]> {
+    if (!term) {
+      throw new Error("Term must be a non-empty string");
     }
 
-    const suggestions = await this.suggestionRepository.search(prefix);
+    const suggestions = await this.suggestionRepository.search(term);
 
     return suggestions.map((suggestion) => suggestion.name.getValue());
   }

@@ -6,6 +6,7 @@ export class Cart {
   private constructor(
     public readonly id: CardId,
     private items: Pokemon[] = [],
+    
   ) {}
 
   public add(pokemon: Pokemon) {
