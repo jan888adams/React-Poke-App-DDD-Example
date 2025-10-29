@@ -8,7 +8,7 @@ export class CreateSuggestions {
     private readonly suggestionRepository: SuggestionRepository,
   ) {}
 
-  async execute(): Promise<void> {
+  public async execute(): Promise<void> {
     if (await this.suggestionRepository.hasSuggestions()) {
       return;
     }

@@ -2,9 +2,9 @@ import { CartRepository } from "../../domain/repositories/CartRepository";
 import { CartView } from "../views/CartView";
 
 export class GetPokemonCart {
-  constructor(private readonly cartRepository: CartRepository) {}
+  public constructor(private readonly cartRepository: CartRepository) {}
 
-  async execute(): Promise<CartView | null> {
+  public async execute(): Promise<CartView | null> {
     const cart = await this.cartRepository.findLast();
 
     if (!cart) {
