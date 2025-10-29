@@ -3,7 +3,7 @@ import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { CartModal } from "./Modal";
 import "../../styles/cart/counter.sass";
 
-export function Counter() {
+export const Counter: React.FC = () => {
   const { cart } = usePokemonCart();
   const count = cart ? cart.count() : 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,4 +37,4 @@ export function Counter() {
       )}
     </>
   );
-}
+};

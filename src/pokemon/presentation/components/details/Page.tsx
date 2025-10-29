@@ -4,7 +4,7 @@ import { PokemonView } from "../../../application/views/PokemonView";
 import { PokemonDto } from "../../../application/dtos/PokemonDto";
 import "../../styles/details/page.sass";
 
-export function Page() {
+export const Page: React.FC = () => {
   const location = useLocation();
   const { cart, addToCart } = usePokemonCart();
   const pokemon = (location.state as { pokemon?: PokemonView })?.pokemon;
@@ -30,4 +30,4 @@ export function Page() {
       </button>
     </div>
   );
-}
+};

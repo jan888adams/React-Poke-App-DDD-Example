@@ -1,7 +1,9 @@
 import { SuggestionRepository } from "../../domain/repositories/SuggestionRepository";
 
 export class FindSuggestions {
- public constructor(private readonly suggestionRepository: SuggestionRepository) {}
+  public constructor(
+    private readonly suggestionRepository: SuggestionRepository,
+  ) {}
 
   public async execute(term: string): Promise<string[]> {
     if (!term) {

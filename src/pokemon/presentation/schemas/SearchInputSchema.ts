@@ -11,5 +11,3 @@ export const SearchInputSchema = z.object({
       "Only letters, numbers, spaces, and - are allowed",
     ),
 });
-
-export type PokemonSearchForm = z.infer<typeof SearchInputSchema>;
