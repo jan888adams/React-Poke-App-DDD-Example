@@ -21,7 +21,7 @@ const pokemonRepository = new PokemonApiRepository(httpClient);
 export const searchPokemonByName = new SearchPokemonByName(pokemonRepository);
 export const searchPokemonById = new SearchPokemonById(pokemonRepository);
 
-const cartRepository = new CartLocalStorageRepository();
+const cartRepository = new CartLocalStorageRepository("pokemon_cart");
 
 export const cartEventEmitter = new MittEventEmitterAdapter<CartEvent>();
 
