@@ -3,7 +3,7 @@ import { Cart } from "../../domain/entities/Cart";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import { CartRepository } from "../../domain/repositories/CartRepository";
 import { CardId } from "../../domain/value-objects/cart/CartId";
-import { SerializedPokemon } from "../dtos/SerializedPokemon";
+import { SerializedPokemon } from "../types/SerializedPokemon";
 
 export class CartLocalStorageRepository implements CartRepository {
   public constructor(
