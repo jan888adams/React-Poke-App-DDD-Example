@@ -3,8 +3,8 @@ import { Pokemon } from "../../domain/entities/Pokemon";
 import { PokemonRepository } from "../../domain/repositories/PokemonRepository";
 import { PokemonId } from "../../domain/value-objects/pokemon/PokemonId";
 import { PokemonName } from "../../domain/value-objects/pokemon/PokemonName";
-import { PokemonApiResponse } from "../dtos/PokemonApiResponse";
-import { PokemonApiListResponse } from "../dtos/PokemonApiListResponse";
+import { PokemonApiResponse } from "../types/PokemonApiResponse";
+import { PokemonApiListResponse } from "../types/PokemonApiListResponse";
 
 export class PokemonApiRepository implements PokemonRepository {
   constructor(private readonly httpClient: HttpClient) {}
