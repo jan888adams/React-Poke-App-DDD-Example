@@ -7,7 +7,7 @@ import { PokemonApiResponse } from "../types/PokemonApiResponse";
 import { PokemonApiListResponse } from "../types/PokemonApiListResponse";
 
 export class PokemonApiRepository implements PokemonRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  public constructor(private readonly httpClient: HttpClient) {}
 
   public async findById(id: PokemonId): Promise<Pokemon | null> {
     const response = await this.httpClient.get<PokemonApiResponse>(

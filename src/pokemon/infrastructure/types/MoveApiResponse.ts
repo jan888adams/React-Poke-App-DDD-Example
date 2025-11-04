@@ -5,7 +5,6 @@ export interface MoveApiResponse {
   effect_chance: number;
   pp: number;
   priority: number;
-  type: string;
   power: number;
   damage_class: { name: string };
 }

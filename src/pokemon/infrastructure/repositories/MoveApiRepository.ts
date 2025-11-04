@@ -6,7 +6,7 @@ import { MoveApiResponse } from "../types/MoveApiResponse";
 export class MoveApiRepository implements MoveRepository {
   public constructor(private httpClient: HttpClient) {}
 
-  async findById(id: number): Promise<Move | null> {
+  public async findById(id: number): Promise<Move | null> {
     const response = await this.httpClient.get<MoveApiResponse>(`/move/${id}`);
 
     if (response.isNotFound()) {
