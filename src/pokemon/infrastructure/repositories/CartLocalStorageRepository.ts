@@ -12,7 +12,6 @@ export class CartLocalStorageRepository implements CartRepository {
   ) {}
 
   public async save(cart: Cart): Promise<void> {
-    console.log("Saving cart:", cart);
     try {
       this.storage.setItem(
         this.key + "_last",

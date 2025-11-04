@@ -27,18 +27,17 @@ export const Accordion: React.FC<AccordionProps> = ({
           <table>
             <thead>
               <tr>
-                {columns.map((col, idx) => (
-                  <th key={idx}>{col}</th>
+                {columns.map((column, i) => (
+                  <th key={i}>{column}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {items &&
-                items.length > 0 &&
-                items.map((itemArr, idx) => (
-                  <tr key={idx}>
-                    {itemArr.map((str, i) => (
-                      <td key={i}>{str}</td>
+                items.map((values, i) => (
+                  <tr key={i}>
+                    {values.map((value, j) => (
+                      <td key={j}>{value}</td>
                     ))}
                   </tr>
                 ))}

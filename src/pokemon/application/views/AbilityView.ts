@@ -1,5 +1,5 @@
 import { Ability } from "../../domain/entities/Ability";
-import { capitalize } from "../../../shared/presentation/tools/String";
+import { Formatter } from "../services/Formatter";
 
 export class AbilityView {
   public static readonly fields: Array<string> = [
@@ -18,9 +18,9 @@ export class AbilityView {
   public static fromAbility(ability: Ability): AbilityView {
     return new AbilityView(
       String(ability.id),
-      capitalize(ability.name),
-      capitalize(ability.generation ?? ""),
-      capitalize(ability.effect ?? ""),
+      Formatter.capitalize(ability.name),
+      Formatter.capitalize(ability.generation ?? ""),
+      Formatter.capitalize(ability.effect ?? ""),
     );
   }
 }

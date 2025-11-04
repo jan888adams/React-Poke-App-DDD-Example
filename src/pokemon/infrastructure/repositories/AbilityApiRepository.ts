@@ -4,9 +4,9 @@ import { AbilityApiResponse } from "../types/AbilityApiResponse";
 import { HttpClient } from "../../../shared/infrastructure/http/HttpClient";
 
 export class AbilityApiRepository implements AbilityRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  public constructor(private readonly httpClient: HttpClient) {}
 
-  async findById(id: number): Promise<Ability | null> {
+  public async findById(id: number): Promise<Ability | null> {
     const response = await this.httpClient.get<AbilityApiResponse>(
       `ability/${id}`,
     );
