@@ -6,6 +6,7 @@ import { PokemonDto } from "../../../application/dtos/PokemonDto";
 import { Accordion } from "./Accordion";
 import { useGetPokemonMoves } from "../../hooks/useGetPokemonMoves";
 import { useGetPokemonAbilities } from "../../hooks/useGetPokemonAbilities";
+import "../../styles/details/page.sass";
 
 export const Page: React.FC = () => {
   const location = useLocation();
@@ -15,8 +16,8 @@ export const Page: React.FC = () => {
   const [showMoves, setShowMoves] = useState(false);
   const [showAbilities, setShowAbilities] = useState(false);
 
-  const moves = useGetPokemonMoves(showMoves ? pokemon : undefined);
-  const abilities = useGetPokemonAbilities(showAbilities ? pokemon : undefined);
+  const moves = useGetPokemonMoves(showMoves ? pokemon : null);
+  const abilities = useGetPokemonAbilities(showAbilities ? pokemon : null);
 
   const moveItems: string[][] = moves.map((move) => [
     move.name,
