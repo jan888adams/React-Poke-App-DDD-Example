@@ -3,7 +3,7 @@ import { PokemonView } from "../../application/views/PokemonView";
 import { MoveView } from "../../application/views/MoveView";
 import { getMovesForPokemon } from "../../../shared/infrastructure/di/DependencyContainer";
 
-export const useGetPokemonMoves = (pokemon?: PokemonView): MoveView[] => {
+export const useGetPokemonMoves = (pokemon: PokemonView | null): MoveView[] => {
   const [moves, setMoves] = useState<MoveView[]>([]);
 
   useEffect(() => {

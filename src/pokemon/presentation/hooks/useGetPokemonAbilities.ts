@@ -5,23 +5,23 @@ import { PokemonDto } from "../../application/dtos/PokemonDto";
 import { PokemonView } from "../../application/views/PokemonView";
 
 export const useGetPokemonAbilities = (
-  view?: PokemonView,
+  pokemon: PokemonView | null,
 ): Array<AbilityView> => {
   const [abilities, setAbilities] = useState<Array<AbilityView>>([]);
 
   useEffect(() => {
-    if (!view) {
+    if (!pokemon) {
       setAbilities([]);
       return;
     }
     const fetchAbilities = async () => {
       const result = await getAbilitiesForPokemon.execute(
-        PokemonDto.fromPokemonView(view),
+        PokemonDto.fromPokemonView(pokemon),
       );
       setAbilities(result);
     };
     fetchAbilities();
-  }, [view]);
+  }, [pokemon]);
 
   return abilities;
 };
