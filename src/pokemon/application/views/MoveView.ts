@@ -1,6 +1,17 @@
 import { Move } from "../../domain/entities/Move";
+import { capitalize } from "../../../shared/presentation/tools/String";
 
 export class MoveView {
+  public static readonly fields: Array<string> = [
+    "Name",
+    "Accuracy",
+    "Effect Chance",
+    "PP",
+    "Priority",
+    "Power",
+    "Damage Class",
+  ];
+
   private constructor(
     public readonly id: string,
     public readonly name: string,
@@ -15,16 +26,22 @@ export class MoveView {
   public static fromMove(move: Move): MoveView {
     return new MoveView(
       String(move.id.getValue()),
-      String(move.name.getValue()),
-      move.accuracy.getValue() !== null ? String(move.accuracy.getValue()) : "",
-      move.effectChance.getValue() !== null
-        ? String(move.effectChance.getValue())
+      capitalize(move.name.getValue()),
+      move.accuracy.getValue() !== null
+        ? capitalize(String(move.accuracy.getValue()))
         : "",
-      move.pp.getValue() !== null ? String(move.pp.getValue()) : "",
-      move.priority.getValue() !== null ? String(move.priority.getValue()) : "",
-      move.power.getValue() !== null ? String(move.power.getValue()) : "",
+      move.effectChance.getValue() !== null
+        ? capitalize(String(move.effectChance.getValue()))
+        : "",
+      move.pp.getValue() !== null ? capitalize(String(move.pp.getValue())) : "",
+      move.priority.getValue() !== null
+        ? capitalize(String(move.priority.getValue()))
+        : "",
+      move.power.getValue() !== null
+        ? capitalize(String(move.power.getValue()))
+        : "",
       move.damageClass.getValue() !== null
-        ? String(move.damageClass.getValue())
+        ? capitalize(move.damageClass.getValue())
         : "",
     );
   }

@@ -19,11 +19,9 @@ export class CartLocalStorageRepository implements CartRepository {
         this.key + "_" + cart.id.getValue(),
       );
 
-      const cartView = CartView.fromCart(cart);
-
       this.storage.setItem(
         this.key + "_" + cart.id.getValue(),
-        JSON.stringify(cartView),
+        JSON.stringify(CartView.fromCart(cart)),
       );
     } catch (err) {
       console.warn("Failed to save cart to localStorage", err);

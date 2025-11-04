@@ -6,6 +6,8 @@ import { PokemonDto } from "../../../application/dtos/PokemonDto";
 import { Accordion } from "./Accordion";
 import { useGetPokemonMoves } from "../../hooks/useGetPokemonMoves";
 import { useGetPokemonAbilities } from "../../hooks/useGetPokemonAbilities";
+import { MoveView } from "../../../application/views/MoveView";
+import { AbilityView } from "../../../application/views/AbilityView";
 import "../../styles/details/page.sass";
 
 export const Page: React.FC = () => {
@@ -16,8 +18,10 @@ export const Page: React.FC = () => {
   const [showMoves, setShowMoves] = useState(false);
   const [showAbilities, setShowAbilities] = useState(false);
 
-  const moves = useGetPokemonMoves(showMoves ? pokemon : null);
-  const abilities = useGetPokemonAbilities(showAbilities ? pokemon : null);
+  const moves = useGetPokemonMoves(showMoves ? (pokemon ?? null) : null);
+  const abilities = useGetPokemonAbilities(
+    showAbilities ? (pokemon ?? null) : null,
+  );
 
   const moveItems: string[][] = moves.map((move) => [
     move.name,
@@ -59,7 +63,7 @@ export const Page: React.FC = () => {
         title="Abilities"
         isOpen={showAbilities}
         onToggle={() => setShowAbilities((prev) => !prev)}
-        columns={["Name", "Generation", "Effect"]}
+        columns={AbilityView.fields}
         items={abilityItems}
       />
 
@@ -67,15 +71,7 @@ export const Page: React.FC = () => {
         title="Moves"
         isOpen={showMoves}
         onToggle={() => setShowMoves((prev) => !prev)}
-        columns={[
-          "Name",
-          "Accuracy",
-          "Effect Chance",
-          "PP",
-          "Priority",
-          "Power",
-          "Damage Class",
-        ]}
+        columns={MoveView.fields}
         items={moveItems}
       />
     </div>
