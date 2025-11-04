@@ -26,6 +26,8 @@ describe("usePokemonCart", () => {
           baseExperience: 112,
           height: 4,
           weight: 60,
+          abilities: [12],
+          moves: [34],
         },
       ],
       count: jest.fn(() => mockCart.items.length),
@@ -74,6 +76,8 @@ describe("usePokemonCart", () => {
       baseExperience: 64,
       height: 7,
       weight: 69,
+      abilities: [12],
+      moves: [34],
     };
 
     await act(async () => {

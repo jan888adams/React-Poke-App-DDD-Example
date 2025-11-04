@@ -36,6 +36,8 @@ describe("CartModal Component", () => {
       112,
       4,
       60,
+      [{ id: 26 }],
+      [{ id: 84 }],
     ),
   );
   cart.add(
@@ -47,6 +49,8 @@ describe("CartModal Component", () => {
       64,
       7,
       69,
+      [{ id: 12 }],
+      [{ id: 34 }],
     ),
   );
 

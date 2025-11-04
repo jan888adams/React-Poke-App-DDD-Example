@@ -12,6 +12,8 @@ const mockPokemon = Pokemon.fromValues(
   112,
   4,
   60,
+  [{ id: 12 }],
+  [{ id: 34 }],
 );
 
 const pokemonView = PokemonView.fromPokemon(mockPokemon);

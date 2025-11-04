@@ -10,6 +10,8 @@ export class PokemonView {
     public readonly baseExperience: number,
     public readonly height: number,
     public readonly weight: number,
+    public readonly abilities: Array<number> = [],
+    public readonly moves: Array<number> = [],
   ) {}
 
   public static fromPokemon(pokemon: Pokemon): PokemonView {
@@ -23,6 +25,8 @@ export class PokemonView {
       pokemon.baseExperience.getValue(),
       pokemon.height.getValue(),
       pokemon.weight.getValue(),
+      pokemon.abilities.map((ability) => ability.getValue()),
+      pokemon.moves.map((move) => move.getValue()) || [],
     );
   }
 }

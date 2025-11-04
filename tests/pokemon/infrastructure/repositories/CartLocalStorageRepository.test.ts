@@ -30,6 +30,8 @@ describe("CartLocalStorageRepository", () => {
       112,
       4,
       60,
+      [{ id: 23 }],
+      [{ id: 45 }],
     );
     cart.add(pokemon);
 
@@ -53,6 +55,8 @@ describe("CartLocalStorageRepository", () => {
             baseExperience: 112,
             height: 4,
             weight: 60,
+            abilities: [23],
+            moves: [45],
           },
         ],
       }),
@@ -72,6 +76,8 @@ describe("CartLocalStorageRepository", () => {
           baseExperience: 112,
           height: 4,
           weight: 60,
+          abilities: [23],
+          moves: [45],
         },
       ],
     });
@@ -115,6 +121,8 @@ describe("CartLocalStorageRepository", () => {
           baseExperience: 112,
           height: 4,
           weight: 60,
+          abilities: [23],
+          moves: [45],
         },
       ],
     });

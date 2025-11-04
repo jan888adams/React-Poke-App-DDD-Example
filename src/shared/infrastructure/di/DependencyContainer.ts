@@ -14,6 +14,10 @@ import { CreateSuggestions } from "../../../pokemon/application/use-cases/Create
 import { SuggestionLocalStorageRepository } from "../../../pokemon/infrastructure/repositories/SuggestionLocalStorageRepository";
 import { FindSuggestions } from "../../../pokemon/application/use-cases/FindSuggestions";
 import { SuggestionSearchAdapter } from "../../../pokemon/infrastructure/adapters/SuggestionSearchAdapter";
+import { GetAbilitiesForPokemon } from "../../../pokemon/application/use-cases/GetAbilitiesForPokemon";
+import { AbilityApiRepository } from "../../../pokemon/infrastructure/repositories/AbilityApiRepository";
+import { GetMovesForPokemon } from "../../../pokemon/application/use-cases/GetMovesForPokemon";
+import { MoveApiRepository } from "../../../pokemon/infrastructure/repositories/MoveApiRepository";
 
 const httpClient = new HttpClient("https://pokeapi.co/api/v2/");
 const pokemonRepository = new PokemonApiRepository(httpClient);
@@ -52,3 +56,13 @@ export const createSuggestions = new CreateSuggestions(
 );
 
 export const findSuggestions = new FindSuggestions(suggestionRepository);
+
+export const abilityApiRepository = new AbilityApiRepository(httpClient);
+
+export const getAbilitiesForPokemon = new GetAbilitiesForPokemon(
+  abilityApiRepository,
+);
+
+export const moveApiRepository = new MoveApiRepository(httpClient);
+
+export const getMovesForPokemon = new GetMovesForPokemon(moveApiRepository);

@@ -9,6 +9,8 @@ export class PokemonDto {
     public readonly baseExperience: number,
     public readonly height: number,
     public readonly weight: number,
+    public readonly abilities: Array<number> = [],
+    public readonly moves: Array<number> = [],
   ) {}
 
   public static fromPokemonView(view: PokemonView): PokemonDto {
@@ -20,6 +22,8 @@ export class PokemonDto {
       view.baseExperience,
       view.height,
       view.weight,
+      view.abilities,
+      view.moves,
     );
   }
 }

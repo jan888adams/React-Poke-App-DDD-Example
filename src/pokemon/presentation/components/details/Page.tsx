@@ -1,13 +1,38 @@
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { PokemonView } from "../../../application/views/PokemonView";
 import { PokemonDto } from "../../../application/dtos/PokemonDto";
-import "../../styles/details/page.sass";
+import { Accordion } from "./Accordion";
+import { useGetPokemonMoves } from "../../hooks/useGetPokemonMoves";
+import { useGetPokemonAbilities } from "../../hooks/useGetPokemonAbilities";
 
 export const Page: React.FC = () => {
   const location = useLocation();
   const { cart, addToCart } = usePokemonCart();
   const pokemon = (location.state as { pokemon?: PokemonView })?.pokemon;
+
+  const [showMoves, setShowMoves] = useState(false);
+  const [showAbilities, setShowAbilities] = useState(false);
+
+  const moves = useGetPokemonMoves(showMoves ? pokemon : undefined);
+  const abilities = useGetPokemonAbilities(showAbilities ? pokemon : undefined);
+
+  const moveItems: string[][] = moves.map((move) => [
+    move.name,
+    move.accuracy,
+    move.effectChance,
+    move.pp,
+    move.priority,
+    move.power,
+    move.damageClass,
+  ]);
+
+  const abilityItems: string[][] = abilities.map((ability) => [
+    ability.name,
+    ability.generation,
+    ability.effect,
+  ]);
 
   if (!pokemon) {
     return <div>No Pokemon data provided.</div>;
@@ -28,6 +53,30 @@ export const Page: React.FC = () => {
       >
         Catch Pokemon
       </button>
+
+      <Accordion
+        title="Abilities"
+        isOpen={showAbilities}
+        onToggle={() => setShowAbilities((prev) => !prev)}
+        columns={["Name", "Generation", "Effect"]}
+        items={abilityItems}
+      />
+
+      <Accordion
+        title="Moves"
+        isOpen={showMoves}
+        onToggle={() => setShowMoves((prev) => !prev)}
+        columns={[
+          "Name",
+          "Accuracy",
+          "Effect Chance",
+          "PP",
+          "Priority",
+          "Power",
+          "Damage Class",
+        ]}
+        items={moveItems}
+      />
     </div>
   );
 };

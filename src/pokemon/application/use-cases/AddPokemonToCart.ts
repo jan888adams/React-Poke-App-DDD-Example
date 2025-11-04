@@ -25,6 +25,8 @@ export class AddPokemonToCart {
       pokemonDto.baseExperience,
       pokemonDto.height,
       pokemonDto.weight,
+      pokemonDto.abilities.map((id) => ({ id })),
+      pokemonDto.moves.map((id) => ({ id })),
     );
 
     let cart: Cart | null;

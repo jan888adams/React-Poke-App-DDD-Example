@@ -36,6 +36,8 @@ describe("AddPokemonToCart", () => {
       baseExperience: 112,
       height: 4,
       weight: 60,
+      abilities: [25],
+      moves: [25],
     };
   });
 
@@ -54,6 +56,8 @@ describe("AddPokemonToCart", () => {
           112,
           4,
           60,
+          [{ id: 25 }],
+          [{ id: 25 }],
         ).id,
       ),
     ).toBe(true);
@@ -86,6 +90,8 @@ describe("AddPokemonToCart", () => {
         112,
         4,
         60,
+        [{ id: 25 }],
+        [{ id: 25 }],
       ),
     );
     mockCartRepository.findById.mockResolvedValue(cart);

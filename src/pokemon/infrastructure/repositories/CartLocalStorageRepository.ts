@@ -12,15 +12,18 @@ export class CartLocalStorageRepository implements CartRepository {
   ) {}
 
   public async save(cart: Cart): Promise<void> {
+    console.log("Saving cart:", cart);
     try {
       this.storage.setItem(
         this.key + "_last",
         this.key + "_" + cart.id.getValue(),
       );
 
+      const cartView = CartView.fromCart(cart);
+
       this.storage.setItem(
         this.key + "_" + cart.id.getValue(),
-        JSON.stringify(CartView.fromCart(cart)),
+        JSON.stringify(cartView),
       );
     } catch (err) {
       console.warn("Failed to save cart to localStorage", err);
@@ -74,6 +77,8 @@ export class CartLocalStorageRepository implements CartRepository {
         SerializedPokemon.baseExperience,
         SerializedPokemon.height,
         SerializedPokemon.weight,
+        SerializedPokemon.abilities.map((id) => ({ id })),
+        SerializedPokemon.moves.map((id) => ({ id })),
       ),
     );
 

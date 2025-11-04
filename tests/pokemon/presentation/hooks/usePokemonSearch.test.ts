@@ -24,6 +24,8 @@ describe("usePokemonSearch", () => {
     baseExperience: 112,
     height: 4,
     weight: 60,
+    abilities: [12],
+    moves: [34],
   };
 
   beforeEach(() => {
