@@ -1,8 +1,12 @@
 .grid-container
+  width: 100vw
+  min-height: 100vh
+  max-width: none
+  margin: 0
   padding: 2rem
   background: #fff
-  border-radius: 8px
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+  border-radius: 0
+  box-shadow: none
 
   .grid__controls
     display: flex
@@ -36,11 +40,11 @@
 
   .grid
     display: grid
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
-    gap: 1.5rem
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) // wider cards
+    gap: 2rem
 
   .grid__item
-    padding: 1rem
+    padding: 0.5rem
     background: #f9f9f9
     border-radius: 8px
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1)
@@ -54,7 +58,7 @@
     img
       display: block
       margin: 0 auto 1rem
-      max-width: 100px
+      max-width: 120px
 
     p
       margin: 0.5rem 0

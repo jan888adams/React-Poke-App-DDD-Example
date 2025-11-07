@@ -1,0 +1,19 @@
+.primary-button
+  background: $primary-dark
+  color: #fff
+  border: none
+  border-radius: $radius-md
+  padding: 0.4rem 1.5rem   // small top/bottom, larger left/right
+  font-size: $font-sm
+  font-weight: 600
+  cursor: pointer
+  min-width: 120px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  letter-spacing: 0.03em
+  transition: background $transition-fast, box-shadow $transition-fast
+
+  &:hover
+    background: darken($primary-dark, 10%)

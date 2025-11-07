@@ -1,18 +1,24 @@
+@import '../../../../shared/presentation/styles/variables'
+
 .search-bar
   display: flex
   flex-direction: column
   align-items: center
-  gap: 1rem
+  gap: $spacing-md
+  width: 100%
+  max-width: 600px
+  margin: 0 auto
+  border-radius: $radius-lg
 
   &__form
     width: 100%
     display: flex
-    gap: 0.5rem
+    gap: $spacing-sm
 
   &__error
-    color: #d32f2f
-    font-size: 0.9rem
+    color: $error
+    font-size: $font-xs
 
   &__loading
-    color: #2a75bb
-    font-size: 0.9rem
+    color: $primary-dark
+    font-size: $font-xs

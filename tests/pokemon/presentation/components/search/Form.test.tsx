@@ -6,13 +6,13 @@ describe("Form", () => {
     const handleSubmit = jest.fn();
     render(<Form onSubmit={handleSubmit} />);
 
-    const input = screen.getByPlaceholderText("Search for Pokemon");
+    const input = screen.getByPlaceholderText("Find your pokemon..");
     const button = screen.getByRole("button", { name: /search/i });
 
     fireEvent.change(input, { target: { value: "  pikachu  " } });
     fireEvent.click(button);
 
-    await screen.findByPlaceholderText("Search for Pokemon");
+    await screen.findByPlaceholderText("Find your pokemon..");
 
     expect(handleSubmit).toHaveBeenCalledWith("pikachu");
   });
@@ -34,7 +34,7 @@ describe("Form", () => {
     const handleSubmit = jest.fn();
     render(<Form onSubmit={handleSubmit} />);
 
-    const input = screen.getByPlaceholderText("Search for Pokemon");
+    const input = screen.getByPlaceholderText("Find your pokemon..");
     const button = screen.getByRole("button", { name: /search/i });
 
     fireEvent.change(input, { target: { value: "pikachu!" } });

@@ -1,7 +1,7 @@
+@import '../../../../shared/presentation/styles/variables'
+
 .pokemon-card
   background-color: #fff
-  border: 1px solid #ddd
-  border-radius: 8px
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
   padding: 16px
   display: flex
@@ -19,31 +19,25 @@
   align-items: center
   gap: 16px
 
-.pokemon-card__image
-  width: 100px
-  height: 100px
-  object-fit: cover
-  border-radius: 50%
-  border: 2px solid #eee
-
 .pokemon-card__name
   font-size: 1.2rem
   margin: 0
-  color: #333
+  color: #170f0fff
 
 .pokemon-card__remove
   background: none
   border: none
-  cursor: pointer
   padding: 0
+  margin-left: auto
   display: flex
   align-items: center
+  cursor: pointer
 
-.pokemon-card__remove-icon
-  width: 40px
-  height: 40px
+.pokeball-image
+  width: 48px
+  height: 48px
   object-fit: contain
-  transition: transform 0.2s
-
-  &:hover
-    transform: scale(1.1)
+  background: #fff
+  border: none
+  border-radius: 50%
+  display: block

@@ -1,28 +1,39 @@
+@import '../../../../shared/presentation/styles/variables'
+
 .suggestions
   width: 100%
   display: flex
   flex-direction: column
   gap: 0.5rem
 
+.search-form__input-wrapper
+  position: relative
+  width: 100%
+
 .suggestions__list
-  list-style: none
+  position: absolute
+  top: 100%
+  left: 12px
+  width: calc(100% - 12px)
+  margin-top: 0
+  padding-top: 0
+  background: #fff
+  border: 1px solid #ccc
+  border-radius: $radius-lg
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12)
+  z-index: 10
   margin: 0
   padding: 0
-  border: 1px solid #ccc
-  border-radius: 4px
+  list-style: none
   max-height: 200px
   overflow-y: auto
-  background-color: #fff
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
 
 .suggestions__item
-  padding: 0.5rem 1rem
+  padding: $spacing-sm $spacing-md
   cursor: pointer
-  transition: background-color 0.2s ease
+  transition: background-color $transition-fast
 
-  &:hover
-    background-color: #f0f0f0
-
+  &:hover,
   &.suggestions__item--focused
     background-color: #f0f0f0
 

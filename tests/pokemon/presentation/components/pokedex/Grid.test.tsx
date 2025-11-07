@@ -4,6 +4,14 @@ import { Grid } from "../../../../../src/pokemon/presentation/components/pokedex
 import { useGetPokemons } from "../../../../../src/pokemon/presentation/hooks/useGetPokemons";
 
 jest.mock("../../../../../src/pokemon/presentation/hooks/useGetPokemons");
+jest.mock(
+  "../../../../../src/pokemon/presentation/assets/open-pokeball.png",
+  () => "test-file-stub",
+);
+jest.mock(
+  "../../../../../src/shared/presentation/assets/pokemon-loading.mp4",
+  () => "test-file-stub",
+);
 
 const mockUseGetPokemons = useGetPokemons as jest.MockedFunction<
   typeof useGetPokemons
@@ -66,7 +74,7 @@ describe("Grid Component", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(document.querySelector(".loading-animation")).toBeInTheDocument();
   });
 
   it("renders error state", () => {

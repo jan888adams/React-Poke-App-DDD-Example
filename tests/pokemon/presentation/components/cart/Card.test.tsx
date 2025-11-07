@@ -1,3 +1,8 @@
+jest.mock(
+  "../../../../../src/pokemon/presentation/assets/open-pokeball.png",
+  () => "test-file-stub",
+);
+
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Card } from "../../../../../src/pokemon/presentation/components/cart/Card";
 import { usePokemonCart } from "../../../../../src/pokemon/presentation/hooks/usePokemonCart";

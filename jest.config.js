@@ -28,6 +28,8 @@ export default {
   moduleNameMapper: {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
     "^.+\\.svg$": "jest-transformer-svg",
+    "\\.(png|jpg|jpeg)$": "<rootDir>/tests/mocks/image.js",
+    "\\.(mp4)$": "<rootDir>/tests/mocks/video.js",
   },
 
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],

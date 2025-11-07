@@ -4,12 +4,12 @@
   left: 0
   width: 100vw
   height: 100vh
-  background-color: rgba(0, 0, 0, 0.5)
+  background-color:rgba(250, 247, 247, 0.3)
   display: flex
   justify-content: center
   align-items: center
   z-index: 1000
-  backdrop-filter: blur(8px) // Adds the blur effect to the background
+  backdrop-filter: blur(8px)
 
 .cart-modal
   background-color: #fff
@@ -22,13 +22,12 @@
   flex-direction: column
   gap: 16px
   position: relative
-  z-index: 1001 // Ensures the modal is above the backdrop
+  z-index: 1001
 
 .cart-modal__header
   display: flex
   justify-content: space-between
   align-items: center
-  border-bottom: 1px solid #ddd
   padding-bottom: 8px
 
 .cart-modal__header h2
@@ -38,8 +37,14 @@
 .cart-modal__close
   background: none
   border: none
-  font-size: 1.5rem
+  font-size: 2.5rem
   cursor: pointer
+  color: #232222ff
+  margin-left: auto      
+  line-height: 1
+  padding: 0
+  display: flex
+  align-items: center
 
 .cart-modal__body
   padding-top: 8px

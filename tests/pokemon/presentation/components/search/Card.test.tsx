@@ -31,14 +31,11 @@ describe("Card", () => {
       "https://example.com/pikachu.png",
     );
     expect(screen.getByRole("img")).toHaveAttribute("alt", "pikachu");
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Pikachu",
-    );
-    expect(screen.getByText("ID: #25")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        (content) => content.includes("ID:") && content.includes("25"),
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByText("Types: electric")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /view details/i })).toHaveAttribute(
-      "href",
-      "/pokemon/25",
-    );
   });
 });

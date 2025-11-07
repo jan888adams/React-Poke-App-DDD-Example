@@ -1,36 +1,38 @@
+@import '../../../../shared/presentation/styles/variables'
+
 .cart-counter
   position: fixed
-  bottom: 1rem
-  right: 1rem
+  bottom: $spacing-lg
+  right: $spacing-lg
   display: flex
   flex-direction: row-reverse
   align-items: center
-  gap: 0.4rem
+  gap: $spacing-xs
   background: #ffffff
-  color: #2a75bb
-  padding: 0.3rem 0.5rem
+  color: $primary
+  padding: $spacing-xs $spacing-sm
   border-radius: 999px
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08)
   font-weight: 600
-  font-size: 0.95rem
+  font-size: 1rem
   line-height: 1
   z-index: 1000
   transition: transform 120ms ease, box-shadow 120ms ease
-  cursor: default
+  cursor: pointer
 
   &:hover
     transform: translateY(-2px)
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12)
 
 .cart-counter__icon
-  width: 1.5rem
-  height: 1.5rem
+  width: 1.6rem
+  height: 1.6rem
   display: block
   object-fit: contain
   user-select: none
   pointer-events: none
 
 .cart-counter__count
-  min-width: 1.1rem
+  min-width: 1.2rem
   text-align: center
   display: inline-block

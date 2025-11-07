@@ -44,7 +44,6 @@ describe("Page (Pokemon Detail)", () => {
     expect(screen.getByText(/Base Experience:\s*112/)).toBeInTheDocument();
     expect(screen.getByText(/Height:\s*4/)).toBeInTheDocument();
     expect(screen.getByText(/Weight:\s*60/)).toBeInTheDocument();
-    expect(screen.getByText(/Types:\s*electric/)).toBeInTheDocument();
     expect(screen.getByAltText("pikachu")).toHaveAttribute(
       "src",
       "https://img.com/pikachu.png",

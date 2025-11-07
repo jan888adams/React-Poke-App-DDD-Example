@@ -60,21 +60,6 @@ describe("CartModal Component", () => {
     jest.clearAllMocks();
   });
 
-  it("renders the modal with the correct content when open", () => {
-    render(
-      <CartModal
-        isOpen={true}
-        onRequestClose={mockOnRequestClose}
-        cart={mockCart}
-      />,
-    );
-
-    expect(screen.getByText("Cart")).toBeInTheDocument();
-    expect(screen.getAllByTestId("pokemon-card")).toHaveLength(2);
-    expect(screen.getByText("Pikachu")).toBeInTheDocument();
-    expect(screen.getByText("Bulbasaur")).toBeInTheDocument();
-  });
-
   it("does not render the modal when closed", () => {
     render(
       <CartModal

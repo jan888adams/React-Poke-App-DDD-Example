@@ -19,14 +19,15 @@ export const CartModal: React.FC<ModalProps> = ({
       overlayClassName="cart-modal__backdrop"
       className="cart-modal"
     >
-      <button
-        className="cart-modal__close"
-        onClick={onRequestClose}
-        aria-label="Close"
-      >
-        Close
-      </button>
-      <h2 className="cart-modal__header">Cart</h2>
+      <div className="cart-modal__header">
+        <button
+          className="cart-modal__close"
+          onClick={onRequestClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
+      </div>
       <div className="cart-modal__body">
         {cart.items.map((pokemon) => (
           <Card

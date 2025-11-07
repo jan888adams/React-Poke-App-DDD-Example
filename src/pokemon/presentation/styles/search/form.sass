@@ -1,38 +1,56 @@
+@import '../../../../shared/presentation/styles/variables'
+@import '../../../../shared/presentation/styles/buttons'
+
 .search-form
   display: flex
   flex-direction: column
   align-items: center
-  gap: 1rem
+  gap: $spacing-md
   width: 100%
   max-width: 400px
   margin: 0 auto
 
+  &__row
+    width: 100%
+    display: flex
+
+  &__input-wrapper
+    position: relative
+    width: 100%
+
   &__input
     width: 100%
-    padding: 0.75rem
-    border: 1px solid #2a75bb
-    border-radius: 4px
-    font-size: 1rem
+    padding: $spacing-md 0 $spacing-md $spacing-md
+    border: 2.5px solid $primary-dark
+    border-radius: 24px
+    font-size: 0.85rem
     outline: none
-    transition: border-color 0.2s
+    transition: border-color $transition-fast
+    background: #fff
 
     &:focus
-      border-color: #ffcb05
+      border-color: $accent
+
+  &__icon-button
+    position: absolute
+    right: 2px
+    top: 50%
+    transform: translateY(-50%)
+    background: none
+    border: none
+    padding: 0
+    cursor: pointer
+    display: flex
+    align-items: center
+
+  &__icon
+    width: 2remrem
+    height: 2rem
 
   &__button
-    background: #2a75bb
-    color: #fff
-    border: none
-    border-radius: 4px
-    padding: 0.75rem 1.5rem
-    font-size: 1rem
-    cursor: pointer
-    transition: background 0.2s
-
-    &:hover
-      background: #1a4a7a
+    @extend .primary-button
 
   &__error
-    color: #d32f2f
-    font-size: 0.95rem
-    margin-top: 0.5rem
+    color: $error
+    font-size: 0.85rem
+    margin-top: $spacing-sm

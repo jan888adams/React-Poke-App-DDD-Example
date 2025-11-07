@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { CartModal } from "./Modal";
+import pokeballImage from "../../assets/pokeball.png";
 import "../../styles/cart/counter.sass";
 
 export const Counter: React.FC = () => {
@@ -20,7 +21,7 @@ export const Counter: React.FC = () => {
         onClick={handleOpenModal}
       >
         <img
-          src="/pokeball.png"
+          src={pokeballImage}
           alt=""
           aria-hidden="true"
           className="cart-counter__icon"

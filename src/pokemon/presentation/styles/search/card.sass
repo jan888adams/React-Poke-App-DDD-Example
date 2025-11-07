@@ -1,43 +1,36 @@
+@import '../../../../shared/presentation/styles/variables'
+
 .card
-  background: white
-  border: 1px solid #2a75bb
-  border-radius: 8px
-  padding: 1rem
-  margin: 1rem 0
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05)
-  width: 300px
-  text-align: center
+  background: $card-bg
+  border-radius: $radius-lg
+  padding: $spacing-lg
+  margin: $spacing-md auto
+  color: $text
+  font-size: $font-md
+  width: 320px
+  min-height: 340px
+  display: flex
+  flex-direction: column
+  align-items: center
 
   &__image
-    width: 120px
-    height: 120px
+    width: 180px
+    height: 180px
     object-fit: contain
-    margin-bottom: 1rem
+    margin-bottom: $spacing-md
+    border-radius: $radius-md
+    box-shadow: $shadow-xs
 
   &__title
-    font-size: 1.5rem
-    color: #2a75bb
-    margin-bottom: 0.5rem
-
-  &__id
-    font-size: 1rem
-    color: #555
-    margin-bottom: 0.5rem
-
-  &__types
-    font-size: 1rem
-  
-  &__details-link
-    display: inline-block
-    margin-top: 1rem
-    padding: 0.5rem 1rem
-    background: #dedbcfff
-    color: #2a75bb
-    text-decoration: none
-    border-radius: 4px
+    font-size: $font-lg
     font-weight: bold
-    transition: background 0.2s
+    color: #353434ff
+    margin-bottom: $spacing-sm
+    text-align: center
 
-    &:hover
-      background: #d7d1beff
-      color: #1a3a6b
+  &__id,
+  &__types
+    font-size: $font-sm
+    color: $text-dark
+    margin-bottom: $spacing-xs
+    text-align: center

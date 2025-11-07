@@ -2,6 +2,7 @@ import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { useNavigate } from "react-router-dom";
 import { CardProps } from "../../types/components/cart/CardProps";
 import React from "react";
+import pokeballImage from "../../assets/pokeball.png";
 import "../../styles/cart/card.sass";
 
 export const Card: React.FC<CardProps> = ({ pokemon, closeModal }) => {
@@ -40,9 +41,9 @@ export const Card: React.FC<CardProps> = ({ pokemon, closeModal }) => {
         aria-label="Remove from Cart"
       >
         <img
-          src="/open-pokeball.png"
+          className="pokeball-image"
+          src={pokeballImage}
           alt="Remove from Cart"
-          className="pokemon-card__remove-icon"
         />
       </button>
     </div>

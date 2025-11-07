@@ -1,0 +1,43 @@
+@import '../../../../shared/presentation/styles/variables'
+
+.modal-overlay
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background: rgba(250, 247, 247, 0.3)
+  backdrop-filter: blur(6px)
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 1000
+
+.modal-content
+  background: $card-bg
+  border-radius: $radius-lg
+  box-shadow: $shadow-md
+  position: relative
+  min-width: 320px
+  max-width: 500px
+  width: 100%           
+  box-sizing: border-box
+  padding: 0 0 $spacing-xl 0
+
+.modal-header
+  width: 100%
+  background: #f4f2f2ff
+  padding: $spacing-md $spacing-lg
+  border-top-left-radius: $radius-lg
+  border-top-right-radius: $radius-lg
+  display: flex
+  justify-content: flex-end
+  box-sizing: border-box
+
+.modal-close
+  background: none
+  border: none
+  font-size: 2.5rem
+  cursor: pointer
+  color: #232222ff
+  margin-right: 0
