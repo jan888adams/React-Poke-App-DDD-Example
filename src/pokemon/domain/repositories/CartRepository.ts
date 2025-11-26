@@ -2,9 +2,9 @@ import { Cart } from "../entities/Cart";
 import { CardId } from "../value-objects/cart/CartId";
 
 export interface CartRepository {
-  save(cart: Cart): void;
+  save(cart: Cart): Promise<void>;
 
-  findLast(): Cart | null;
+  findLast(): Promise<Cart | null>;
 
-  findById(cartId: CardId): Cart | null;
+  findById(cartId: CardId): Promise<Cart | null>;
 }

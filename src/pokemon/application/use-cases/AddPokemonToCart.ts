@@ -13,7 +13,7 @@ export class AddPokemonToCart {
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  execute(pokemonDto: PokemonDto, cartId: string | null): void {
+  async execute(pokemonDto: PokemonDto, cartId: string | null): Promise<void> {
     const pokemon = Pokemon.fromValues(
       pokemonDto.id,
       pokemonDto.name,
@@ -28,9 +28,9 @@ export class AddPokemonToCart {
 
     if (!cartId) {
       cart = Cart.empty();
-      this.cartRepository.save(cart);
+      await this.cartRepository.save(cart);
     } else {
-      cart = this.cartRepository.findById(CardId.fromString(cartId));
+      cart = await this.cartRepository.findById(CardId.fromString(cartId));
     }
 
     if (!cart || cart.has(pokemon.id)) {
@@ -38,7 +38,7 @@ export class AddPokemonToCart {
     }
 
     cart.add(pokemon);
-    this.cartRepository.save(cart);
+    await this.cartRepository.save(cart);
 
     this.emitter.emit("change", CartView.fromCart(cart));
   }

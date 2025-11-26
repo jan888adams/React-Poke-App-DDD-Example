@@ -11,12 +11,23 @@ import { PokemonDto } from "../../application/dtos/PokemonDto";
 
 export const usePokemonCart = () => {
   const emitter = useContext(CartContext);
-  const [cart, setCart] = useState<CartView | null>(() =>
-    getPokemonCart.execute(),
-  );
+  const [cart, setCart] = useState<CartView | null>(null);
 
-  const handleChange = useCallback((cart: CartEvent["change"]) => {
-    setCart(cart);
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const fetchedCart = await getPokemonCart.execute();
+        setCart(fetchedCart);
+      } catch (err) {
+        console.error("Failed to fetch cart:", err);
+      }
+    };
+
+    fetchCart();
+  }, []);
+
+  const handleChange = useCallback((updatedCart: CartEvent["change"]) => {
+    setCart(updatedCart);
   }, []);
 
   useEffect(() => {
@@ -30,15 +41,24 @@ export const usePokemonCart = () => {
     };
   }, [emitter, handleChange]);
 
-  const addToCart = (pokemon: PokemonDto) => {
-    addPokemonToCart.execute(pokemon, cart?.id ?? null);
+  const addToCart = async (pokemon: PokemonDto) => {
+    try {
+      await addPokemonToCart.execute(pokemon, cart?.id ?? null);
+    } catch (err) {
+      console.error("Failed to add Pokémon to cart:", err);
+    }
   };
 
-  const removeFromCart = (pokemon: PokemonDto) => {
+  const removeFromCart = async (pokemon: PokemonDto) => {
     if (!cart) {
       return;
     }
-    removePokemonFromCart.execute(pokemon, cart.id);
+
+    try {
+      await removePokemonFromCart.execute(pokemon, cart.id);
+    } catch (err) {
+      console.error("Failed to remove Pokémon from cart:", err);
+    }
   };
 
   return {

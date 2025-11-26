@@ -8,7 +8,7 @@ import { SerializedPokemon } from "../dtos/SerializedPokemon";
 export class CartLocalStorageRepository implements CartRepository {
   constructor(private readonly storage: Storage = window.localStorage) {}
 
-  public save(cart: Cart): void {
+  public async save(cart: Cart): Promise<void> {
     try {
       this.storage.setItem(
         "pokemon_cart_last",
@@ -24,7 +24,7 @@ export class CartLocalStorageRepository implements CartRepository {
     }
   }
 
-  public findLast(): Cart | null {
+  public async findLast(): Promise<Cart | null> {
     const lastCartKey = this.storage.getItem("pokemon_cart_last");
 
     if (!lastCartKey) {
@@ -45,7 +45,7 @@ export class CartLocalStorageRepository implements CartRepository {
     }
   }
 
-  public findById(cartId: CardId): Cart | null {
+  public async findById(cartId: CardId): Promise<Cart | null> {
     const data = this.storage.getItem("pokemon_cart_" + cartId.getValue());
 
     if (!data) {
@@ -60,7 +60,7 @@ export class CartLocalStorageRepository implements CartRepository {
     }
   }
 
-  private parseCart(data: string): Cart | null {
+  private async parseCart(data: string): Promise<Cart | null> {
     const parsed = JSON.parse(data);
     const items = parsed.items.map((SerializedPokemon: SerializedPokemon) =>
       Pokemon.fromValues(
@@ -73,6 +73,7 @@ export class CartLocalStorageRepository implements CartRepository {
         SerializedPokemon.weight,
       ),
     );
+
     return Cart.fromValues(CardId.fromString(parsed.id), items);
   }
 }
