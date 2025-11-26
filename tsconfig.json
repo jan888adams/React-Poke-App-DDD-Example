@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true, 
+    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -23,9 +23,6 @@
     "allowImportingTsExtensions": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "build", "dist"]
 }

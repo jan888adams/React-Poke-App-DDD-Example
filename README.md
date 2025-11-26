@@ -1,6 +1,7 @@
 ## Getting Started
 
 ### Running the Application
+
 ```bash
 
 docker compose up -d
