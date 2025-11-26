@@ -4,7 +4,6 @@ import { EventEmitter } from "../../../application/events/EventEmitter";
 export class MittEventEmitterAdapter<TEvents extends Record<string, unknown>>
   implements EventEmitter<TEvents>
 {
-  // use a record-of-unknown to satisfy mitt's generic constraint (no `any`)
   private readonly emitter: Emitter<Record<string, unknown>> =
     mitt<Record<string, unknown>>();
 

@@ -1,10 +1,16 @@
-import { Cart } from "../../domain/entities/Cart";
+import { CartRepository } from "../../domain/repositories/CartRepository";
 import { CartView } from "../views/CartView";
 
-export class GetPokemonsFromCart {
-  constructor(private readonly cart: Cart) {}
+export class GetPokemonCart {
+  constructor(private readonly cartRepository: CartRepository) {}
 
-  execute(): CartView {
-    return CartView.fromCart(this.cart);
+  execute(): CartView | null {
+    const cart = this.cartRepository.findLast();
+
+    if (!cart) {
+      return null;
+    }
+
+    return CartView.fromCart(cart);
   }
 }

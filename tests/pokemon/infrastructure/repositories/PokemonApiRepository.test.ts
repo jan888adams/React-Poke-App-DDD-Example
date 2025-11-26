@@ -1,6 +1,6 @@
-import { PokemonId } from "../../../../src/pokemon/domain/value-objects/PokemonId";
-import { PokemonName } from "../../../../src/pokemon/domain/value-objects/PokemonName";
-import { PokemonType } from "../../../../src/pokemon/domain/value-objects/PokemonType";
+import { PokemonId } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonId";
+import { PokemonName } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonName";
+import { PokemonType } from "../../../../src/pokemon/domain/value-objects/pokemon/PokemonType";
 import { PokemonApiRepository } from "../../../../src/pokemon/infrastructure/repositories/PokemonApiRepository";
 import { ApiResponse } from "../../../../src/shared/infrastructure/http/ApiResponse";
 import { HttpClient } from "../../../../src/shared/infrastructure/http/HttpClient";

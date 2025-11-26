@@ -1,9 +1,9 @@
-import { PokemonExperience } from "../value-objects/PokemonExperience";
-import { PokemonHeight } from "../value-objects/PokemonHeight";
-import { PokemonId } from "../value-objects/PokemonId";
-import { PokemonName } from "../value-objects/PokemonName";
-import { PokemonType } from "../value-objects/PokemonType";
-import { PokemonWeight } from "../value-objects/PokemonWeight";
+import { PokemonExperience } from "../value-objects/pokemon/PokemonExperience";
+import { PokemonHeight } from "../value-objects/pokemon/PokemonHeight";
+import { PokemonId } from "../value-objects/pokemon/PokemonId";
+import { PokemonName } from "../value-objects/pokemon/PokemonName";
+import { PokemonType } from "../value-objects/pokemon/PokemonType";
+import { PokemonWeight } from "../value-objects/pokemon/PokemonWeight";
 
 export class Pokemon {
   private constructor(

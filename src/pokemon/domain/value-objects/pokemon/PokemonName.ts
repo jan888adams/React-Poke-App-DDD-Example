@@ -1,4 +1,4 @@
-import { ValueObject } from "../../../shared/domain/value-objects/ValueObject";
+import { ValueObject } from "../../../../shared/domain/value-objects/ValueObject";
 
 export class PokemonName extends ValueObject<string> {
   private constructor(readonly value: string) {

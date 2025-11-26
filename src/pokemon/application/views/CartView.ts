@@ -2,7 +2,10 @@ import { PokemonView } from "./PokemonView";
 import { Cart } from "../../domain/entities/Cart";
 
 export class CartView {
-  constructor(public readonly items: PokemonView[]) {}
+  public constructor(
+    public readonly id: string,
+    public readonly items: PokemonView[],
+  ) {}
 
   public count(): number {
     return this.items.length;
@@ -12,8 +15,13 @@ export class CartView {
     return this.items.some((item) => item.id === pokemonId);
   }
 
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+
   public static fromCart(cart: Cart): CartView {
     return new CartView(
+      cart.id.getValue(),
       cart.getItems().map((item) => PokemonView.fromPokemon(item)),
     );
   }

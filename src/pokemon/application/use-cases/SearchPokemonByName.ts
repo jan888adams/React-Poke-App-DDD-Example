@@ -1,4 +1,4 @@
-import { PokemonName } from "../../domain/value-objects/PokemonName";
+import { PokemonName } from "../../domain/value-objects/pokemon/PokemonName";
 import { PokemonRepository } from "../../domain/repositories/PokemonRepository";
 import { PokemonView } from "../views/PokemonView";
 

@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
-import { pokemonFinder } from "../../../shared/infrastructure/DependencyContainer";
 import { PokemonView } from "../../application/views/PokemonView";
+import { searchPokemonByName } from "../../../shared/infrastructure/di/DependencyContainer";
+import { searchPokemonById } from "../../../shared/infrastructure/di/DependencyContainer";
 
 interface SearchResult {
   pokemon: PokemonView | null;
@@ -24,7 +25,13 @@ export const usePokemonSearch = (): SearchResult => {
     setError(null);
 
     try {
-      const result = await pokemonFinder.findByIdOrName(query.trim());
+      let result: PokemonView | null;
+      const numericId = parseInt(query);
+      if (!isNaN(numericId) && numericId > 0) {
+        result = await searchPokemonById.execute(numericId);
+      } else {
+        result = await searchPokemonByName.execute(query);
+      }
       setPokemon(result);
 
       if (!result) {
