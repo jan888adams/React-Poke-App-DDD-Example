@@ -4,6 +4,36 @@
   border-radius: 8px
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
 
+  .grid__controls
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: 1.5rem
+
+    .grid__label
+      margin-right: 0.5rem
+      font-size: 1rem
+      font-weight: bold
+      color: #333
+
+    .grid__select
+      padding: 0.5rem
+      font-size: 1rem
+      border: 1px solid #ccc
+      border-radius: 4px
+      background-color: #fff
+      color: #333
+      cursor: pointer
+      transition: border-color 0.2s ease
+
+      &:hover
+        border-color: #007bff
+
+      &:focus
+        outline: none
+        border-color: #007bff
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25)
+
   .grid
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))

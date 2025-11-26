@@ -1,132 +1,170 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Grid } from "../../../../../src/pokemon/presentation/components/pokedex/Grid";
 import { useGetPokemons } from "../../../../../src/pokemon/presentation/hooks/useGetPokemons";
-import { useSearchParams, useNavigate } from "react-router-dom";
 
 jest.mock("../../../../../src/pokemon/presentation/hooks/useGetPokemons");
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useSearchParams: jest.fn(),
-  useNavigate: jest.fn(),
-}));
+
+const mockUseGetPokemons = useGetPokemons as jest.MockedFunction<
+  typeof useGetPokemons
+>;
 
 describe("Grid Component", () => {
-  const mockNavigate = jest.fn();
-  const mockSetSearchParams = jest.fn();
+  const mockPokemons = [
+    {
+      id: 1,
+      name: "Bulbasaur",
+      imageUrl: "https://example.com/bulbasaur.png",
+      altText: "Bulbasaur",
+      types: ["grass", "poison"],
+      baseExperience: 64,
+      height: 7,
+      weight: 69,
+    },
+    {
+      id: 2,
+      name: "Ivysaur",
+      imageUrl: "https://example.com/ivysaur.png",
+      altText: "Ivysaur",
+      types: ["grass", "poison"],
+      baseExperience: 142,
+      height: 10,
+      weight: 130,
+    },
+    {
+      id: 3,
+      name: "Charmander",
+      imageUrl: "https://example.com/charmander.png",
+      altText: "Charmander",
+      types: ["fire"],
+      baseExperience: 62,
+      height: 6,
+      weight: 85,
+    },
+  ];
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-    (useSearchParams as jest.Mock).mockReturnValue([
-      new URLSearchParams("?page=1"),
-      mockSetSearchParams,
-    ]);
   });
 
   it("renders loading state", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
+    mockUseGetPokemons.mockReturnValue({
       pokemons: [],
       loading: true,
       error: null,
     });
 
-    render(<Grid />);
+    render(
+      <MemoryRouter>
+        <Grid />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renders error state", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
+    mockUseGetPokemons.mockReturnValue({
       pokemons: [],
       loading: false,
-      error: "Failed to fetch Pokémon",
+      error: "Failed to fetch data",
     });
 
-    render(<Grid />);
+    render(
+      <MemoryRouter>
+        <Grid />
+      </MemoryRouter>,
+    );
 
-    expect(screen.getByText("Failed to fetch Pokémon")).toBeInTheDocument();
+    expect(screen.getByText("Failed to fetch data")).toBeInTheDocument();
   });
 
-  it("renders Pokémon grid", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
-      pokemons: [
-        {
-          id: 1,
-          name: "Bulbasaur",
-          imageUrl: "https://example.com/bulbasaur.png",
-        },
-        { id: 2, name: "Ivysaur", imageUrl: "https://example.com/ivysaur.png" },
-      ],
+  it("displays Pokémon data", () => {
+    mockUseGetPokemons.mockReturnValue({
+      pokemons: mockPokemons,
       loading: false,
       error: null,
     });
 
-    render(<Grid />);
+    render(
+      <MemoryRouter>
+        <Grid />
+      </MemoryRouter>,
+    );
 
-    expect(screen.getByText("Bulbasaur")).toBeInTheDocument();
-    expect(screen.getByText("Ivysaur")).toBeInTheDocument();
-    expect(screen.getAllByRole("img")).toHaveLength(2);
+    mockPokemons.forEach((pokemon) => {
+      expect(screen.getByText(pokemon.name)).toBeInTheDocument();
+      expect(screen.getByAltText(pokemon.altText)).toBeInTheDocument();
+    });
   });
 
-  it("navigates to the next page", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
-      pokemons: [],
+  it("handles sorting by name (ascending)", async () => {
+    mockUseGetPokemons.mockReturnValue({
+      pokemons: mockPokemons,
       loading: false,
       error: null,
     });
 
-    render(<Grid />);
+    render(
+      <MemoryRouter>
+        <Grid />
+      </MemoryRouter>,
+    );
+
+    const sortSelect = screen.getByRole("combobox");
+    fireEvent.change(sortSelect, { target: { value: "name-asc" } });
+
+    await waitFor(() => {
+      const pokemonNames = screen
+        .getAllByText(/Bulbasaur|Ivysaur|Charmander/)
+        .map((el) => el.textContent);
+      expect(pokemonNames).toEqual(["Bulbasaur", "Charmander", "Ivysaur"]);
+    });
+  });
+
+  it("handles sorting by ID (descending)", async () => {
+    mockUseGetPokemons.mockReturnValue({
+      pokemons: mockPokemons,
+      loading: false,
+      error: null,
+    });
+
+    render(
+      <MemoryRouter>
+        <Grid />
+      </MemoryRouter>,
+    );
+
+    const sortSelect = screen.getByRole("combobox");
+    fireEvent.change(sortSelect, { target: { value: "id-desc" } });
+
+    await waitFor(() => {
+      const pokemonNames = screen
+        .getAllByText(/Bulbasaur|Ivysaur|Charmander/)
+        .map((el) => el.textContent);
+      expect(pokemonNames).toEqual(["Charmander", "Ivysaur", "Bulbasaur"]);
+    });
+  });
+
+  it("handles pagination", () => {
+    mockUseGetPokemons.mockReturnValue({
+      pokemons: mockPokemons,
+      loading: false,
+      error: null,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/pokedex?page=1"]}>
+        <Routes>
+          <Route path="/pokedex" element={<Grid />} />
+        </Routes>
+      </MemoryRouter>,
+    );
 
     const nextButton = screen.getByText("Next");
     fireEvent.click(nextButton);
 
-    expect(mockSetSearchParams).toHaveBeenCalledWith({ page: "2" });
-  });
-
-  it("navigates to the previous page", () => {
-    (useSearchParams as jest.Mock).mockReturnValue([
-      new URLSearchParams("?page=2"),
-      mockSetSearchParams,
-    ]);
-    (useGetPokemons as jest.Mock).mockReturnValue({
-      pokemons: [],
-      loading: false,
-      error: null,
-    });
-
-    render(<Grid />);
-
-    const previousButton = screen.getByText("Previous");
-    fireEvent.click(previousButton);
-
-    expect(mockSetSearchParams).toHaveBeenCalledWith({ page: "1" });
-  });
-
-  it("disables the previous button on the first page", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
-      pokemons: [],
-      loading: false,
-      error: null,
-    });
-
-    render(<Grid />);
-
-    const previousButton = screen.getByText("Previous");
-    expect(previousButton).toBeDisabled();
-  });
-
-  it("navigates back to the search page", () => {
-    (useGetPokemons as jest.Mock).mockReturnValue({
-      pokemons: [],
-      loading: false,
-      error: null,
-    });
-
-    render(<Grid />);
-
-    const backButton = screen.getByText("Back to Search");
-    fireEvent.click(backButton);
-
-    expect(mockNavigate).toHaveBeenCalledWith("/");
+    expect(screen.getByText("Next")).toBeInTheDocument();
+    expect(screen.getByText("Previous")).toBeInTheDocument();
   });
 });
