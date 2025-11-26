@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { SearchBar } from "../../../../../src/pokemon/presentation/components/search/SearchBar";
-import { Pokemon } from "../../../../../src/pokemon/domain/entities/Pokemon";
 import { usePokemonSearch } from "../../../../../src/pokemon/presentation/hooks/usePokemonSearch";
+import { PokemonView } from "../../../../../src/pokemon/application/views/PokemonView";
 
 jest.mock(
   "../../../../../src/pokemon/presentation/components/search/Form",
@@ -16,8 +16,8 @@ jest.mock(
   "../../../../../src/pokemon/presentation/components/search/Card",
   () => ({
     __esModule: true,
-    Card: ({ pokemon }: { pokemon: Pokemon }) => (
-      <div>Card: {pokemon.getName()}</div>
+    Card: ({ pokemon }: { pokemon: PokemonView }) => (
+      <div>Card: {pokemon.name}</div>
     ),
   }),
 );
@@ -30,7 +30,7 @@ describe("SearchBar", () => {
 
   it("renders Card when pokemon is present", () => {
     (usePokemonSearch as jest.Mock).mockReturnValue({
-      pokemon: { getName: () => "pikachu" },
+      pokemon: { name: "pikachu" },
       searchPokemon: jest.fn(),
       error: null,
       loading: false,

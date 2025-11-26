@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
 import { pokemonFinder } from "../../../shared/infrastructure/DependencyContainer";
-import { Pokemon } from "../../domain/entities/Pokemon";
+import { PokemonView } from "../../application/views/PokemonView";
 
 interface SearchResult {
-  pokemon: Pokemon | null;
+  pokemon: PokemonView | null;
   loading: boolean;
   error: string | null;
   searchPokemon: (query: string) => Promise<void>;
 }
 
 export const usePokemonSearch = (): SearchResult => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [pokemon, setPokemon] = useState<PokemonView | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
