@@ -48,6 +48,9 @@ export class PokemonApiRepository implements PokemonRepository {
       response.types.map(
         (typeInfo: { type: { name: string } }) => typeInfo.type.name,
       ),
+      response.base_experience,
+      response.height,
+      response.weight,
     );
   }
 }

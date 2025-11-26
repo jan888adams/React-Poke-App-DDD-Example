@@ -20,6 +20,9 @@ describe("SearchPokemonByName", () => {
       "pikachu",
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
       ["electric"],
+      112,
+      4,
+      60,
     );
   });
 
