@@ -3,15 +3,18 @@ stages:
   - lint
   - test
 
+cache:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - node_modules/
+
 yarn-install:
   stage: build
   image: node:18-alpine
   script:
     - yarn install
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 hour
 
 prettier-check:
   stage: lint
