@@ -1,18 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Suggestions } from "./Suggestions";
-import {
-  SearchInputSchema,
-  type PokemonSearchForm,
-} from "../../schemas/SearchInputSchema";
-import "../../styles/search/form.sass";
+import { SearchInputSchema } from "../../schemas/SearchInputSchema";
+import { PokemonSearchForm } from "../../types/schemas/PokemonSearchForm";
 import { useState } from "react";
+import { FormProps } from "../../types/components/search/FormProps";
+import "../../styles/search/form.sass";
 
-interface Props {
-  onSubmit: (value: string) => void;
-}
-
-export const Form = function Form({ onSubmit }: Props) {
+export const Form: React.FC<FormProps> = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,

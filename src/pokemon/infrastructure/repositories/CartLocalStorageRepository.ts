@@ -3,20 +3,23 @@ import { Cart } from "../../domain/entities/Cart";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import { CartRepository } from "../../domain/repositories/CartRepository";
 import { CardId } from "../../domain/value-objects/cart/CartId";
-import { SerializedPokemon } from "../dtos/SerializedPokemon";
+import { SerializedPokemon } from "../types/SerializedPokemon";
 
 export class CartLocalStorageRepository implements CartRepository {
-  constructor(private readonly storage: Storage = window.localStorage) {}
+  public constructor(
+    private readonly key: string,
+    private readonly storage: Storage = window.localStorage,
+  ) {}
 
   public async save(cart: Cart): Promise<void> {
     try {
       this.storage.setItem(
-        "pokemon_cart_last",
-        "pokemon_cart_" + cart.id.getValue(),
+        this.key + "_last",
+        this.key + "_" + cart.id.getValue(),
       );
 
       this.storage.setItem(
-        "pokemon_cart_" + cart.id.getValue(),
+        this.key + "_" + cart.id.getValue(),
         JSON.stringify(CartView.fromCart(cart)),
       );
     } catch (err) {
@@ -25,7 +28,7 @@ export class CartLocalStorageRepository implements CartRepository {
   }
 
   public async findLast(): Promise<Cart | null> {
-    const lastCartKey = this.storage.getItem("pokemon_cart_last");
+    const lastCartKey = this.storage.getItem(this.key + "_last");
 
     if (!lastCartKey) {
       return null;
@@ -46,7 +49,7 @@ export class CartLocalStorageRepository implements CartRepository {
   }
 
   public async findById(cartId: CardId): Promise<Cart | null> {
-    const data = this.storage.getItem("pokemon_cart_" + cartId.getValue());
+    const data = this.storage.getItem(this.key + "_" + cartId.getValue());
 
     if (!data) {
       return null;

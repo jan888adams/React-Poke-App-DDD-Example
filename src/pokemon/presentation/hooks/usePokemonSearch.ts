@@ -1,14 +1,8 @@
 import { useState, useCallback } from "react";
 import { PokemonView } from "../../application/views/PokemonView";
 import { searchPokemonByName } from "../../../shared/infrastructure/di/DependencyContainer";
+import { SearchResult } from "../types/hooks/SearchResult";
 import { searchPokemonById } from "../../../shared/infrastructure/di/DependencyContainer";
-
-interface SearchResult {
-  pokemon: PokemonView | null;
-  loading: boolean;
-  error: string | null;
-  searchPokemon: (query: string) => Promise<void>;
-}
 
 export const usePokemonSearch = (): SearchResult => {
   const [pokemon, setPokemon] = useState<PokemonView | null>(null);

@@ -17,7 +17,7 @@ describe("CartLocalStorageRepository", () => {
       length: 0,
     } as unknown as Storage;
 
-    repository = new CartLocalStorageRepository(mockStorage);
+    repository = new CartLocalStorageRepository("pokemon_cart", mockStorage);
   });
 
   it("saves a cart to localStorage", async () => {

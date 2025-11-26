@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
 import { useFindSuggestions } from "../../hooks/useFindSuggestions";
+import { SuggestionsProps } from "../../types/components/search/SuggestionsProps";
 import "../../styles/search/suggestions.sass";
 
-interface Props {
-  inputValue: string;
-  onSuggestionSelect: (value: string) => void;
-  setSuggestions: (suggestions: string[]) => void;
-  focusedIndex: number;
-}
-
-export const Suggestions: React.FC<Props> = ({
+export const Suggestions: React.FC<SuggestionsProps> = ({
   inputValue,
   onSuggestionSelect,
   setSuggestions,

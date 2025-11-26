@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { findSuggestions } from "../../../shared/infrastructure/di/DependencyContainer";
 
-export const useFindSuggestions = (prefix: string) => {
+export const useFindSuggestions = (term: string) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      const normalizedPrefix = prefix.trim().toLowerCase();
-      if (normalizedPrefix === "") {
+      const normalizedTerm = term.trim().toLowerCase();
+      if (normalizedTerm === "") {
         setSuggestions([]);
         setLoading(false);
         setError(null);
@@ -19,7 +19,7 @@ export const useFindSuggestions = (prefix: string) => {
       try {
         setLoading(true);
         const fetchedSuggestions =
-          await findSuggestions.execute(normalizedPrefix);
+          await findSuggestions.execute(normalizedTerm);
         setSuggestions(fetchedSuggestions.slice(0, 5));
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -29,7 +29,7 @@ export const useFindSuggestions = (prefix: string) => {
     };
 
     fetchSuggestions();
-  }, [prefix]);
+  }, [term]);
 
   return { suggestions, loading, error };
 };

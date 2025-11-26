@@ -8,12 +8,15 @@ import { CartRepository } from "../../domain/repositories/CartRepository";
 import { CardId } from "../../domain/value-objects/cart/CartId";
 
 export class AddPokemonToCart {
-  constructor(
+  public constructor(
     private readonly cartRepository: CartRepository,
     private readonly emitter: EventEmitter<CartEvent>,
   ) {}
 
-  async execute(pokemonDto: PokemonDto, cartId: string | null): Promise<void> {
+  public async execute(
+    pokemonDto: PokemonDto,
+    cartId: string | null,
+  ): Promise<void> {
     const pokemon = Pokemon.fromValues(
       pokemonDto.id,
       pokemonDto.name,
@@ -38,6 +41,7 @@ export class AddPokemonToCart {
     }
 
     cart.add(pokemon);
+
     await this.cartRepository.save(cart);
 
     this.emitter.emit("change", CartView.fromCart(cart));
