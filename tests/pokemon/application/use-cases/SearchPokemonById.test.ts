@@ -7,6 +7,8 @@ import { PokemonRepository } from "../../../../src/pokemon/domain/repositories/P
 describe("SearchPokemonById use case", () => {
   const mockRepository = {
     findById: jest.fn(),
+    findByName: jest.fn(),
+    getAll: jest.fn(),
   };
 
   let useCase: SearchPokemonById;
