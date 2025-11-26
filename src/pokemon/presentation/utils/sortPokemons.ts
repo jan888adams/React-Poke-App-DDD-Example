@@ -2,8 +2,8 @@ import { PokemonView } from "../../application/views/PokemonView";
 
 export const sortPokemons = (
   pokemons: PokemonView[],
-  sortBy: "name" | "id",
-  sortOrder: "asc" | "desc",
+  sortBy: string,
+  sortOrder: string,
 ): PokemonView[] => {
   if (!pokemons) {
     return [];

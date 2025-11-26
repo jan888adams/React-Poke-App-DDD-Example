@@ -1,13 +1,27 @@
+@import 'variables'
+
+body, html, #root
+  height: 100vh         // fill viewport, no scroll
+  overflow: hidden      // prevent scrolling
+
 .app
-  &__container
-    min-height: 100vh
-    background: #f6f8fc
-    display: flex
-    flex-direction: column
-    align-items: center
+  height: 100vh
+  width: 100vw
+  overflow: hidden
+  display: flex
+  flex-direction: column
+  align-items: center
+  background: url('/pokemon-background.jpg') no-repeat center center
+  background-size: cover
   &__logo
     display: block
     margin: 0 auto 2rem auto
-    width: 200px
+    width: 380px
     height: auto
     object-fit: contain
+
+.center-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  margin-top: 10rem

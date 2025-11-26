@@ -1,6 +1,9 @@
 import React, { useMemo } from "react";
 import { useGetPokemons } from "../../hooks/useGetPokemons";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { ErrorMessage } from "../../../../shared/presentation/components/ErrorMessage";
+import { Loading } from "../../../../shared/presentation/components/Loading";
+import { sortPokemons } from "../../utils/sortPokemons";
 import "../../styles/pokedex/grid.sass";
 
 export const Grid: React.FC = () => {
@@ -19,17 +22,7 @@ export const Grid: React.FC = () => {
     if (!pokemons) {
       return [];
     }
-
-    return [...pokemons].sort((a, b) => {
-      if (sortBy === "name") {
-        const comparison = a.name.localeCompare(b.name);
-        return sortOrder === "asc" ? comparison : -comparison;
-      } else if (sortBy === "id") {
-        const comparison = a.id - b.id;
-        return sortOrder === "asc" ? comparison : -comparison;
-      }
-      return 0;
-    });
+    return sortPokemons(pokemons, sortBy, sortOrder);
   }, [pokemons, sortBy, sortOrder]);
 
   const handleNextPage = () => {
@@ -56,11 +49,11 @@ export const Grid: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="grid__loading">Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
-    return <div className="grid__error">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   return (

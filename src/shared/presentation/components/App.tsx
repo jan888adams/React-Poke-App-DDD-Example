@@ -7,6 +7,7 @@ import { Counter as CartCounter } from "../../../pokemon/presentation/components
 import { Grid as PokedexGrid } from "../../../pokemon/presentation/components/pokedex/Grid";
 import { useEffect } from "react";
 import { createSuggestions } from "../../infrastructure/di/DependencyContainer";
+import pokeAppLogo from "../assets/poke-app-logo.svg";
 import "../styles/app.sass";
 
 export function App() {
@@ -25,20 +26,26 @@ export function App() {
   return (
     <CartContextProvider>
       <CartCounter />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="app__container">
-              <img src="/logo.svg" alt="Pokemon Logo" className="app__logo" />
-              <SearchBar />
-            </div>
-          }
-        />
-        <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
-        <Route path="/pokedex" element={<PokedexGrid />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <div className="app">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="app center-container">
+                <img
+                  src={pokeAppLogo}
+                  alt="Pokemon Logo"
+                  className="app__logo"
+                />
+                <SearchBar />
+              </div>
+            }
+          />
+          <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+          <Route path="/pokedex" element={<PokedexGrid />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
     </CartContextProvider>
   );
 }

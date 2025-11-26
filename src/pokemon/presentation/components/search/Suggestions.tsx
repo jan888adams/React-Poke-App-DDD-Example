@@ -16,11 +16,23 @@ export const Suggestions: React.FC<SuggestionsProps> = ({
   }, [suggestions, setSuggestions]);
 
   if (loading) {
-    return <div className="suggestions__loading">Loading...</div>;
+    return (
+      <ul className="suggestions__list">
+        <li className="suggestions__loading">Loading...</li>
+      </ul>
+    );
   }
 
   if (error) {
-    return <div className="suggestions__error">{error}</div>;
+    return (
+      <ul className="suggestions__list">
+        <li className="suggestions__error">{error}</li>
+      </ul>
+    );
+  }
+
+  if (!suggestions.length) {
+    return null;
   }
 
   return (

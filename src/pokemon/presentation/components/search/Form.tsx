@@ -5,6 +5,8 @@ import { SearchInputSchema } from "../../schemas/SearchInputSchema";
 import { PokemonSearchForm } from "../../types/schemas/PokemonSearchForm";
 import { useState } from "react";
 import { FormProps } from "../../types/components/search/FormProps";
+import { ErrorMessage } from "../../../../shared/presentation/components/ErrorMessage";
+import searchIcon from "../../assets/search-icon.svg";
 import "../../styles/search/form.sass";
 
 export const Form: React.FC<FormProps> = ({ onSubmit }) => {
@@ -26,6 +28,7 @@ export const Form: React.FC<FormProps> = ({ onSubmit }) => {
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const searchTerm = watch("searchTerm");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showError, setShowError] = useState(true);
 
   const onFormSubmit = (data: PokemonSearchForm) => {
     onSubmit(data.searchTerm.trim());
@@ -62,29 +65,41 @@ export const Form: React.FC<FormProps> = ({ onSubmit }) => {
 
   return (
     <form className="search-form" onSubmit={handleSubmit(onFormSubmit)}>
-      <input
-        className="search-form__input"
-        {...register("searchTerm")}
-        type="text"
-        placeholder="Search for Pokemon"
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      />
+      <div className="search-form__row">
+        <div className="search-form__input-wrapper">
+          <input
+            className="search-form__input"
+            {...register("searchTerm")}
+            type="text"
+            placeholder="Find your pokemon.."
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            type="submit"
+            className="search-form__icon-button"
+            aria-label="Search"
+            tabIndex={0}
+          >
+            <img src={searchIcon} alt="Search" className="search-form__icon" />
+          </button>
 
-      {showSuggestions && (
-        <Suggestions
-          inputValue={searchTerm}
-          onSuggestionSelect={handleSuggestionSelect}
-          setSuggestions={setSuggestions}
-          focusedIndex={focusedIndex}
+          {showSuggestions && (
+            <Suggestions
+              inputValue={searchTerm}
+              onSuggestionSelect={handleSuggestionSelect}
+              setSuggestions={setSuggestions}
+              focusedIndex={focusedIndex}
+            />
+          )}
+        </div>
+      </div>
+
+      {errors.searchTerm?.message && showError && (
+        <ErrorMessage
+          message={errors.searchTerm.message}
+          onClose={() => setShowError(false)}
         />
-      )}
-
-      <button className="search-form__button" type="submit">
-        Search
-      </button>
-      {errors.searchTerm && (
-        <span className="search-form__error">{errors.searchTerm.message}</span>
       )}
     </form>
   );

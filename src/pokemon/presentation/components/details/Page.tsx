@@ -47,10 +47,35 @@ export const Page: React.FC = () => {
     <div className="detail-page">
       <h1>{pokemon.name}</h1>
       <img src={pokemon.imageUrl ?? ""} alt={pokemon.altText} />
-      <p>Base Experience: {pokemon.baseExperience}</p>
-      <p>Height: {pokemon.height}</p>
-      <p>Weight: {pokemon.weight}</p>
-      <p>Types: {pokemon.types.join(", ")}</p>
+      <div className="experience-bars">
+        <div className="experience-bar">
+          <div
+            className="experience-bar__fill"
+            style={{ width: `${Math.min(pokemon.height * 10, 100)}%` }}
+          />
+          <span className="experience-bar__label">
+            Height: {pokemon.height}
+          </span>
+        </div>
+        <div className="experience-bar">
+          <div
+            className="experience-bar__fill"
+            style={{ width: `${Math.min(pokemon.weight / 2, 100)}%` }}
+          />
+          <span className="experience-bar__label">
+            Weight: {pokemon.weight}
+          </span>
+        </div>
+        <div className="experience-bar">
+          <div
+            className="experience-bar__fill"
+            style={{ width: `${Math.min(pokemon.baseExperience / 3, 100)}%` }}
+          />
+          <span className="experience-bar__label">
+            Base Experience: {pokemon.baseExperience}
+          </span>
+        </div>
+      </div>
       <button
         className="detail-page__add-to-cart"
         onClick={() => addToCart(PokemonDto.fromPokemonView(pokemon))}
@@ -59,21 +84,22 @@ export const Page: React.FC = () => {
         Catch Pokemon
       </button>
 
-      <Accordion
-        title="Abilities"
-        isOpen={showAbilities}
-        onToggle={() => setShowAbilities((prev) => !prev)}
-        columns={AbilityView.fields}
-        items={abilityItems}
-      />
-
-      <Accordion
-        title="Moves"
-        isOpen={showMoves}
-        onToggle={() => setShowMoves((prev) => !prev)}
-        columns={MoveView.fields}
-        items={moveItems}
-      />
+      <div className="accordion-row">
+        <Accordion
+          title="Moves"
+          isOpen={showMoves}
+          onToggle={() => setShowMoves((open) => !open)}
+          items={moveItems}
+          columns={MoveView.fields}
+        />
+        <Accordion
+          title="Abilities"
+          isOpen={showAbilities}
+          onToggle={() => setShowAbilities((open) => !open)}
+          items={abilityItems}
+          columns={AbilityView.fields}
+        />
+      </div>
     </div>
   );
 };

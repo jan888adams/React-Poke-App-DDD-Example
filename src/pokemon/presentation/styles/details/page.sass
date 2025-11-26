@@ -1,56 +1,50 @@
+@import '../../../../shared/presentation/styles/variables'
+@import '../../../../shared/presentation/styles/_buttons'
 
 .detail-page
-  max-width: 600px
-  margin: 2rem auto
-  padding: 2.5rem 2rem
-  background: linear-gradient(135deg, #f8fafc 0%, #e3e7ea 100%)
-  border-radius: 16px
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12)
-  display: flex
-  flex-direction: column
-  align-items: center
+  color: $text
+  font-size: $font-md
+  margin: 48px auto 48px auto   // 48px top and bottom, auto left/right
 
   h1
-    margin-bottom: 1.5rem
-    font-size: 2.2rem
-    font-weight: 700
-    color: #2d3748
-    letter-spacing: 1px
+    font-size: $font-lg
+    font-weight: bold
+    color: $primary
+    margin-bottom: $spacing-md
+    text-align: center
 
   img
     display: block
-    margin-bottom: 1.5rem
-    max-width: 220px
-    border-radius: 12px
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08)
+    width: 220px
+    height: 220px
+    object-fit: contain
+    margin: 0 auto $spacing-md auto
+    border-radius: $radius-md
+    box-shadow: $shadow-sm
 
   p
-    margin: 0.5rem 0
-    font-size: 1.08rem
-    color: #4a5568
+    font-size: $font-sm
+    color: $text-dark
+    margin-bottom: $spacing-xs
 
-  button.detail-page__add-to-cart
-    margin: 1.5rem 0 0 0
-    padding: 0.75rem 2rem
-    background: #48bb78
+  &__add-to-cart
+    background: $primary
     color: #fff
-    font-size: 1.1rem
-    font-weight: 600
-    border: none
-    border-radius: 6px
-    box-shadow: 0 2px 8px rgba(72,187,120,0.12)
+    margin-top: $spacing-lg
+    font-size: 1.15rem
+    padding: 1rem 2rem
+    min-width: 180px
+    border-radius: 32px
+    font-weight: bold
+    letter-spacing: 0.5px
     cursor: pointer
-    transition: background 0.2s
+    display: block
+    margin: $spacing-lg auto 0 auto
 
     &:hover
-      background: #38a169
-
-.accordion
-  margin: 1.5rem 0
-  background: #f9f9f9
-  border-radius: 6px
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07)
-  padding: 1rem
+      background: darken($primary, 8%)
+      box-shadow: 0 4px 16px rgba(238,21,21,0.14)
+      cursor: pointer
 
   &__toggle
     display: block
@@ -86,3 +80,38 @@
         span
           margin-right: 0.75rem
           font-weight: 600
+
+.experience-bars
+  width: 100%
+  max-width: 500px
+  margin: 2rem auto 0 auto
+  display: flex
+  flex-direction: column
+  gap: 1rem
+
+.experience-bar
+  background: $primary   
+  border-radius: 8px
+  overflow: hidden
+  height: 28px
+  position: relative
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07)
+
+  &__label
+    position: absolute
+    left: 16px
+    top: 50%
+    transform: translateY(-50%)
+    font-size: 1rem
+    font-weight: 600
+    color: #fff
+    z-index: 2
+
+  &__fill
+    height: 100%
+    background: linear-gradient(90deg, #ee1515 60%, $primary 100%) // accent gradient if you want
+    border-radius: 8px
+    transition: width 0.4s
+    position: absolute
+    left: 0
+    top: 0
