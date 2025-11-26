@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 
 export default tseslint.config(
-    { ignores: ["dist", "node_modules", "coverage", "*.config.js"] },
+    { ignores: ["dist", "node_modules", "coverage", "*.config.js", "*.config.ts"] },
     {
       extends: [js.configs.recommended, ...tseslint.configs.recommended],
       files: ["**/*.{ts,tsx}"],
@@ -41,6 +41,7 @@ export default tseslint.config(
         ],
         "import/prefer-default-export": "off",
         "react/require-default-props": "off",
+        "import/no-default-export": "error",
         "@typescript-eslint/explicit-function-return-type": "off",
         "import/no-extraneous-dependencies": [
           "error",

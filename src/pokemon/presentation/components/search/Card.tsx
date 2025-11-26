@@ -6,7 +6,7 @@ interface Props {
   pokemon: Pokemon;
 }
 
-const Card: React.FC<Props> = ({ pokemon }) => {
+export const Card: React.FC<Props> = ({ pokemon }) => {
   return (
     <div className="card">
       <img
@@ -20,5 +20,3 @@ const Card: React.FC<Props> = ({ pokemon }) => {
     </div>
   );
 };
-
-export default Card;

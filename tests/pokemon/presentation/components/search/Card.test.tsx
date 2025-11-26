@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Card from "../../../../../src/pokemon/presentation/components/search/Card";
+import { Card } from "../../../../../src/pokemon/presentation/components/search/Card";
 import { Pokemon } from "../../../../../src/pokemon/domain/entities/Pokemon";
 
 const mockPokemon = Pokemon.fromValues(
