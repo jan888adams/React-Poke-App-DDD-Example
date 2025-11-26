@@ -1,8 +1,8 @@
 import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { useNavigate } from "react-router-dom";
 import { CardProps } from "../../types/components/cart/CardProps";
-import "../../styles/cart/card.sass";
 import React from "react";
+import "../../styles/cart/card.sass";
 
 export const Card: React.FC<CardProps> = ({ pokemon, closeModal }) => {
   const { cart, removeFromCart } = usePokemonCart();

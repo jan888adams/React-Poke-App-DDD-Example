@@ -40,6 +40,8 @@ describe("GetPokemons", () => {
         64,
         7,
         69,
+        [{ id: 1 }],
+        [{ id: 2 }],
       ),
       Pokemon.fromValues(
         2,
@@ -49,6 +51,8 @@ describe("GetPokemons", () => {
         142,
         10,
         130,
+        [{ id: 3 }],
+        [{ id: 4 }],
       ),
     ];
 

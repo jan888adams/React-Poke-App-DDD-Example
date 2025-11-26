@@ -7,9 +7,9 @@ import { PokemonApiResponse } from "../types/PokemonApiResponse";
 import { PokemonApiListResponse } from "../types/PokemonApiListResponse";
 
 export class PokemonApiRepository implements PokemonRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  public constructor(private readonly httpClient: HttpClient) {}
 
-  async findById(id: PokemonId): Promise<Pokemon | null> {
+  public async findById(id: PokemonId): Promise<Pokemon | null> {
     const response = await this.httpClient.get<PokemonApiResponse>(
       `pokemon/${id.getValue()}`,
     );
@@ -25,7 +25,7 @@ export class PokemonApiRepository implements PokemonRepository {
     return this.map(response.getData());
   }
 
-  async findByName(name: PokemonName): Promise<Pokemon | null> {
+  public async findByName(name: PokemonName): Promise<Pokemon | null> {
     const response = await this.httpClient.get<PokemonApiResponse>(
       `pokemon/${name.getValue().toLowerCase()}`,
     );
@@ -41,7 +41,7 @@ export class PokemonApiRepository implements PokemonRepository {
     return this.map(response.getData());
   }
 
-  async getAll(page: number, limit: number): Promise<Pokemon[]> {
+  public async getAll(page: number, limit: number): Promise<Pokemon[]> {
     const offset = (page - 1) * limit;
     const response = await this.httpClient.get<PokemonApiListResponse>(
       `pokemon?offset=${offset}&limit=${limit}`,
@@ -70,7 +70,7 @@ export class PokemonApiRepository implements PokemonRepository {
     return pokemons;
   }
 
-  async getNames(): Promise<PokemonName[]> {
+  public async getNames(): Promise<PokemonName[]> {
     const response = await this.httpClient.get<PokemonApiListResponse>(
       `pokemon?offset=0&limit=10000`,
     );
@@ -95,6 +95,20 @@ export class PokemonApiRepository implements PokemonRepository {
       response.base_experience,
       response.height,
       response.weight,
+      response.abilities.map(
+        (abilityInfo: { ability: { name: string; url: string } }) => {
+          const urlParts = abilityInfo.ability.url.split("/").filter(Boolean);
+          const abilityId = parseInt(urlParts[urlParts.length - 1], 10);
+          return { id: abilityId };
+        },
+      ),
+      response.moves.map(
+        (moveInfo: { move: { name: string; url: string } }) => {
+          const urlParts = moveInfo.move.url.split("/").filter(Boolean);
+          const moveId = parseInt(urlParts[urlParts.length - 1], 10);
+          return { id: moveId };
+        },
+      ),
     );
   }
 }

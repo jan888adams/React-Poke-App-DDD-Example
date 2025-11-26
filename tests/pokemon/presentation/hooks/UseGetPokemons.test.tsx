@@ -16,6 +16,8 @@ describe("useGetPokemons", () => {
       64,
       7,
       69,
+      [{ id: 12 }],
+      [{ id: 34 }],
     ),
     Pokemon.fromValues(
       2,
@@ -25,6 +27,8 @@ describe("useGetPokemons", () => {
       142,
       10,
       130,
+      [{ id: 33 }],
+      [{ id: 44 }],
     ),
   ];
 

@@ -26,6 +26,8 @@ describe("SearchPokemonByName", () => {
       112,
       4,
       60,
+      [{ id: 25 }],
+      [{ id: 25 }],
     );
   });
 

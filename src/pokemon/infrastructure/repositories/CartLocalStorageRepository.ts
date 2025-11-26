@@ -74,6 +74,8 @@ export class CartLocalStorageRepository implements CartRepository {
         SerializedPokemon.baseExperience,
         SerializedPokemon.height,
         SerializedPokemon.weight,
+        SerializedPokemon.abilities.map((id) => ({ id })),
+        SerializedPokemon.moves.map((id) => ({ id })),
       ),
     );
 

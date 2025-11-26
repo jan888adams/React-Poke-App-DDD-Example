@@ -37,6 +37,8 @@ describe("RemovePokemonFromCart", () => {
         112,
         4,
         60,
+        [{ id: 25 }],
+        [{ id: 25 }],
       ),
     );
   });
@@ -53,6 +55,8 @@ describe("RemovePokemonFromCart", () => {
       baseExperience: 112,
       height: 4,
       weight: 60,
+      abilities: [25],
+      moves: [25],
     };
 
     await useCase.execute(pokemonDto, cartId);
@@ -79,6 +83,8 @@ describe("RemovePokemonFromCart", () => {
       baseExperience: 112,
       height: 4,
       weight: 60,
+      abilities: [25],
+      moves: [25],
     };
 
     await useCase.execute(pokemonDto, "non-existent-cart-id");
@@ -102,6 +108,8 @@ describe("RemovePokemonFromCart", () => {
       baseExperience: 64,
       height: 7,
       weight: 69,
+      abilities: [1],
+      moves: [1],
     };
 
     await useCase.execute(pokemonDto, cartId);

@@ -20,6 +20,8 @@ describe("Grid Component", () => {
       baseExperience: 64,
       height: 7,
       weight: 69,
+      abilities: [24],
+      moves: [23],
     },
     {
       id: 2,
@@ -30,6 +32,8 @@ describe("Grid Component", () => {
       baseExperience: 142,
       height: 10,
       weight: 130,
+      abilities: [23],
+      moves: [24],
     },
     {
       id: 3,
@@ -40,6 +44,8 @@ describe("Grid Component", () => {
       baseExperience: 62,
       height: 6,
       weight: 85,
+      abilities: [23],
+      moves: [24],
     },
   ];
 

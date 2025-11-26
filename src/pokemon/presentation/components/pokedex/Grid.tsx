@@ -16,7 +16,9 @@ export const Grid: React.FC = () => {
   const { pokemons, loading, error } = useGetPokemons(page, limit);
 
   const sortedPokemons = useMemo(() => {
-    if (!pokemons) return [];
+    if (!pokemons) {
+      return [];
+    }
 
     return [...pokemons].sort((a, b) => {
       if (sortBy === "name") {

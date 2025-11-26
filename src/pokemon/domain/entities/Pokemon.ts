@@ -1,3 +1,5 @@
+import { AbilityId } from "../value-objects/ability/AbilityId";
+import { MoveId } from "../value-objects/move/MoveId";
 import { PokemonExperience } from "../value-objects/pokemon/PokemonExperience";
 import { PokemonHeight } from "../value-objects/pokemon/PokemonHeight";
 import { PokemonId } from "../value-objects/pokemon/PokemonId";
@@ -14,6 +16,8 @@ export class Pokemon {
     public readonly baseExperience: PokemonExperience,
     public readonly height: PokemonHeight,
     public readonly weight: PokemonWeight,
+    public readonly abilities: AbilityId[],
+    public readonly moves: MoveId[],
   ) {}
 
   public static fromValues(
@@ -24,6 +28,8 @@ export class Pokemon {
     baseExperience: number,
     height: number,
     weight: number,
+    abilities: Array<{ id: number }>,
+    moves: Array<{ id: number }>,
   ): Pokemon {
     const pokemonId = PokemonId.fromNumber(id);
     const pokemonName = PokemonName.fromString(name);
@@ -40,6 +46,8 @@ export class Pokemon {
       pokemonBaseExperience,
       pokemonHeight,
       pokemonWeight,
+      abilities.map((ability) => AbilityId.fromNumber(ability.id)),
+      moves.map((move) => MoveId.fromNumber(move.id)),
     );
   }
 }

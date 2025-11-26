@@ -1,13 +1,43 @@
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { usePokemonCart } from "../../hooks/usePokemonCart";
 import { PokemonView } from "../../../application/views/PokemonView";
 import { PokemonDto } from "../../../application/dtos/PokemonDto";
+import { Accordion } from "./Accordion";
+import { useGetPokemonMoves } from "../../hooks/useGetPokemonMoves";
+import { useGetPokemonAbilities } from "../../hooks/useGetPokemonAbilities";
+import { MoveView } from "../../../application/views/MoveView";
+import { AbilityView } from "../../../application/views/AbilityView";
 import "../../styles/details/page.sass";
 
 export const Page: React.FC = () => {
   const location = useLocation();
   const { cart, addToCart } = usePokemonCart();
   const pokemon = (location.state as { pokemon?: PokemonView })?.pokemon;
+
+  const [showMoves, setShowMoves] = useState(false);
+  const [showAbilities, setShowAbilities] = useState(false);
+
+  const moves = useGetPokemonMoves(showMoves ? (pokemon ?? null) : null);
+  const abilities = useGetPokemonAbilities(
+    showAbilities ? (pokemon ?? null) : null,
+  );
+
+  const moveItems: string[][] = moves.map((move) => [
+    move.name,
+    move.accuracy,
+    move.effectChance,
+    move.pp,
+    move.priority,
+    move.power,
+    move.damageClass,
+  ]);
+
+  const abilityItems: string[][] = abilities.map((ability) => [
+    ability.name,
+    ability.generation,
+    ability.effect,
+  ]);
 
   if (!pokemon) {
     return <div>No Pokemon data provided.</div>;
@@ -28,6 +58,22 @@ export const Page: React.FC = () => {
       >
         Catch Pokemon
       </button>
+
+      <Accordion
+        title="Abilities"
+        isOpen={showAbilities}
+        onToggle={() => setShowAbilities((prev) => !prev)}
+        columns={AbilityView.fields}
+        items={abilityItems}
+      />
+
+      <Accordion
+        title="Moves"
+        isOpen={showMoves}
+        onToggle={() => setShowMoves((prev) => !prev)}
+        columns={MoveView.fields}
+        items={moveItems}
+      />
     </div>
   );
 };

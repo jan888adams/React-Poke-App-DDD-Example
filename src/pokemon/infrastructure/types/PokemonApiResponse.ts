@@ -13,4 +13,18 @@ export interface PokemonApiResponse {
   base_experience: number;
   height: number;
   weight: number;
+  abilities: Array<{
+    slot: number;
+    ability: {
+      name: string;
+      url: string;
+    };
+  }>;
+  moves: Array<{
+    slot: number;
+    move: {
+      name: string;
+      url: string;
+    };
+  }>;
 }

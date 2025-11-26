@@ -34,6 +34,22 @@ describe("PokemonApiRepository", () => {
         types: [{ type: { name: "electric" } }],
         height: 4,
         weight: 60,
+        abilities: [
+          {
+            ability: {
+              name: "static",
+              url: "https://pokeapi.co/api/v2/ability/34/",
+            },
+          },
+        ],
+        moves: [
+          {
+            move: {
+              name: "thunderbolt",
+              url: "https://pokeapi.co/api/v2/move/84/",
+            },
+          },
+        ],
       };
 
       const mockApiResponse = new ApiResponse(mockApiData, 200);
@@ -80,6 +96,22 @@ describe("PokemonApiRepository", () => {
         types: [{ type: { name: "electric" } }],
         height: 4,
         weight: 60,
+        abilities: [
+          {
+            ability: {
+              name: "static",
+              url: "https://pokeapi.co/api/v2/ability/34/",
+            },
+          },
+        ],
+        moves: [
+          {
+            move: {
+              name: "thunderbolt",
+              url: "https://pokeapi.co/api/v2/move/84/",
+            },
+          },
+        ],
       };
 
       const mockApiResponse = new ApiResponse(mockApiData, 200);
@@ -134,6 +166,8 @@ describe("PokemonApiRepository", () => {
         base_experience: 64,
         height: 7,
         weight: 69,
+        abilities: [],
+        moves: [],
       };
 
       const mockPokemonResponse2: PokemonApiResponse = {
@@ -147,6 +181,8 @@ describe("PokemonApiRepository", () => {
         base_experience: 142,
         height: 10,
         weight: 130,
+        abilities: [],
+        moves: [],
       };
 
       mockHttpClient.get

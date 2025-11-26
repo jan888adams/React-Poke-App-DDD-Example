@@ -2,6 +2,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Card } from "../../../../../src/pokemon/presentation/components/cart/Card";
 import { usePokemonCart } from "../../../../../src/pokemon/presentation/hooks/usePokemonCart";
 import { useNavigate } from "react-router-dom";
+import { PokemonView } from "../../../../../src/pokemon/application/views/PokemonView";
+import { Pokemon } from "../../../../../src/pokemon/domain/entities/Pokemon";
 
 jest.mock("../../../../../src/pokemon/presentation/hooks/usePokemonCart");
 jest.mock("react-router-dom", () => ({
@@ -13,16 +15,19 @@ describe("Card Component", () => {
   const mockRemoveFromCart = jest.fn();
   const mockNavigate = jest.fn();
 
-  const mockPokemon = {
-    id: 25,
-    name: "Pikachu",
-    imageUrl: "https://example.com/pikachu.png",
-    altText: "pikachu",
-    types: ["electric"],
-    baseExperience: 112,
-    height: 4,
-    weight: 60,
-  };
+  const mockPokemon = PokemonView.fromPokemon(
+    Pokemon.fromValues(
+      25,
+      "Pikachu",
+      "https://example.com/pikachu.png",
+      ["electric"],
+      112,
+      4,
+      60,
+      [{ id: 12 }],
+      [{ id: 34 }],
+    ),
+  );
 
   beforeEach(() => {
     jest.clearAllMocks();

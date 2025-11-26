@@ -6,4 +6,6 @@ export type SerializedPokemon = {
   baseExperience: number;
   height: number;
   weight: number;
+  abilities: Array<number>;
+  moves: Array<number>;
 };
