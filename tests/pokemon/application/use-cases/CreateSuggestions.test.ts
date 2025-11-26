@@ -33,7 +33,7 @@ describe("CreateSuggestions", () => {
 
     mockSuggestionRepository = {
       hasSuggestions: jest.fn(),
-      saveSuggestions: jest.fn(),
+      save: jest.fn(),
       search: jest.fn(),
     } as Partial<SuggestionRepository> as jest.Mocked<SuggestionRepository>;
 
@@ -52,7 +52,7 @@ describe("CreateSuggestions", () => {
 
     expect(mockSuggestionRepository.hasSuggestions).toHaveBeenCalled();
     expect(mockPokemonRepository.getNames).not.toHaveBeenCalled();
-    expect(mockSuggestionRepository.saveSuggestions).not.toHaveBeenCalled();
+    expect(mockSuggestionRepository.save).not.toHaveBeenCalled();
   });
 
   it("should create suggestions if none exist", async () => {
@@ -68,7 +68,7 @@ describe("CreateSuggestions", () => {
 
     expect(mockSuggestionRepository.hasSuggestions).toHaveBeenCalled();
     expect(mockPokemonRepository.getNames).toHaveBeenCalled();
-    expect(mockSuggestionRepository.saveSuggestions).toHaveBeenCalledWith(
+    expect(mockSuggestionRepository.save).toHaveBeenCalledWith(
       expect.arrayContaining([
         expect.objectContaining({
           name: expect.objectContaining({ getValue: expect.any(Function) }),

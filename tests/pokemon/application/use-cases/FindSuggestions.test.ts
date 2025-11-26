@@ -9,7 +9,7 @@ describe("FindSuggestions", () => {
   beforeEach(() => {
     mockSuggestionRepository = {
       search: jest.fn(),
-      saveSuggestions: jest.fn(),
+      save: jest.fn(),
       hasSuggestions: jest.fn(),
     } as jest.Mocked<SuggestionRepository>;
 

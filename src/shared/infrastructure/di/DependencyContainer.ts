@@ -43,6 +43,7 @@ export const getPokemonNames = new GetPokemonNames(pokemonRepository);
 export const searchAdapter = new SuggestionSearchAdapter();
 export const suggestionRepository = new SuggestionLocalStorageRepository(
   searchAdapter,
+  "pokemon_suggestions",
 );
 
 export const createSuggestions = new CreateSuggestions(

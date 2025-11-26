@@ -4,18 +4,45 @@ import { Suggestion } from "../../domain/entities/Suggestion";
 export class SuggestionSearchAdapter {
   private tree: BinarySearchTree<Suggestion>;
 
-  constructor() {
+  public constructor() {
     this.tree = new BinarySearchTree<Suggestion>(
       (a, b) => a.name.getValue().localeCompare(b.name.getValue()),
       (value) => value.name.getValue(),
     );
   }
 
-  public saveSuggestions(suggestions: Suggestion[]): void {
-    suggestions.forEach((suggestion) => this.tree.insert(suggestion));
+  public find(term: string): Suggestion[] {
+    const results = this.tree.findAllStartingWith(term);
+
+    return results.sort((a, b) =>
+      a.name.getValue().localeCompare(b.name.getValue()),
+    );
   }
 
-  public findSuggestions(prefix: string): Suggestion[] {
-    return this.tree.findAllStartingWith(prefix);
+  public load(suggestions: Suggestion[]): void {
+    const balancedSuggestions = this.balanceSuggestions(suggestions);
+
+    balancedSuggestions.forEach((suggestion) => this.tree.insert(suggestion));
+  }
+
+  private balanceSuggestions(suggestions: Suggestion[]): Suggestion[] {
+    const sortedSuggestions = [...suggestions].sort((a, b) =>
+      a.name.getValue().localeCompare(b.name.getValue()),
+    );
+
+    const buildBalancedTree = (items: Suggestion[]): Suggestion[] => {
+      if (items.length === 0) {
+        return [];
+      }
+
+      const mid = Math.floor(items.length / 2);
+      return [
+        items[mid],
+        ...buildBalancedTree(items.slice(0, mid)),
+        ...buildBalancedTree(items.slice(mid + 1)),
+      ];
+    };
+
+    return buildBalancedTree(sortedSuggestions);
   }
 }
