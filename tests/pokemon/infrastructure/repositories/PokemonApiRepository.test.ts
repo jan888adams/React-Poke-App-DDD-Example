@@ -111,7 +111,7 @@ describe("PokemonApiRepository", () => {
     });
   });
 
-  describe("PokemonApiRepository - getAll", () => {
+  describe("getAll", () => {
     it("fetches paginated Pokémon data and maps it to Pokemon entities", async () => {
       const mockListResponse: PokemonApiListResponse = {
         count: 1281,
@@ -197,6 +197,47 @@ describe("PokemonApiRepository", () => {
       );
       expect(mockHttpClient.get).toHaveBeenCalledWith(
         "https://pokeapi.co/api/v2/pokemon/1/",
+      );
+    });
+  });
+
+  describe("getNames", () => {
+    it("should return a list of PokemonName objects when the API call is successful", async () => {
+      const mockResponse: PokemonApiListResponse = {
+        count: 1281,
+        next: null,
+        previous: null,
+        results: [
+          { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+          { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
+          { name: "venusaur", url: "https://pokeapi.co/api/v2/pokemon/3/" },
+        ],
+      };
+
+      const mockApiResponse = new ApiResponse(mockResponse, 200);
+      mockHttpClient.get.mockResolvedValueOnce(mockApiResponse);
+
+      const result = await repository.getNames();
+
+      expect(result).toEqual([
+        PokemonName.fromString("bulbasaur"),
+        PokemonName.fromString("ivysaur"),
+        PokemonName.fromString("venusaur"),
+      ]);
+      expect(mockHttpClient.get).toHaveBeenCalledWith(
+        "pokemon?offset=0&limit=10000",
+      );
+    });
+
+    it("should throw an error if the API call is unsuccessful", async () => {
+      const mockApiResponse = new ApiResponse(null, 500);
+      mockHttpClient.get.mockResolvedValueOnce(mockApiResponse);
+
+      await expect(repository.getNames()).rejects.toThrow(
+        "Failed to fetch Pokemon names",
+      );
+      expect(mockHttpClient.get).toHaveBeenCalledWith(
+        "pokemon?offset=0&limit=10000",
       );
     });
   });

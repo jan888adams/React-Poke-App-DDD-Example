@@ -41,7 +41,9 @@ describe("Form", () => {
     fireEvent.click(button);
 
     expect(
-      await screen.findByText("No special characters allowed"),
+      await screen.findByText(
+        "Only letters, numbers, spaces, and - are allowed",
+      ),
     ).toBeInTheDocument();
     expect(handleSubmit).not.toHaveBeenCalled();
   });

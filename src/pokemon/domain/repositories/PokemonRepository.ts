@@ -8,4 +8,6 @@ export interface PokemonRepository {
   findById(id: PokemonId): Promise<Pokemon | null>;
 
   getAll(page: number, limit: number): Promise<Pokemon[]>;
+
+  getNames(): Promise<PokemonName[]>;
 }

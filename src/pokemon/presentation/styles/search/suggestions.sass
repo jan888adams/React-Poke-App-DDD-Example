@@ -1,0 +1,40 @@
+.suggestions
+  width: 100%
+  display: flex
+  flex-direction: column
+  gap: 0.5rem
+
+.suggestions__list
+  list-style: none
+  margin: 0
+  padding: 0
+  border: 1px solid #ccc
+  border-radius: 4px
+  max-height: 200px
+  overflow-y: auto
+  background-color: #fff
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+
+.suggestions__item
+  padding: 0.5rem 1rem
+  cursor: pointer
+  transition: background-color 0.2s ease
+
+  &:hover
+    background-color: #f0f0f0
+
+  &.suggestions__item--focused
+    background-color: #f0f0f0
+
+  &:active
+    background-color: #e0e0e0
+
+.suggestions__loading
+  color: #2a75bb
+  font-size: 0.9rem
+  text-align: center
+
+.suggestions__error
+  color: #d32f2f
+  font-size: 0.9rem
+  text-align: center
