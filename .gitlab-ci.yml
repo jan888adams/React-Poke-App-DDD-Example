@@ -1,0 +1,56 @@
+stages:
+  - build
+  - lint
+  - test
+
+yarn-install:
+  stage: build
+  image: node:18-alpine
+  script:
+    - yarn install
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+prettier-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn format:check
+
+eslint-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn lint
+
+type-check:
+  stage: lint
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn type-check
+
+jest-tests:
+  stage: test
+  image: node:18-alpine
+  needs:
+    - job: yarn-install
+  script:
+    - yarn test:coverage
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+    expire_in: 1 week
