@@ -9,7 +9,7 @@ export abstract class ValueObject<T> {
     return this.value;
   }
 
-  public isStringValue(): boolean {
-    return typeof this.value === "string";
+  public toString(): string {
+    return String(this.value);
   }
 }

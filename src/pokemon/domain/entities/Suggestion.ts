@@ -3,7 +3,7 @@ import { SuggestionName } from "../value-objects/suggestion/SuggestionName";
 import { Searchable } from "../../../shared/domain/search/Searchable";
 
 export class Suggestion implements Searchable {
-  constructor(
+  public constructor(
     public readonly id: SuggestionId,
     public readonly name: SuggestionName,
   ) {}
