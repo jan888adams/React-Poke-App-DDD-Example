@@ -1,11 +1,11 @@
 import { ValueObject } from "../../../../shared/domain/value-objects/ValueObject";
 
-export class Effect extends ValueObject<string> {
+export class AbilityEffect extends ValueObject<string> {
   private constructor(value: string) {
     super(value);
   }
 
-  public static fromValue(value: string): Effect {
-    return new Effect(value);
+  public static fromValue(value: string): AbilityEffect {
+    return new AbilityEffect(value);
   }
 }

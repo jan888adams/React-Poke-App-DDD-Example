@@ -25,26 +25,14 @@ export class MoveView {
 
   public static fromMove(move: Move): MoveView {
     return new MoveView(
-      String(move.id.getValue()),
-      Formatter.capitalize(move.name.getValue()),
-      move.accuracy.getValue() !== null
-        ? Formatter.capitalize(String(move.accuracy.getValue()))
-        : "",
-      move.effectChance.getValue() !== null
-        ? Formatter.capitalize(String(move.effectChance.getValue()))
-        : "",
-      move.pp.getValue() !== null
-        ? Formatter.capitalize(String(move.pp.getValue()))
-        : "",
-      move.priority.getValue() !== null
-        ? Formatter.capitalize(String(move.priority.getValue()))
-        : "",
-      move.power.getValue() !== null
-        ? Formatter.capitalize(String(move.power.getValue()))
-        : "",
-      move.damageClass.getValue() !== null
-        ? Formatter.capitalize(move.damageClass.getValue())
-        : "",
+      move.id.toString(),
+      Formatter.capitalize(move.name.toString()),
+      move.accuracy.toString(),
+      move.effectChance.toString(),
+      move.pp.toString(),
+      move.priority.toString(),
+      move.power.toString(),
+      Formatter.capitalize(move.damageClass.getValue()),
     );
   }
 }

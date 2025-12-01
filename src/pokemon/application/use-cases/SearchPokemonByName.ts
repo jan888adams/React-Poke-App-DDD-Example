@@ -3,9 +3,9 @@ import { PokemonRepository } from "../../domain/repositories/PokemonRepository";
 import { PokemonView } from "../views/PokemonView";
 
 export class SearchPokemonByName {
-  constructor(private readonly pokemonRepository: PokemonRepository) {}
+  public constructor(private readonly pokemonRepository: PokemonRepository) {}
 
-  async execute(name: string): Promise<PokemonView | null> {
+  public async execute(name: string): Promise<PokemonView | null> {
     if (!name || name.trim().length === 0) {
       throw new Error("Pokemon name cannot be empty");
     }

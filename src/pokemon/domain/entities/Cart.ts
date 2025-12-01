@@ -9,7 +9,9 @@ export class Cart {
   ) {}
 
   public add(pokemon: Pokemon) {
-    this.items.push(pokemon);
+    if (!this.has(pokemon.id)) {
+      this.items.push(pokemon);
+    }
   }
 
   public remove(pokemonId: PokemonId) {

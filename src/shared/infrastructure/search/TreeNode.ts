@@ -2,7 +2,7 @@ export class TreeNode<T> {
   public left: TreeNode<T> | null = null;
   public right: TreeNode<T> | null = null;
 
-  constructor(public value: T) {}
+  public constructor(public value: T) {}
 
   public setLeft(node: TreeNode<T> | null): void {
     this.left = node;

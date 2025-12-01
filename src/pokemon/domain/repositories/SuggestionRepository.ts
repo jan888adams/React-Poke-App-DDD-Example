@@ -1,4 +1,4 @@
-import { SearchRepository } from "../../../shared/domain/repository/SearchRepository";
+import { SearchRepository } from "../../../shared/domain/repositories/SearchRepository";
 import { Suggestion } from "../entities/Suggestion";
 
 export interface SuggestionRepository extends SearchRepository<Suggestion> {

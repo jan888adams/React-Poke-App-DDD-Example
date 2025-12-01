@@ -7,7 +7,7 @@ export class MittEventEmitterAdapter<TEvents extends Record<string, unknown>>
   private readonly emitter: Emitter<Record<string, unknown>> =
     mitt<Record<string, unknown>>();
 
-  on<K extends keyof TEvents>(
+  public on<K extends keyof TEvents>(
     event: K,
     handler: (payload: TEvents[K]) => void,
   ): void {
@@ -17,7 +17,7 @@ export class MittEventEmitterAdapter<TEvents extends Record<string, unknown>>
     );
   }
 
-  off<K extends keyof TEvents>(
+  public off<K extends keyof TEvents>(
     event: K,
     handler: (payload: TEvents[K]) => void,
   ): void {
@@ -27,7 +27,7 @@ export class MittEventEmitterAdapter<TEvents extends Record<string, unknown>>
     );
   }
 
-  emit<K extends keyof TEvents>(event: K, payload: TEvents[K]): void {
+  public emit<K extends keyof TEvents>(event: K, payload: TEvents[K]): void {
     this.emitter.emit(event as unknown as string, payload as unknown);
   }
 }

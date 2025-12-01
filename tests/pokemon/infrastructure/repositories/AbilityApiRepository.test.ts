@@ -51,9 +51,9 @@ describe("AbilityApiRepository", () => {
 
     const result = await repository.findById(1);
     expect(result).toBeInstanceOf(Ability);
-    expect(result?.id).toBe(1);
-    expect(result?.name).toBe("overgrow");
-    expect(result?.generation).toBe("generation-iii");
-    expect(result?.effect).toBe("Boosts Grass moves.");
+    expect(result?.id.getValue()).toBe(1);
+    expect(result?.name.getValue()).toBe("overgrow");
+    expect(result?.generation.getValue()).toBe("generation-iii");
+    expect(result?.effect.getValue()).toBe("Boosts Grass moves.");
   });
 });

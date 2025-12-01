@@ -23,7 +23,7 @@ export class RemovePokemonFromCart {
 
     cart.remove(pokemonId);
 
-    this.cartRepository.save(cart);
+    await this.cartRepository.save(cart);
 
     this.emitter.emit("change", CartView.fromCart(cart));
   }

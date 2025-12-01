@@ -1,9 +1,14 @@
+import { AbilityId } from "../value-objects/ability/AbilityId.ts";
+import { AbilityName } from "../value-objects/ability/AbilityName.ts";
+import { AbilityEffect } from "../value-objects/ability/AbilityEffect.ts";
+import { AbilityGeneration } from "../value-objects/ability/AbilityGeneration.ts";
+
 export class Ability {
   private constructor(
-    public readonly id: number,
-    public readonly name: string,
-    public readonly generation: string,
-    public readonly effect: string,
+    public readonly id: AbilityId,
+    public readonly name: AbilityName,
+    public readonly generation: AbilityGeneration,
+    public readonly effect: AbilityEffect,
   ) {}
 
   public static fromValues(
@@ -12,6 +17,11 @@ export class Ability {
     generation: string,
     effect: string,
   ): Ability {
-    return new Ability(id, name, generation, effect);
+    return new Ability(
+      AbilityId.fromNumber(id),
+      AbilityName.fromValue(name),
+      AbilityGeneration.fromValue(generation),
+      AbilityEffect.fromValue(effect),
+    );
   }
 }

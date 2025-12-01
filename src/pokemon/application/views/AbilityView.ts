@@ -17,10 +17,10 @@ export class AbilityView {
 
   public static fromAbility(ability: Ability): AbilityView {
     return new AbilityView(
-      String(ability.id),
-      Formatter.capitalize(ability.name),
-      Formatter.capitalize(ability.generation ?? ""),
-      Formatter.capitalize(ability.effect ?? ""),
+      ability.id.getValue().toString(),
+      Formatter.capitalize(ability.name.getValue()),
+      Formatter.capitalize(ability.generation.getValue()),
+      Formatter.capitalize(ability.effect.getValue()),
     );
   }
 }

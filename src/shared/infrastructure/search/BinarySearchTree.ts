@@ -3,7 +3,7 @@ import { TreeNode } from "./TreeNode";
 export class BinarySearchTree<T> {
   private root: TreeNode<T> | null = null;
 
-  constructor(
+  public constructor(
     private compare: (a: T, b: T) => number,
     private getSearchableValue: (value: T) => string,
   ) {}
