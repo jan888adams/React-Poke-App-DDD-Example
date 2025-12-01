@@ -19,7 +19,7 @@ export class AbilityView {
     return new AbilityView(
       ability.id.getValue().toString(),
       Formatter.capitalize(ability.name.getValue()),
-      ability.generation.getValue().toString(),
+      Formatter.capitalize(ability.generation.getValue()),
       Formatter.capitalize(ability.effect.getValue()),
     );
   }

@@ -32,7 +32,7 @@ export class MoveView {
       move.pp.toString(),
       move.priority.toString(),
       move.power.toString(),
-      move.damageClass.getValue(),
+      Formatter.capitalize(move.damageClass.getValue()),
     );
   }
 }
