@@ -1,17 +1,17 @@
 import { ValueObject } from "../../../../shared/domain/value-objects/ValueObject";
 
-export class CardId extends ValueObject<string> {
+export class CartId extends ValueObject<string> {
   private constructor(value: string) {
     super(value);
     this.validate(value);
   }
 
-  public static new(): CardId {
-    return new CardId(crypto.randomUUID());
+  public static new(): CartId {
+    return new CartId(crypto.randomUUID());
   }
 
-  public static fromString(value: string): CardId {
-    return new CardId(value);
+  public static fromString(value: string): CartId {
+    return new CartId(value);
   }
 
   private validate(value: string): void {

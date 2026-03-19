@@ -3,12 +3,12 @@ import { PokemonDto } from "../dtos/PokemonDto";
 import { AbilityView } from "../views/AbilityView";
 
 export class GetAbilitiesForPokemon {
-  public constructor(private readonly AbilityRepository: AbilityRepository) {}
+  public constructor(private readonly abilityRepository: AbilityRepository) {}
 
   public async execute(pokemonDto: PokemonDto): Promise<Array<AbilityView>> {
     const abilities = await Promise.all(
       pokemonDto.abilities.map(async (id) => {
-        return await this.AbilityRepository.findById(id);
+        return await this.abilityRepository.findById(id);
       }),
     );
 

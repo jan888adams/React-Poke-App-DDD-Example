@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PokemonView } from "../../application/views/PokemonView";
 import { MoveView } from "../../application/views/MoveView";
 import { getMovesForPokemon } from "../../../shared/infrastructure/di/DependencyContainer";
+import { PokemonDto } from "../../application/dtos/PokemonDto";
 
 export const useGetPokemonMoves = (pokemon: PokemonView | null): MoveView[] => {
   const [moves, setMoves] = useState<MoveView[]>([]);
@@ -12,7 +13,9 @@ export const useGetPokemonMoves = (pokemon: PokemonView | null): MoveView[] => {
       return;
     }
     const getMoves = async () => {
-      const moves = await getMovesForPokemon.execute(pokemon);
+      const moves = await getMovesForPokemon.execute(
+        PokemonDto.fromPokemonView(pokemon),
+      );
       setMoves(moves);
     };
 

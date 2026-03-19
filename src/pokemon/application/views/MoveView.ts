@@ -25,7 +25,7 @@ export class MoveView {
 
   public static fromMove(move: Move): MoveView {
     return new MoveView(
-      move.id.toString(),
+      move.id.getValue().toString(),
       Formatter.capitalize(move.name.toString()),
       move.accuracy.toString(),
       move.effectChance.toString(),

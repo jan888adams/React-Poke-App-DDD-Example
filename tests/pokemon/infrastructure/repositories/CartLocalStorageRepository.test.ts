@@ -1,7 +1,7 @@
 import { CartLocalStorageRepository } from "../../../../src/pokemon/infrastructure/repositories/CartLocalStorageRepository";
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
-import { CardId } from "../../../../src/pokemon/domain/value-objects/cart/CartId";
+import { CartId } from "../../../../src/pokemon/domain/value-objects/cart/CartId";
 
 describe("CartLocalStorageRepository", () => {
   let repository: CartLocalStorageRepository;
@@ -134,7 +134,7 @@ describe("CartLocalStorageRepository", () => {
       return null;
     });
 
-    const cart = await repository.findById(CardId.fromString(cartId));
+    const cart = await repository.findById(CartId.fromString(cartId));
 
     expect(cart).not.toBeNull();
     expect(cart?.id.getValue()).toBe(cartId);
@@ -146,7 +146,7 @@ describe("CartLocalStorageRepository", () => {
     (mockStorage.getItem as jest.Mock).mockReturnValue(null);
 
     const cart = await repository.findById(
-      CardId.fromString("non-existent-id"),
+      CartId.fromString("non-existent-id"),
     );
 
     expect(cart).toBeNull();

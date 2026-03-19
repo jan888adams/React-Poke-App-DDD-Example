@@ -5,7 +5,7 @@ import { CartEvent } from "../../../../src/pokemon/application/events/CartEvent"
 import { Cart } from "../../../../src/pokemon/domain/entities/Cart";
 import { Pokemon } from "../../../../src/pokemon/domain/entities/Pokemon";
 import { PokemonDto } from "../../../../src/pokemon/application/dtos/PokemonDto";
-import { CardId } from "../../../../src/pokemon/domain/value-objects/cart/CartId";
+import { CartId } from "../../../../src/pokemon/domain/value-objects/cart/CartId";
 import { CartView } from "../../../../src/pokemon/application/views/CartView";
 
 describe("RemovePokemonFromCart", () => {
@@ -62,7 +62,7 @@ describe("RemovePokemonFromCart", () => {
     await useCase.execute(pokemonDto, cartId);
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
-      CardId.fromString(cartId),
+      CartId.fromString(cartId),
     );
     expect(mockCartRepository.save).toHaveBeenCalledWith(cart);
     expect(mockEmitter.emit).toHaveBeenCalledWith(
@@ -90,7 +90,7 @@ describe("RemovePokemonFromCart", () => {
     await useCase.execute(pokemonDto, "non-existent-cart-id");
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
-      CardId.fromString("non-existent-cart-id"),
+      CartId.fromString("non-existent-cart-id"),
     );
     expect(mockCartRepository.save).not.toHaveBeenCalled();
     expect(mockEmitter.emit).not.toHaveBeenCalled();
@@ -115,7 +115,7 @@ describe("RemovePokemonFromCart", () => {
     await useCase.execute(pokemonDto, cartId);
 
     expect(mockCartRepository.findById).toHaveBeenCalledWith(
-      CardId.fromString(cartId),
+      CartId.fromString(cartId),
     );
     expect(mockCartRepository.save).not.toHaveBeenCalled();
     expect(mockEmitter.emit).not.toHaveBeenCalled();
