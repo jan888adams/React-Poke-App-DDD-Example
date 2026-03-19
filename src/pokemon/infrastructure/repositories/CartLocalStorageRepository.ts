@@ -2,7 +2,7 @@ import { CartView } from "../../application/views/CartView";
 import { Cart } from "../../domain/entities/Cart";
 import { Pokemon } from "../../domain/entities/Pokemon";
 import { CartRepository } from "../../domain/repositories/CartRepository";
-import { CardId } from "../../domain/value-objects/cart/CartId";
+import { CartId } from "../../domain/value-objects/cart/CartId";
 import { SerializedPokemon } from "../types/SerializedPokemon";
 
 export class CartLocalStorageRepository implements CartRepository {
@@ -48,7 +48,7 @@ export class CartLocalStorageRepository implements CartRepository {
     }
   }
 
-  public async findById(cartId: CardId): Promise<Cart | null> {
+  public async findById(cartId: CartId): Promise<Cart | null> {
     const data = this.storage.getItem(this.key + "_" + cartId.getValue());
 
     if (!data) {
@@ -63,7 +63,7 @@ export class CartLocalStorageRepository implements CartRepository {
     }
   }
 
-  private async parseCart(data: string): Promise<Cart | null> {
+  private parseCart(data: string): Cart | null {
     const parsed = JSON.parse(data);
     const items = parsed.items.map((SerializedPokemon: SerializedPokemon) =>
       Pokemon.fromValues(
@@ -79,6 +79,6 @@ export class CartLocalStorageRepository implements CartRepository {
       ),
     );
 
-    return Cart.fromValues(CardId.fromString(parsed.id), items);
+    return Cart.fromValues(CartId.fromString(parsed.id), items);
   }
 }

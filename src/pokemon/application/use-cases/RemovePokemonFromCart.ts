@@ -4,7 +4,7 @@ import { CartView } from "../views/CartView";
 import { PokemonDto } from "../dtos/PokemonDto";
 import { CartRepository } from "../../domain/repositories/CartRepository";
 import { PokemonId } from "../../domain/value-objects/pokemon/PokemonId";
-import { CardId } from "../../domain/value-objects/cart/CartId";
+import { CartId } from "../../domain/value-objects/cart/CartId";
 
 export class RemovePokemonFromCart {
   public constructor(
@@ -15,7 +15,7 @@ export class RemovePokemonFromCart {
   public async execute(pokemonDto: PokemonDto, cartId: string): Promise<void> {
     const pokemonId = PokemonId.fromNumber(pokemonDto.id);
 
-    const cart = await this.cartRepository.findById(CardId.fromString(cartId));
+    const cart = await this.cartRepository.findById(CartId.fromString(cartId));
 
     if (!cart || !cart.has(pokemonId)) {
       return;

@@ -5,7 +5,7 @@ import { EventEmitter } from "../../../shared/application/events/EventEmitter";
 import { CartView } from "../views/CartView";
 import { PokemonDto } from "../dtos/PokemonDto";
 import { CartRepository } from "../../domain/repositories/CartRepository";
-import { CardId } from "../../domain/value-objects/cart/CartId";
+import { CartId } from "../../domain/value-objects/cart/CartId";
 
 export class AddPokemonToCart {
   public constructor(
@@ -35,7 +35,7 @@ export class AddPokemonToCart {
       cart = Cart.empty();
       await this.cartRepository.save(cart);
     } else {
-      cart = await this.cartRepository.findById(CardId.fromString(cartId));
+      cart = await this.cartRepository.findById(CartId.fromString(cartId));
     }
 
     if (!cart || cart.has(pokemon.id)) {
